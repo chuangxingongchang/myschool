@@ -25,7 +25,7 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.school.pojo
+  type-aliases-package: com.school.entity
 #pagehelper:
 pagehelper:
   helper-dialect: mysql
