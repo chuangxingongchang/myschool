@@ -1,4 +1,4 @@
-package com.school.pojo;
+package com.school.entity;
 
 public class User {
     private Integer id;
