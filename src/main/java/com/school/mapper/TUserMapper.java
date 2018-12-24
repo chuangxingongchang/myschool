@@ -2,8 +2,9 @@ package com.school.mapper;
 
 import com.school.entity.TUser;
 import com.school.entity.TUserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TUserMapper {
     int countByExample(TUserExample example);

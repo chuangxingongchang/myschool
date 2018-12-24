@@ -15,7 +15,7 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="avatar" property="avatar" jdbcType="VARCHAR" />
     <result column="credit" property="credit" jdbcType="INTEGER" />
-    <result column="schoolname" property="schoolname" jdbcType="VARCHAR" />
+    <result column="fk_school_id" property="fkSchoolId" jdbcType="INTEGER" />
     <result column="createTime" property="createtime" jdbcType="DATE" />
     <result column="balance" property="balance" jdbcType="DOUBLE" />
     <result column="integral" property="integral" jdbcType="INTEGER" />
@@ -81,7 +81,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, uname, pword, nickname, truename, idcard, phoneno, email, brithday, sex, address, 
-    avatar, credit, schoolname, createTime, balance, integral, fk_integral_id
+    avatar, credit, fk_school_id, createTime, balance, integral, fk_integral_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TUserExample" >
     select
@@ -118,14 +118,14 @@
       nickname, truename, idcard, 
       phoneno, email, brithday, 
       sex, address, avatar, 
-      credit, schoolname, createTime, 
+      credit, fk_school_id, createTime, 
       balance, integral, fk_integral_id
       )
     values (#{id,jdbcType=INTEGER}, #{uname,jdbcType=VARCHAR}, #{pword,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{truename,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
       #{phoneno,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{brithday,jdbcType=DATE}, 
       #{sex,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
-      #{credit,jdbcType=INTEGER}, #{schoolname,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, 
+      #{credit,jdbcType=INTEGER}, #{fkSchoolId,jdbcType=INTEGER}, #{createtime,jdbcType=DATE}, 
       #{balance,jdbcType=DOUBLE}, #{integral,jdbcType=INTEGER}, #{fkIntegralId,jdbcType=INTEGER}
       )
   </insert>
@@ -171,8 +171,8 @@
       <if test="credit != null" >
         credit,
       </if>
-      <if test="schoolname != null" >
-        schoolname,
+      <if test="fkSchoolId != null" >
+        fk_school_id,
       </if>
       <if test="createtime != null" >
         createTime,
@@ -227,8 +227,8 @@
       <if test="credit != null" >
         #{credit,jdbcType=INTEGER},
       </if>
-      <if test="schoolname != null" >
-        #{schoolname,jdbcType=VARCHAR},
+      <if test="fkSchoolId != null" >
+        #{fkSchoolId,jdbcType=INTEGER},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=DATE},
@@ -292,8 +292,8 @@
       <if test="record.credit != null" >
         credit = #{record.credit,jdbcType=INTEGER},
       </if>
-      <if test="record.schoolname != null" >
-        schoolname = #{record.schoolname,jdbcType=VARCHAR},
+      <if test="record.fkSchoolId != null" >
+        fk_school_id = #{record.fkSchoolId,jdbcType=INTEGER},
       </if>
       <if test="record.createtime != null" >
         createTime = #{record.createtime,jdbcType=DATE},
@@ -327,7 +327,7 @@
       address = #{record.address,jdbcType=VARCHAR},
       avatar = #{record.avatar,jdbcType=VARCHAR},
       credit = #{record.credit,jdbcType=INTEGER},
-      schoolname = #{record.schoolname,jdbcType=VARCHAR},
+      fk_school_id = #{record.fkSchoolId,jdbcType=INTEGER},
       createTime = #{record.createtime,jdbcType=DATE},
       balance = #{record.balance,jdbcType=DOUBLE},
       integral = #{record.integral,jdbcType=INTEGER},
@@ -375,8 +375,8 @@
       <if test="credit != null" >
         credit = #{credit,jdbcType=INTEGER},
       </if>
-      <if test="schoolname != null" >
-        schoolname = #{schoolname,jdbcType=VARCHAR},
+      <if test="fkSchoolId != null" >
+        fk_school_id = #{fkSchoolId,jdbcType=INTEGER},
       </if>
       <if test="createtime != null" >
         createTime = #{createtime,jdbcType=DATE},
@@ -407,7 +407,7 @@
       address = #{address,jdbcType=VARCHAR},
       avatar = #{avatar,jdbcType=VARCHAR},
       credit = #{credit,jdbcType=INTEGER},
-      schoolname = #{schoolname,jdbcType=VARCHAR},
+      fk_school_id = #{fkSchoolId,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=DATE},
       balance = #{balance,jdbcType=DOUBLE},
       integral = #{integral,jdbcType=INTEGER},

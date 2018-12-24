@@ -57,5 +57,6 @@
         <table tableName="t_unit"></table>
         <table tableName="t_workicon"></table>
         <table tableName="t_worktype"></table>
+        <table tableName="t_school"></table>
     </context>
 </generatorConfiguration>

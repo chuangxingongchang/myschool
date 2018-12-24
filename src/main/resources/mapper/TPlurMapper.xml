@@ -21,6 +21,7 @@
     <result column="fk_locationType" property="fkLocationtype" jdbcType="INTEGER" />
     <result column="fk_timeType" property="fkTimetype" jdbcType="INTEGER" />
     <result column="fk_workType" property="fkWorktype" jdbcType="INTEGER" />
+    <result column="fk_school" property="fkSchool" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -83,7 +84,7 @@
   <sql id="Base_Column_List" >
     id, subject, money, fk_unit, releaseTime, counts, persons, settleMethod, wordTime, 
     endTime, workContent, fk_publisher, fk_accept, workAddress, fk_workIcon, fk_workState, 
-    fk_locationType, fk_timeType, fk_workType
+    fk_locationType, fk_timeType, fk_workType, fk_school
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TPlurExample" >
     select
@@ -122,14 +123,14 @@
       endTime, workContent, fk_publisher, 
       fk_accept, workAddress, fk_workIcon, 
       fk_workState, fk_locationType, fk_timeType, 
-      fk_workType)
+      fk_workType, fk_school)
     values (#{id,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, 
       #{fkUnit,jdbcType=INTEGER}, #{releasetime,jdbcType=DATE}, #{counts,jdbcType=INTEGER}, 
       #{persons,jdbcType=INTEGER}, #{settlemethod,jdbcType=VARCHAR}, #{wordtime,jdbcType=VARCHAR}, 
       #{endtime,jdbcType=DATE}, #{workcontent,jdbcType=VARCHAR}, #{fkPublisher,jdbcType=INTEGER}, 
       #{fkAccept,jdbcType=INTEGER}, #{workaddress,jdbcType=VARCHAR}, #{fkWorkicon,jdbcType=INTEGER}, 
       #{fkWorkstate,jdbcType=INTEGER}, #{fkLocationtype,jdbcType=INTEGER}, #{fkTimetype,jdbcType=INTEGER}, 
-      #{fkWorktype,jdbcType=INTEGER})
+      #{fkWorktype,jdbcType=INTEGER}, #{fkSchool,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.school.entity.TPlur" >
     insert into t_plur
@@ -191,6 +192,9 @@
       <if test="fkWorktype != null" >
         fk_workType,
       </if>
+      <if test="fkSchool != null" >
+        fk_school,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -249,6 +253,9 @@
       </if>
       <if test="fkWorktype != null" >
         #{fkWorktype,jdbcType=INTEGER},
+      </if>
+      <if test="fkSchool != null" >
+        #{fkSchool,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -318,6 +325,9 @@
       <if test="record.fkWorktype != null" >
         fk_workType = #{record.fkWorktype,jdbcType=INTEGER},
       </if>
+      <if test="record.fkSchool != null" >
+        fk_school = #{record.fkSchool,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -343,7 +353,8 @@
       fk_workState = #{record.fkWorkstate,jdbcType=INTEGER},
       fk_locationType = #{record.fkLocationtype,jdbcType=INTEGER},
       fk_timeType = #{record.fkTimetype,jdbcType=INTEGER},
-      fk_workType = #{record.fkWorktype,jdbcType=INTEGER}
+      fk_workType = #{record.fkWorktype,jdbcType=INTEGER},
+      fk_school = #{record.fkSchool,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -405,6 +416,9 @@
       <if test="fkWorktype != null" >
         fk_workType = #{fkWorktype,jdbcType=INTEGER},
       </if>
+      <if test="fkSchool != null" >
+        fk_school = #{fkSchool,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -427,7 +441,8 @@
       fk_workState = #{fkWorkstate,jdbcType=INTEGER},
       fk_locationType = #{fkLocationtype,jdbcType=INTEGER},
       fk_timeType = #{fkTimetype,jdbcType=INTEGER},
-      fk_workType = #{fkWorktype,jdbcType=INTEGER}
+      fk_workType = #{fkWorktype,jdbcType=INTEGER},
+      fk_school = #{fkSchool,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

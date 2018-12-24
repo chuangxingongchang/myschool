@@ -1012,73 +1012,63 @@ public class TUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameIsNull() {
-            addCriterion("schoolname is null");
+        public Criteria andFkSchoolIdIsNull() {
+            addCriterion("fk_school_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameIsNotNull() {
-            addCriterion("schoolname is not null");
+        public Criteria andFkSchoolIdIsNotNull() {
+            addCriterion("fk_school_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameEqualTo(String value) {
-            addCriterion("schoolname =", value, "schoolname");
+        public Criteria andFkSchoolIdEqualTo(Integer value) {
+            addCriterion("fk_school_id =", value, "fkSchoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameNotEqualTo(String value) {
-            addCriterion("schoolname <>", value, "schoolname");
+        public Criteria andFkSchoolIdNotEqualTo(Integer value) {
+            addCriterion("fk_school_id <>", value, "fkSchoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameGreaterThan(String value) {
-            addCriterion("schoolname >", value, "schoolname");
+        public Criteria andFkSchoolIdGreaterThan(Integer value) {
+            addCriterion("fk_school_id >", value, "fkSchoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameGreaterThanOrEqualTo(String value) {
-            addCriterion("schoolname >=", value, "schoolname");
+        public Criteria andFkSchoolIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fk_school_id >=", value, "fkSchoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameLessThan(String value) {
-            addCriterion("schoolname <", value, "schoolname");
+        public Criteria andFkSchoolIdLessThan(Integer value) {
+            addCriterion("fk_school_id <", value, "fkSchoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameLessThanOrEqualTo(String value) {
-            addCriterion("schoolname <=", value, "schoolname");
+        public Criteria andFkSchoolIdLessThanOrEqualTo(Integer value) {
+            addCriterion("fk_school_id <=", value, "fkSchoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameLike(String value) {
-            addCriterion("schoolname like", value, "schoolname");
+        public Criteria andFkSchoolIdIn(List<Integer> values) {
+            addCriterion("fk_school_id in", values, "fkSchoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameNotLike(String value) {
-            addCriterion("schoolname not like", value, "schoolname");
+        public Criteria andFkSchoolIdNotIn(List<Integer> values) {
+            addCriterion("fk_school_id not in", values, "fkSchoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameIn(List<String> values) {
-            addCriterion("schoolname in", values, "schoolname");
+        public Criteria andFkSchoolIdBetween(Integer value1, Integer value2) {
+            addCriterion("fk_school_id between", value1, value2, "fkSchoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchoolnameNotIn(List<String> values) {
-            addCriterion("schoolname not in", values, "schoolname");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolnameBetween(String value1, String value2) {
-            addCriterion("schoolname between", value1, value2, "schoolname");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchoolnameNotBetween(String value1, String value2) {
-            addCriterion("schoolname not between", value1, value2, "schoolname");
+        public Criteria andFkSchoolIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("fk_school_id not between", value1, value2, "fkSchoolId");
             return (Criteria) this;
         }
 
