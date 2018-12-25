@@ -47,11 +47,26 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean updatePword(TUser user,TUserExample userExamples) {
-        System.out.println(userMapper.updateByExampleSelective(user,userExamples));
+    public boolean forgetPword(TUser user,TUserExample userExamples) {
         if(userMapper.updateByExampleSelective(user,userExamples)>0){
             return true;
         }
         return  false;
+    }
+
+    @Override
+    public boolean addMoney(TUser user) {
+        if (userMapper.updateByPrimaryKey(user)>0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateUser(TUser user, TUserExample tUserExample) {
+       if(userMapper.updateByExampleSelective(user,tUserExample)>0){
+           return true;
+       }
+       return false;
     }
 }

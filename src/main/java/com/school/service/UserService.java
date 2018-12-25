@@ -7,5 +7,7 @@ public interface UserService {
 
     boolean insertUser(TUser user);
     boolean login(TUser user);
-    boolean updatePword(TUser user, TUserExample tUserExamples);
+    boolean forgetPword(TUser user, TUserExample tUserExamples);
+    boolean addMoney(TUser user);
+    boolean updateUser(TUser user,TUserExample tUserExample);
 }

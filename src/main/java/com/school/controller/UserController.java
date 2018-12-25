@@ -124,10 +124,46 @@ public class UserController {
        TUserExample userExample = new TUserExample();
        userExample.or().andPhonenoEqualTo(phoneno);
        user.setPword(pword);
-       if(userService.updatePword(user,userExample)){
+       if(userService.forgetPword(user,userExample)){
            System.out.println("修改成功");
        }else {
            System.out.println("修改失败");
        }
+   }
+
+    /**
+     * @param user
+     * 描述：个人中心，用户充值
+     */
+   @RequestMapping("/addMoney")
+   public void addMoney(TUser user){
+       if (userService.addMoney(user)){
+           System.out.println("充值成功");
+       }else {
+           System.out.println("充值失败");
+       }
+   }
+
+    /**
+     * @param user
+     * 描述：个人中心，用户资料修改
+     */
+   @RequestMapping("/updateUser")
+    public void updateUser(TUser user){
+        TUser user1 = new TUser();
+        user1.setPword(user.getPword());
+        user1.setPhoneno(user.getPhoneno());
+        user1.setAddress(user.getAvatar());
+        user1.setNickname(user.getNickname());
+        user1.setIdcard(user.getIdcard());
+        user1.setEmail(user.getEmail());
+        user1.setTruename(user.getTruename());
+        TUserExample tUserExample = new TUserExample();
+        tUserExample.or().andIdEqualTo(user.getId());
+        if(userService.updateUser(user1,tUserExample)){
+            System.out.println("修改成功");
+        }else {
+            System.out.println("修改失败");
+        }
    }
 }
