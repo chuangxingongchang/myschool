@@ -25,6 +25,12 @@
     </properties>
 
     <dependencies>
+        <!--使用短信验证，qcloudsms_java依赖引入-->
+        <dependency>
+            <groupId>com.github.qcloudsms</groupId>
+            <artifactId>qcloudsms</artifactId>
+            <version>1.0.5</version>
+        </dependency>
         <!--redis依赖注入-->
        <!-- redis一个数据库，数据是存在内存中的，所以存写速度非常快，广泛应用于缓存方向，也经常用来做分布式锁。
         redis支持事务、持久化、LUA脚本、LRU驱动事件、多集群方案-->

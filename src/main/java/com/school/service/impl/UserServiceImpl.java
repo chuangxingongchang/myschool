@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Autowired
     private TUserMapper userMapper;
-    private TUserExample tUserExample;
+    private TUserExample tUserExample = new TUserExample();
 
     /**
      * 注册
@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean login(TUser user) {
-
         tUserExample.or()
                 .andPhonenoEqualTo(user.getPhoneno())
                 .andPwordEqualTo(user.getPword());

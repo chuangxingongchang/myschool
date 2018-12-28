@@ -1,11 +1,17 @@
 package com.school.controller;
 
+import com.school.entity.Message;
+import com.school.entity.TUnit;
 import com.school.entity.TUser;
 import com.school.entity.TUserExample;
 import com.school.service.UserService;
+import com.school.util.Randoms;
+import com.school.util.SendCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -15,51 +21,84 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @RestController
+@RequestMapping("/touser")
 public class UserController {
-    /**
-     * 用户注册
-    * */
+
     @Autowired
    private UserService userService;
-    @RequestMapping("/register")
-   public void register(HttpServletRequest request, String code,TUser user){
+    /**
+     * 用户注册
+     * */
+    @RequestMapping("/registers")
+   public ModelAndView register(HttpServletRequest request, String code,TUser user){
+        ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
+        Message ms = new Message();
       String codes = (String) request.getSession().getAttribute("code");
         try {
             if(codes.equals(code)){
                 if(userService.insertUser(user)){
-                    System.out.println("注册成功");
                     request.getSession().removeAttribute("code");
+                    ms.setStatus(true);
+                    ms.setData(user);
                 }else {
-                    System.out.println("注册失败");
+                    ms.setStatus(false);
+                   ms.setMsg("注册失败");
                 }
             }else{
-                System.out.println("验证码错误");
+                ms.setStatus(false);
+                ms.setMsg("验证码错误");
             }
         }catch (Exception e){
-            System.out.println("验证码过时，请从新发送验证码");
+            ms.setStatus(false);
+            ms.setMsg("验证码过时，请从新发送验证码");
+        }finally {
+            mav.addObject(ms);
+            return mav;
         }
    }
    @RequestMapping("/mycode")
-   public void getCode(String code,HttpServletRequest request) throws InterruptedException {
-       //session 中存在的验证码，存在60秒
-       System.out.println(code);
-       request.getSession().setAttribute("code",code);
-
+   public ModelAndView getCode(HttpServletRequest request, TUser user) {
+       ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
+       Message ms = new Message();
+       ms.setData(new TUnit());
+       //session 中存在的验证码，存在5分钟
+      boolean b =  SendCode.sendCode(user, Randoms.getIntRan());
+      String code = String.valueOf(Randoms.getIntRan());
+      if(b){
+          System.out.println("验证码发送:"+code);
+          request.getSession().setAttribute("code",code);
+          request.getSession().setMaxInactiveInterval(300);
+          ms.setStatus(true);
+      }else{
+          ms.setStatus(false);
+          ms.setMsg("验证码发送失败");
+      }
+       mav.addObject(ms);
+      return mav;
    }
    /**
     * 用户登录
    * */
-   @RequestMapping("/login")
-    public void login(TUser user){
-       if(user!=null){
-           if(userService.login(user)){
-               System.out.println("登录成功");
-           }else {
-               System.out.println("账号或密码错误");
-           }
-       }else{
-           System.out.println("账号和密码不能为空");
-       }
+   @RequestMapping("/logins")
+    public ModelAndView login(TUser user){
+      ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
+       Message ms = new Message();
+      try {
+          if(userService.login(user)){
+              ms.setMsg("登录成功");
+              ms.setStatus(true);
+              ms.setData(user);
+          }else {
+              ms.setMsg("账号或密码错误");
+              ms.setStatus(false);
+          }
+      }catch (Exception e){
+          ms.setStatus(false);
+          ms.setMsg("发生错误，请重新登录");
+      }finally {
+          mav.addObject(ms);
+          return mav;
+      }
    }
 
    /**
@@ -165,5 +204,14 @@ public class UserController {
         }else {
             System.out.println("修改失败");
         }
+   }
+   @RequestMapping("/ss")
+   public ModelAndView vv(TUser user){
+       ModelAndView m= new ModelAndView(new MappingJackson2JsonView());
+       String regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
+       String value = "aaaa1111"; // 数字字母组合
+       System.out.println(value.matches(regex));
+       System.out.println("dfjsdlfjsdlfjsdlkfjsdlkfjsdlkfjs");
+       return m;
    }
 }
