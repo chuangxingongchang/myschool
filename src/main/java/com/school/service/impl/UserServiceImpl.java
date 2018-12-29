@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Autowired
     private TUserMapper userMapper;
-    private TUserExample tUserExample = new TUserExample();
 
     /**
      * 注册
@@ -33,6 +32,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean login(TUser user) {
+        TUserExample tUserExample = new TUserExample();
         tUserExample.or()
                 .andPhonenoEqualTo(user.getPhoneno())
                 .andPwordEqualTo(user.getPword());
@@ -46,8 +46,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean forgetPword(TUser user,TUserExample userExamples) {
-        if(userMapper.updateByExampleSelective(user,userExamples)>0){
+    public boolean forgetPword(String phoneno,String pword) {
+        TUser user = new TUser();
+        TUserExample userExample = new TUserExample();
+        userExample.or().andPhonenoEqualTo(phoneno);
+        user.setPword(pword);
+        if(userMapper.updateByExampleSelective(user,userExample)>0){
             return true;
         }
         return  false;
@@ -62,7 +66,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUser(TUser user, TUserExample tUserExample) {
+    public boolean updateUser(TUser user) {
+        TUserExample tUserExample = new TUserExample();
+        tUserExample.or().andIdEqualTo(user.getId());
        if(userMapper.updateByExampleSelective(user,tUserExample)>0){
            return true;
        }

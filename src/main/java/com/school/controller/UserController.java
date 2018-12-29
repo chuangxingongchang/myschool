@@ -1,12 +1,10 @@
 package com.school.controller;
 
 import com.school.entity.Message;
-import com.school.entity.TUnit;
 import com.school.entity.TUser;
-import com.school.entity.TUserExample;
 import com.school.service.UserService;
+import com.school.util.JuheSend;
 import com.school.util.Randoms;
-import com.school.util.SendCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,17 +54,26 @@ public class UserController {
             return mav;
         }
    }
+
+    /**
+     *
+     * @param request
+     * @param phoneno
+     * @return
+     * 描述：通过前台请求，发送验证码到手机，并存储在Session中
+     */
    @RequestMapping("/mycode")
-   public ModelAndView getCode(HttpServletRequest request, TUser user) {
+   public ModelAndView getCode(HttpServletRequest request, String phoneno) {
        ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
        Message ms = new Message();
-       ms.setData(new TUnit());
-       //session 中存在的验证码，存在5分钟
-      boolean b =  SendCode.sendCode(user, Randoms.getIntRan());
+       //获取验证码（调用工具类Randoms，随机获取六位验证码）
       String code = String.valueOf(Randoms.getIntRan());
-      if(b){
+      //发送验证码到手机（调用工具类JuheSend,使用聚合短信接口实现短信发送
+      boolean flag = JuheSend.mobileQuery(phoneno,code);
+      if(flag){
           System.out.println("验证码发送:"+code);
           request.getSession().setAttribute("code",code);
+          //session 中存在的验证码，存在5分钟
           request.getSession().setMaxInactiveInterval(300);
           ms.setStatus(true);
       }else{
@@ -157,17 +164,26 @@ public class UserController {
            }
        }
    }
-   @RequestMapping("/forgetPword")
-   public void forgetPword(String phoneno,String pword){
-       TUser user = new TUser();
-       TUserExample userExample = new TUserExample();
-       userExample.or().andPhonenoEqualTo(phoneno);
-       user.setPword(pword);
-       if(userService.forgetPword(user,userExample)){
-           System.out.println("修改成功");
+   @RequestMapping("/forgetpword")
+   public ModelAndView forgetPword(String phoneno,String pword,String code,HttpServletRequest request){
+       System.out.println("进入密码修改");
+       ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
+        Message ms = new Message();
+       String codes = (String) request.getSession().getAttribute("code");
+       if(code.equals(codes)){
+           if(userService.forgetPword(phoneno,pword)){
+               ms.setMsg("修改成功，跳转登录");
+               ms.setStatus(true);
+           }else {
+               ms.setStatus(false);
+               ms.setMsg("修改失败，没有该用户");
+           }
        }else {
-           System.out.println("修改失败");
+           ms.setStatus(false);
+           ms.setMsg("验证码错误");
        }
+       mav.addObject(ms);
+       return mav;
    }
 
     /**
@@ -188,18 +204,9 @@ public class UserController {
      * 描述：个人中心，用户资料修改
      */
    @RequestMapping("/updateUser")
-    public void updateUser(TUser user){
-        TUser user1 = new TUser();
-        user1.setPword(user.getPword());
-        user1.setPhoneno(user.getPhoneno());
-        user1.setAddress(user.getAvatar());
-        user1.setNickname(user.getNickname());
-        user1.setIdcard(user.getIdcard());
-        user1.setEmail(user.getEmail());
-        user1.setTruename(user.getTruename());
-        TUserExample tUserExample = new TUserExample();
-        tUserExample.or().andIdEqualTo(user.getId());
-        if(userService.updateUser(user1,tUserExample)){
+    public void updateMyUser(TUser user){
+       System.out.println(user);
+        if(userService.updateUser(user)){
             System.out.println("修改成功");
         }else {
             System.out.println("修改失败");
