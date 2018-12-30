@@ -9,4 +9,5 @@ public interface UserService {
     boolean forgetPword(String phoneno,String pword);
     boolean addMoney(TUser user);
     boolean updateUser(TUser user);
+    TUser  selectByPhoneno(String phoneno);
 }

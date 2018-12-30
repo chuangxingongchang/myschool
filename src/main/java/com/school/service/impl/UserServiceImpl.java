@@ -7,6 +7,8 @@ import com.school.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -73,5 +75,13 @@ public class UserServiceImpl implements UserService {
            return true;
        }
        return false;
+    }
+
+    @Override
+    public TUser selectByPhoneno(String phoneno) {
+        TUserExample userExample = new TUserExample();
+        userExample.or().andPhonenoEqualTo(phoneno);
+        List<TUser> userList = userMapper.selectByExample(userExample);
+        return userList.get(0);
     }
 }
