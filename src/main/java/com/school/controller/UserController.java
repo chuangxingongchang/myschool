@@ -1,9 +1,9 @@
 package com.school.controller;
 
-import com.school.util.Message;
 import com.school.entity.TUser;
 import com.school.service.UserService;
 import com.school.util.JuheSend;
+import com.school.util.Message;
 import com.school.util.Randoms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
     /**
      * 用户注册
      */
@@ -92,6 +91,7 @@ public class UserController {
         Message ms = new Message();
         try {
             if (userService.login(user)) {
+                System.out.println("登录成功");
                 ms.setMsg("登录成功");
                 ms.setStatus(true);
                 ms.setData(user);
@@ -226,15 +226,21 @@ public class UserController {
 
     @RequestMapping("/getUser")
     public ModelAndView getMyUser(String phoneno) {
+
+        System.out.println("进入获取user");
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
-        TUser users = userService.selectByPhoneno(phoneno);
-        if (users == null) {
-            return null;
-        } else {
-            mav.addObject("tuser",users);
-            System.out.println(users);
-            return mav;
+        try {
+            TUser users = userService.selectByPhoneno(phoneno);
+            if (users == null) {
+                return null;
+            } else {
+                mav.addObject("tuser",users);
+                System.out.println(users);
+            }
+        }catch (Exception e){
+           mav.addObject("tuser",null);
         }
+        return mav;
     }
 
     @RequestMapping("/ss")

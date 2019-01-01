@@ -21,7 +21,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean insertUser(TUser user) {
-        if(userMapper.insert(user)>0){
+        int count = userMapper.insert(user);
+        if (count > 0) {
             return true;
         }
         return false;
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 用户登录
+     *
      * @param user
      * @return
      */
@@ -38,7 +40,8 @@ public class UserServiceImpl implements UserService {
         tUserExample.or()
                 .andPhonenoEqualTo(user.getPhoneno())
                 .andPwordEqualTo(user.getPword());
-        if(userMapper.selectByExample(tUserExample).size()>0){
+        int count = userMapper.selectByExample(tUserExample).size();
+        if (count > 0) {
             tUserExample.clear();
             return true;
         }
@@ -48,20 +51,22 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean forgetPword(String phoneno,String pword) {
+    public boolean forgetPword(String phoneno, String pword) {
         TUser user = new TUser();
         TUserExample userExample = new TUserExample();
         userExample.or().andPhonenoEqualTo(phoneno);
         user.setPword(pword);
-        if(userMapper.updateByExampleSelective(user,userExample)>0){
+        int count = userMapper.updateByExampleSelective(user, userExample);
+        if (count > 0) {
             return true;
         }
-        return  false;
+        return false;
     }
 
     @Override
     public boolean addMoney(TUser user) {
-        if (userMapper.updateByPrimaryKey(user)>0){
+        int count = userMapper.updateByPrimaryKey(user);
+        if (count > 0) {
             return true;
         }
         return false;
@@ -71,10 +76,11 @@ public class UserServiceImpl implements UserService {
     public boolean updateUser(TUser user) {
         TUserExample tUserExample = new TUserExample();
         tUserExample.or().andIdEqualTo(user.getId());
-       if(userMapper.updateByExampleSelective(user,tUserExample)>0){
-           return true;
-       }
-       return false;
+        int count = userMapper.updateByExampleSelective(user, tUserExample);
+        if (count > 0) {
+            return true;
+        }
+        return false;
     }
 
     @Override
