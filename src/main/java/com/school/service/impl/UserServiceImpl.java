@@ -90,4 +90,10 @@ public class UserServiceImpl implements UserService {
         List<TUser> userList = userMapper.selectByExample(userExample);
         return userList.get(0);
     }
+
+    @Override
+    public TUser selectById(int id) {
+       TUser user = userMapper.selectByPrimaryKey(id);
+       return user;
+    }
 }

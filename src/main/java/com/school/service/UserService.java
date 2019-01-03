@@ -10,4 +10,5 @@ public interface UserService {
     boolean addMoney(TUser user);
     boolean updateUser(TUser user);
     TUser  selectByPhoneno(String phoneno);
+    TUser  selectById(int id);
 }

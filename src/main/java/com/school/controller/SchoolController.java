@@ -70,4 +70,11 @@ public class SchoolController {
             return mav;
         }
     }
+    @RequestMapping("/getSchool")
+    public ModelAndView getMySchool(int fkSchoolId){
+        ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
+        String schoolname = schoolService.selectByFkSchoolId(fkSchoolId);
+        mav.addObject("schoolname",schoolname);
+        return mav;
+    }
 }
