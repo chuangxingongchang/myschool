@@ -14,11 +14,11 @@ public interface PlurService {
     //根据兼职id查询当前兼职
     TPlur selectByTplurId(int id);
 
-    //根据当前用户查询当前用户的所有兼职，用户可以根据兼职的状态给出自己不同存在的兼职
-    List<TPlur> selectByUser(int uid);
+    //根据当前用户查询当前用户（兼客）的所有兼职，用户可以根据兼职的状态给出自己不同存在的兼职
+    List<TPlur> selectByAccept(int uid);
 
-    //根据用户位置进行查询，分类兼职
-    List<TPlur> selectByLocation(TLocation tLocation);
+    //根据发布者id查询所有发布
+    List<TPlur> selectByPublisher(int id);
 
     //根据岗位进行查询
     List<TPlur> selectByWorkType(TWorktype tWorktype);
@@ -29,12 +29,9 @@ public interface PlurService {
     //根据结算单位进行查询
     List<TPlur> selectByUnit(TUnit tUnit);
 
-    //根据兼职查询当前兼职的图标
-    TWorkicon selectByTplur(TPlur tPlur);
-
-    //查询所有兼职图标
-    List<TWorkicon> selectAllWorkicon();
-
     //查询所有的结算类型
     List<TUnit> selectAllUnit();
+
+    //发布岗位
+    boolean insertPlur(TPlur plur);
 }

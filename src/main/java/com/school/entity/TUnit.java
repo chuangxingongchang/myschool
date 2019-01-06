@@ -7,4 +7,7 @@ public class TUnit {
     private Integer id;
 
     private String style;
+
+    private String iconlocation;
+
 }

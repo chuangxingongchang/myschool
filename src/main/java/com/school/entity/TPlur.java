@@ -2,7 +2,6 @@ package com.school.entity;
 
 import lombok.Data;
 
-import java.util.Date;
 @Data
 public class TPlur {
     private Integer id;
@@ -13,17 +12,17 @@ public class TPlur {
 
     private Integer fkUnit;
 
-    private Date releasetime;
+    private String releasetime;
 
     private Integer counts;
 
     private Integer persons;
 
-    private String settlemethod;
+    private Integer fkSettle;
 
     private String wordtime;
 
-    private Date endtime;
+    private String endtime;
 
     private String workcontent;
 
@@ -33,11 +32,7 @@ public class TPlur {
 
     private String workaddress;
 
-    private Integer fkWorkicon;
-
     private Integer fkWorkstate;
-
-    private Integer fkLocationtype;
 
     private Integer fkTimetype;
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.school.mapper.TWorkiconMapper" >
-  <resultMap id="BaseResultMap" type="com.school.entity.TWorkicon" >
+<mapper namespace="com.school.mapper.TSettleMapper" >
+  <resultMap id="BaseResultMap" type="com.school.entity.TSettle" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="iconlocation" property="iconlocation" jdbcType="VARCHAR" />
+    <result column="settlename" property="settlename" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, iconlocation
+    id, settlename
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TWorkiconExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TSettleExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from t_workicon
+    from t_settle
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -83,56 +83,56 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from t_workicon
+    from t_settle
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_workicon
+    delete from t_settle
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.school.entity.TWorkiconExample" >
-    delete from t_workicon
+  <delete id="deleteByExample" parameterType="com.school.entity.TSettleExample" >
+    delete from t_settle
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.school.entity.TWorkicon" >
-    insert into t_workicon (id, iconlocation)
-    values (#{id,jdbcType=INTEGER}, #{iconlocation,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.school.entity.TSettle" >
+    insert into t_settle (id, settlename)
+    values (#{id,jdbcType=INTEGER}, #{settlename,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.school.entity.TWorkicon" >
-    insert into t_workicon
+  <insert id="insertSelective" parameterType="com.school.entity.TSettle" >
+    insert into t_settle
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="iconlocation != null" >
-        iconlocation,
+      <if test="settlename != null" >
+        settlename,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="iconlocation != null" >
-        #{iconlocation,jdbcType=VARCHAR},
+      <if test="settlename != null" >
+        #{settlename,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.school.entity.TWorkiconExample" resultType="java.lang.Integer" >
-    select count(*) from t_workicon
+  <select id="countByExample" parameterType="com.school.entity.TSettleExample" resultType="java.lang.Integer" >
+    select count(*) from t_settle
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_workicon
+    update t_settle
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.iconlocation != null" >
-        iconlocation = #{record.iconlocation,jdbcType=VARCHAR},
+      <if test="record.settlename != null" >
+        settlename = #{record.settlename,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -140,25 +140,25 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_workicon
+    update t_settle
     set id = #{record.id,jdbcType=INTEGER},
-      iconlocation = #{record.iconlocation,jdbcType=VARCHAR}
+      settlename = #{record.settlename,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.school.entity.TWorkicon" >
-    update t_workicon
+  <update id="updateByPrimaryKeySelective" parameterType="com.school.entity.TSettle" >
+    update t_settle
     <set >
-      <if test="iconlocation != null" >
-        iconlocation = #{iconlocation,jdbcType=VARCHAR},
+      <if test="settlename != null" >
+        settlename = #{settlename,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.school.entity.TWorkicon" >
-    update t_workicon
-    set iconlocation = #{iconlocation,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.school.entity.TSettle" >
+    update t_settle
+    set settlename = #{settlename,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

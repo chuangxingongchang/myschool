@@ -6,19 +6,17 @@
     <result column="subject" property="subject" jdbcType="VARCHAR" />
     <result column="money" property="money" jdbcType="DOUBLE" />
     <result column="fk_unit" property="fkUnit" jdbcType="INTEGER" />
-    <result column="releaseTime" property="releasetime" jdbcType="DATE" />
+    <result column="releaseTime" property="releasetime" jdbcType="VARCHAR" />
     <result column="counts" property="counts" jdbcType="INTEGER" />
     <result column="persons" property="persons" jdbcType="INTEGER" />
-    <result column="settleMethod" property="settlemethod" jdbcType="VARCHAR" />
+    <result column="fk_settle" property="fkSettle" jdbcType="INTEGER" />
     <result column="wordTime" property="wordtime" jdbcType="VARCHAR" />
-    <result column="endTime" property="endtime" jdbcType="DATE" />
+    <result column="endTime" property="endtime" jdbcType="VARCHAR" />
     <result column="workContent" property="workcontent" jdbcType="VARCHAR" />
     <result column="fk_publisher" property="fkPublisher" jdbcType="INTEGER" />
     <result column="fk_accept" property="fkAccept" jdbcType="INTEGER" />
     <result column="workAddress" property="workaddress" jdbcType="VARCHAR" />
-    <result column="fk_workIcon" property="fkWorkicon" jdbcType="INTEGER" />
     <result column="fk_workState" property="fkWorkstate" jdbcType="INTEGER" />
-    <result column="fk_locationType" property="fkLocationtype" jdbcType="INTEGER" />
     <result column="fk_timeType" property="fkTimetype" jdbcType="INTEGER" />
     <result column="fk_workType" property="fkWorktype" jdbcType="INTEGER" />
     <result column="fk_school" property="fkSchool" jdbcType="INTEGER" />
@@ -82,9 +80,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, subject, money, fk_unit, releaseTime, counts, persons, settleMethod, wordTime, 
-    endTime, workContent, fk_publisher, fk_accept, workAddress, fk_workIcon, fk_workState, 
-    fk_locationType, fk_timeType, fk_workType, fk_school
+    id, subject, money, fk_unit, releaseTime, counts, persons, fk_settle, wordTime, endTime, 
+    workContent, fk_publisher, fk_accept, workAddress, fk_workState, fk_timeType, fk_workType, 
+    fk_school
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TPlurExample" >
     select
@@ -119,18 +117,18 @@
   <insert id="insert" parameterType="com.school.entity.TPlur" >
     insert into t_plur (id, subject, money, 
       fk_unit, releaseTime, counts, 
-      persons, settleMethod, wordTime, 
+      persons, fk_settle, wordTime, 
       endTime, workContent, fk_publisher, 
-      fk_accept, workAddress, fk_workIcon, 
-      fk_workState, fk_locationType, fk_timeType, 
-      fk_workType, fk_school)
+      fk_accept, workAddress, fk_workState, 
+      fk_timeType, fk_workType, fk_school
+      )
     values (#{id,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, 
-      #{fkUnit,jdbcType=INTEGER}, #{releasetime,jdbcType=DATE}, #{counts,jdbcType=INTEGER}, 
-      #{persons,jdbcType=INTEGER}, #{settlemethod,jdbcType=VARCHAR}, #{wordtime,jdbcType=VARCHAR}, 
-      #{endtime,jdbcType=DATE}, #{workcontent,jdbcType=VARCHAR}, #{fkPublisher,jdbcType=INTEGER}, 
-      #{fkAccept,jdbcType=INTEGER}, #{workaddress,jdbcType=VARCHAR}, #{fkWorkicon,jdbcType=INTEGER}, 
-      #{fkWorkstate,jdbcType=INTEGER}, #{fkLocationtype,jdbcType=INTEGER}, #{fkTimetype,jdbcType=INTEGER}, 
-      #{fkWorktype,jdbcType=INTEGER}, #{fkSchool,jdbcType=INTEGER})
+      #{fkUnit,jdbcType=INTEGER}, #{releasetime,jdbcType=VARCHAR}, #{counts,jdbcType=INTEGER}, 
+      #{persons,jdbcType=INTEGER}, #{fkSettle,jdbcType=INTEGER}, #{wordtime,jdbcType=VARCHAR}, 
+      #{endtime,jdbcType=VARCHAR}, #{workcontent,jdbcType=VARCHAR}, #{fkPublisher,jdbcType=INTEGER}, 
+      #{fkAccept,jdbcType=INTEGER}, #{workaddress,jdbcType=VARCHAR}, #{fkWorkstate,jdbcType=INTEGER}, 
+      #{fkTimetype,jdbcType=INTEGER}, #{fkWorktype,jdbcType=INTEGER}, #{fkSchool,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.school.entity.TPlur" >
     insert into t_plur
@@ -156,8 +154,8 @@
       <if test="persons != null" >
         persons,
       </if>
-      <if test="settlemethod != null" >
-        settleMethod,
+      <if test="fkSettle != null" >
+        fk_settle,
       </if>
       <if test="wordtime != null" >
         wordTime,
@@ -177,14 +175,8 @@
       <if test="workaddress != null" >
         workAddress,
       </if>
-      <if test="fkWorkicon != null" >
-        fk_workIcon,
-      </if>
       <if test="fkWorkstate != null" >
         fk_workState,
-      </if>
-      <if test="fkLocationtype != null" >
-        fk_locationType,
       </if>
       <if test="fkTimetype != null" >
         fk_timeType,
@@ -210,7 +202,7 @@
         #{fkUnit,jdbcType=INTEGER},
       </if>
       <if test="releasetime != null" >
-        #{releasetime,jdbcType=DATE},
+        #{releasetime,jdbcType=VARCHAR},
       </if>
       <if test="counts != null" >
         #{counts,jdbcType=INTEGER},
@@ -218,14 +210,14 @@
       <if test="persons != null" >
         #{persons,jdbcType=INTEGER},
       </if>
-      <if test="settlemethod != null" >
-        #{settlemethod,jdbcType=VARCHAR},
+      <if test="fkSettle != null" >
+        #{fkSettle,jdbcType=INTEGER},
       </if>
       <if test="wordtime != null" >
         #{wordtime,jdbcType=VARCHAR},
       </if>
       <if test="endtime != null" >
-        #{endtime,jdbcType=DATE},
+        #{endtime,jdbcType=VARCHAR},
       </if>
       <if test="workcontent != null" >
         #{workcontent,jdbcType=VARCHAR},
@@ -239,14 +231,8 @@
       <if test="workaddress != null" >
         #{workaddress,jdbcType=VARCHAR},
       </if>
-      <if test="fkWorkicon != null" >
-        #{fkWorkicon,jdbcType=INTEGER},
-      </if>
       <if test="fkWorkstate != null" >
         #{fkWorkstate,jdbcType=INTEGER},
-      </if>
-      <if test="fkLocationtype != null" >
-        #{fkLocationtype,jdbcType=INTEGER},
       </if>
       <if test="fkTimetype != null" >
         #{fkTimetype,jdbcType=INTEGER},
@@ -281,7 +267,7 @@
         fk_unit = #{record.fkUnit,jdbcType=INTEGER},
       </if>
       <if test="record.releasetime != null" >
-        releaseTime = #{record.releasetime,jdbcType=DATE},
+        releaseTime = #{record.releasetime,jdbcType=VARCHAR},
       </if>
       <if test="record.counts != null" >
         counts = #{record.counts,jdbcType=INTEGER},
@@ -289,14 +275,14 @@
       <if test="record.persons != null" >
         persons = #{record.persons,jdbcType=INTEGER},
       </if>
-      <if test="record.settlemethod != null" >
-        settleMethod = #{record.settlemethod,jdbcType=VARCHAR},
+      <if test="record.fkSettle != null" >
+        fk_settle = #{record.fkSettle,jdbcType=INTEGER},
       </if>
       <if test="record.wordtime != null" >
         wordTime = #{record.wordtime,jdbcType=VARCHAR},
       </if>
       <if test="record.endtime != null" >
-        endTime = #{record.endtime,jdbcType=DATE},
+        endTime = #{record.endtime,jdbcType=VARCHAR},
       </if>
       <if test="record.workcontent != null" >
         workContent = #{record.workcontent,jdbcType=VARCHAR},
@@ -310,14 +296,8 @@
       <if test="record.workaddress != null" >
         workAddress = #{record.workaddress,jdbcType=VARCHAR},
       </if>
-      <if test="record.fkWorkicon != null" >
-        fk_workIcon = #{record.fkWorkicon,jdbcType=INTEGER},
-      </if>
       <if test="record.fkWorkstate != null" >
         fk_workState = #{record.fkWorkstate,jdbcType=INTEGER},
-      </if>
-      <if test="record.fkLocationtype != null" >
-        fk_locationType = #{record.fkLocationtype,jdbcType=INTEGER},
       </if>
       <if test="record.fkTimetype != null" >
         fk_timeType = #{record.fkTimetype,jdbcType=INTEGER},
@@ -339,19 +319,17 @@
       subject = #{record.subject,jdbcType=VARCHAR},
       money = #{record.money,jdbcType=DOUBLE},
       fk_unit = #{record.fkUnit,jdbcType=INTEGER},
-      releaseTime = #{record.releasetime,jdbcType=DATE},
+      releaseTime = #{record.releasetime,jdbcType=VARCHAR},
       counts = #{record.counts,jdbcType=INTEGER},
       persons = #{record.persons,jdbcType=INTEGER},
-      settleMethod = #{record.settlemethod,jdbcType=VARCHAR},
+      fk_settle = #{record.fkSettle,jdbcType=INTEGER},
       wordTime = #{record.wordtime,jdbcType=VARCHAR},
-      endTime = #{record.endtime,jdbcType=DATE},
+      endTime = #{record.endtime,jdbcType=VARCHAR},
       workContent = #{record.workcontent,jdbcType=VARCHAR},
       fk_publisher = #{record.fkPublisher,jdbcType=INTEGER},
       fk_accept = #{record.fkAccept,jdbcType=INTEGER},
       workAddress = #{record.workaddress,jdbcType=VARCHAR},
-      fk_workIcon = #{record.fkWorkicon,jdbcType=INTEGER},
       fk_workState = #{record.fkWorkstate,jdbcType=INTEGER},
-      fk_locationType = #{record.fkLocationtype,jdbcType=INTEGER},
       fk_timeType = #{record.fkTimetype,jdbcType=INTEGER},
       fk_workType = #{record.fkWorktype,jdbcType=INTEGER},
       fk_school = #{record.fkSchool,jdbcType=INTEGER}
@@ -372,7 +350,7 @@
         fk_unit = #{fkUnit,jdbcType=INTEGER},
       </if>
       <if test="releasetime != null" >
-        releaseTime = #{releasetime,jdbcType=DATE},
+        releaseTime = #{releasetime,jdbcType=VARCHAR},
       </if>
       <if test="counts != null" >
         counts = #{counts,jdbcType=INTEGER},
@@ -380,14 +358,14 @@
       <if test="persons != null" >
         persons = #{persons,jdbcType=INTEGER},
       </if>
-      <if test="settlemethod != null" >
-        settleMethod = #{settlemethod,jdbcType=VARCHAR},
+      <if test="fkSettle != null" >
+        fk_settle = #{fkSettle,jdbcType=INTEGER},
       </if>
       <if test="wordtime != null" >
         wordTime = #{wordtime,jdbcType=VARCHAR},
       </if>
       <if test="endtime != null" >
-        endTime = #{endtime,jdbcType=DATE},
+        endTime = #{endtime,jdbcType=VARCHAR},
       </if>
       <if test="workcontent != null" >
         workContent = #{workcontent,jdbcType=VARCHAR},
@@ -401,14 +379,8 @@
       <if test="workaddress != null" >
         workAddress = #{workaddress,jdbcType=VARCHAR},
       </if>
-      <if test="fkWorkicon != null" >
-        fk_workIcon = #{fkWorkicon,jdbcType=INTEGER},
-      </if>
       <if test="fkWorkstate != null" >
         fk_workState = #{fkWorkstate,jdbcType=INTEGER},
-      </if>
-      <if test="fkLocationtype != null" >
-        fk_locationType = #{fkLocationtype,jdbcType=INTEGER},
       </if>
       <if test="fkTimetype != null" >
         fk_timeType = #{fkTimetype,jdbcType=INTEGER},
@@ -427,19 +399,17 @@
     set subject = #{subject,jdbcType=VARCHAR},
       money = #{money,jdbcType=DOUBLE},
       fk_unit = #{fkUnit,jdbcType=INTEGER},
-      releaseTime = #{releasetime,jdbcType=DATE},
+      releaseTime = #{releasetime,jdbcType=VARCHAR},
       counts = #{counts,jdbcType=INTEGER},
       persons = #{persons,jdbcType=INTEGER},
-      settleMethod = #{settlemethod,jdbcType=VARCHAR},
+      fk_settle = #{fkSettle,jdbcType=INTEGER},
       wordTime = #{wordtime,jdbcType=VARCHAR},
-      endTime = #{endtime,jdbcType=DATE},
+      endTime = #{endtime,jdbcType=VARCHAR},
       workContent = #{workcontent,jdbcType=VARCHAR},
       fk_publisher = #{fkPublisher,jdbcType=INTEGER},
       fk_accept = #{fkAccept,jdbcType=INTEGER},
       workAddress = #{workaddress,jdbcType=VARCHAR},
-      fk_workIcon = #{fkWorkicon,jdbcType=INTEGER},
       fk_workState = #{fkWorkstate,jdbcType=INTEGER},
-      fk_locationType = #{fkLocationtype,jdbcType=INTEGER},
       fk_timeType = #{fkTimetype,jdbcType=INTEGER},
       fk_workType = #{fkWorktype,jdbcType=INTEGER},
       fk_school = #{fkSchool,jdbcType=INTEGER}

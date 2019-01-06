@@ -3,14 +3,14 @@ package com.school.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TWorkiconExample {
+public class TSettleExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public TWorkiconExample() {
+    public TSettleExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -164,73 +164,73 @@ public class TWorkiconExample {
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationIsNull() {
-            addCriterion("iconlocation is null");
+        public Criteria andSettlenameIsNull() {
+            addCriterion("settlename is null");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationIsNotNull() {
-            addCriterion("iconlocation is not null");
+        public Criteria andSettlenameIsNotNull() {
+            addCriterion("settlename is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationEqualTo(String value) {
-            addCriterion("iconlocation =", value, "iconlocation");
+        public Criteria andSettlenameEqualTo(String value) {
+            addCriterion("settlename =", value, "settlename");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationNotEqualTo(String value) {
-            addCriterion("iconlocation <>", value, "iconlocation");
+        public Criteria andSettlenameNotEqualTo(String value) {
+            addCriterion("settlename <>", value, "settlename");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationGreaterThan(String value) {
-            addCriterion("iconlocation >", value, "iconlocation");
+        public Criteria andSettlenameGreaterThan(String value) {
+            addCriterion("settlename >", value, "settlename");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationGreaterThanOrEqualTo(String value) {
-            addCriterion("iconlocation >=", value, "iconlocation");
+        public Criteria andSettlenameGreaterThanOrEqualTo(String value) {
+            addCriterion("settlename >=", value, "settlename");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationLessThan(String value) {
-            addCriterion("iconlocation <", value, "iconlocation");
+        public Criteria andSettlenameLessThan(String value) {
+            addCriterion("settlename <", value, "settlename");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationLessThanOrEqualTo(String value) {
-            addCriterion("iconlocation <=", value, "iconlocation");
+        public Criteria andSettlenameLessThanOrEqualTo(String value) {
+            addCriterion("settlename <=", value, "settlename");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationLike(String value) {
-            addCriterion("iconlocation like", value, "iconlocation");
+        public Criteria andSettlenameLike(String value) {
+            addCriterion("settlename like", value, "settlename");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationNotLike(String value) {
-            addCriterion("iconlocation not like", value, "iconlocation");
+        public Criteria andSettlenameNotLike(String value) {
+            addCriterion("settlename not like", value, "settlename");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationIn(List<String> values) {
-            addCriterion("iconlocation in", values, "iconlocation");
+        public Criteria andSettlenameIn(List<String> values) {
+            addCriterion("settlename in", values, "settlename");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationNotIn(List<String> values) {
-            addCriterion("iconlocation not in", values, "iconlocation");
+        public Criteria andSettlenameNotIn(List<String> values) {
+            addCriterion("settlename not in", values, "settlename");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationBetween(String value1, String value2) {
-            addCriterion("iconlocation between", value1, value2, "iconlocation");
+        public Criteria andSettlenameBetween(String value1, String value2) {
+            addCriterion("settlename between", value1, value2, "settlename");
             return (Criteria) this;
         }
 
-        public Criteria andIconlocationNotBetween(String value1, String value2) {
-            addCriterion("iconlocation not between", value1, value2, "iconlocation");
+        public Criteria andSettlenameNotBetween(String value1, String value2) {
+            addCriterion("settlename not between", value1, value2, "settlename");
             return (Criteria) this;
         }
     }

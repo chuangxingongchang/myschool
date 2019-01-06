@@ -233,6 +233,76 @@ public class TUnitExample {
             addCriterion("style not between", value1, value2, "style");
             return (Criteria) this;
         }
+
+        public Criteria andIconlocationIsNull() {
+            addCriterion("iconlocation is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationIsNotNull() {
+            addCriterion("iconlocation is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationEqualTo(String value) {
+            addCriterion("iconlocation =", value, "iconlocation");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationNotEqualTo(String value) {
+            addCriterion("iconlocation <>", value, "iconlocation");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationGreaterThan(String value) {
+            addCriterion("iconlocation >", value, "iconlocation");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationGreaterThanOrEqualTo(String value) {
+            addCriterion("iconlocation >=", value, "iconlocation");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationLessThan(String value) {
+            addCriterion("iconlocation <", value, "iconlocation");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationLessThanOrEqualTo(String value) {
+            addCriterion("iconlocation <=", value, "iconlocation");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationLike(String value) {
+            addCriterion("iconlocation like", value, "iconlocation");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationNotLike(String value) {
+            addCriterion("iconlocation not like", value, "iconlocation");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationIn(List<String> values) {
+            addCriterion("iconlocation in", values, "iconlocation");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationNotIn(List<String> values) {
+            addCriterion("iconlocation not in", values, "iconlocation");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationBetween(String value1, String value2) {
+            addCriterion("iconlocation between", value1, value2, "iconlocation");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconlocationNotBetween(String value1, String value2) {
+            addCriterion("iconlocation not between", value1, value2, "iconlocation");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

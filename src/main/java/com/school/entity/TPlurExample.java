@@ -1,8 +1,6 @@
 package com.school.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class TPlurExample {
@@ -104,32 +102,6 @@ public class TPlurExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andIdIsNull() {
@@ -392,53 +364,63 @@ public class TPlurExample {
             return (Criteria) this;
         }
 
-        public Criteria andReleasetimeEqualTo(Date value) {
-            addCriterionForJDBCDate("releaseTime =", value, "releasetime");
+        public Criteria andReleasetimeEqualTo(String value) {
+            addCriterion("releaseTime =", value, "releasetime");
             return (Criteria) this;
         }
 
-        public Criteria andReleasetimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("releaseTime <>", value, "releasetime");
+        public Criteria andReleasetimeNotEqualTo(String value) {
+            addCriterion("releaseTime <>", value, "releasetime");
             return (Criteria) this;
         }
 
-        public Criteria andReleasetimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("releaseTime >", value, "releasetime");
+        public Criteria andReleasetimeGreaterThan(String value) {
+            addCriterion("releaseTime >", value, "releasetime");
             return (Criteria) this;
         }
 
-        public Criteria andReleasetimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("releaseTime >=", value, "releasetime");
+        public Criteria andReleasetimeGreaterThanOrEqualTo(String value) {
+            addCriterion("releaseTime >=", value, "releasetime");
             return (Criteria) this;
         }
 
-        public Criteria andReleasetimeLessThan(Date value) {
-            addCriterionForJDBCDate("releaseTime <", value, "releasetime");
+        public Criteria andReleasetimeLessThan(String value) {
+            addCriterion("releaseTime <", value, "releasetime");
             return (Criteria) this;
         }
 
-        public Criteria andReleasetimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("releaseTime <=", value, "releasetime");
+        public Criteria andReleasetimeLessThanOrEqualTo(String value) {
+            addCriterion("releaseTime <=", value, "releasetime");
             return (Criteria) this;
         }
 
-        public Criteria andReleasetimeIn(List<Date> values) {
-            addCriterionForJDBCDate("releaseTime in", values, "releasetime");
+        public Criteria andReleasetimeLike(String value) {
+            addCriterion("releaseTime like", value, "releasetime");
             return (Criteria) this;
         }
 
-        public Criteria andReleasetimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("releaseTime not in", values, "releasetime");
+        public Criteria andReleasetimeNotLike(String value) {
+            addCriterion("releaseTime not like", value, "releasetime");
             return (Criteria) this;
         }
 
-        public Criteria andReleasetimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("releaseTime between", value1, value2, "releasetime");
+        public Criteria andReleasetimeIn(List<String> values) {
+            addCriterion("releaseTime in", values, "releasetime");
             return (Criteria) this;
         }
 
-        public Criteria andReleasetimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("releaseTime not between", value1, value2, "releasetime");
+        public Criteria andReleasetimeNotIn(List<String> values) {
+            addCriterion("releaseTime not in", values, "releasetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleasetimeBetween(String value1, String value2) {
+            addCriterion("releaseTime between", value1, value2, "releasetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleasetimeNotBetween(String value1, String value2) {
+            addCriterion("releaseTime not between", value1, value2, "releasetime");
             return (Criteria) this;
         }
 
@@ -562,73 +544,63 @@ public class TPlurExample {
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodIsNull() {
-            addCriterion("settleMethod is null");
+        public Criteria andFkSettleIsNull() {
+            addCriterion("fk_settle is null");
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodIsNotNull() {
-            addCriterion("settleMethod is not null");
+        public Criteria andFkSettleIsNotNull() {
+            addCriterion("fk_settle is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodEqualTo(String value) {
-            addCriterion("settleMethod =", value, "settlemethod");
+        public Criteria andFkSettleEqualTo(Integer value) {
+            addCriterion("fk_settle =", value, "fkSettle");
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodNotEqualTo(String value) {
-            addCriterion("settleMethod <>", value, "settlemethod");
+        public Criteria andFkSettleNotEqualTo(Integer value) {
+            addCriterion("fk_settle <>", value, "fkSettle");
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodGreaterThan(String value) {
-            addCriterion("settleMethod >", value, "settlemethod");
+        public Criteria andFkSettleGreaterThan(Integer value) {
+            addCriterion("fk_settle >", value, "fkSettle");
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodGreaterThanOrEqualTo(String value) {
-            addCriterion("settleMethod >=", value, "settlemethod");
+        public Criteria andFkSettleGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fk_settle >=", value, "fkSettle");
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodLessThan(String value) {
-            addCriterion("settleMethod <", value, "settlemethod");
+        public Criteria andFkSettleLessThan(Integer value) {
+            addCriterion("fk_settle <", value, "fkSettle");
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodLessThanOrEqualTo(String value) {
-            addCriterion("settleMethod <=", value, "settlemethod");
+        public Criteria andFkSettleLessThanOrEqualTo(Integer value) {
+            addCriterion("fk_settle <=", value, "fkSettle");
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodLike(String value) {
-            addCriterion("settleMethod like", value, "settlemethod");
+        public Criteria andFkSettleIn(List<Integer> values) {
+            addCriterion("fk_settle in", values, "fkSettle");
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodNotLike(String value) {
-            addCriterion("settleMethod not like", value, "settlemethod");
+        public Criteria andFkSettleNotIn(List<Integer> values) {
+            addCriterion("fk_settle not in", values, "fkSettle");
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodIn(List<String> values) {
-            addCriterion("settleMethod in", values, "settlemethod");
+        public Criteria andFkSettleBetween(Integer value1, Integer value2) {
+            addCriterion("fk_settle between", value1, value2, "fkSettle");
             return (Criteria) this;
         }
 
-        public Criteria andSettlemethodNotIn(List<String> values) {
-            addCriterion("settleMethod not in", values, "settlemethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andSettlemethodBetween(String value1, String value2) {
-            addCriterion("settleMethod between", value1, value2, "settlemethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andSettlemethodNotBetween(String value1, String value2) {
-            addCriterion("settleMethod not between", value1, value2, "settlemethod");
+        public Criteria andFkSettleNotBetween(Integer value1, Integer value2) {
+            addCriterion("fk_settle not between", value1, value2, "fkSettle");
             return (Criteria) this;
         }
 
@@ -712,53 +684,63 @@ public class TPlurExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeEqualTo(Date value) {
-            addCriterionForJDBCDate("endTime =", value, "endtime");
+        public Criteria andEndtimeEqualTo(String value) {
+            addCriterion("endTime =", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("endTime <>", value, "endtime");
+        public Criteria andEndtimeNotEqualTo(String value) {
+            addCriterion("endTime <>", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("endTime >", value, "endtime");
+        public Criteria andEndtimeGreaterThan(String value) {
+            addCriterion("endTime >", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("endTime >=", value, "endtime");
+        public Criteria andEndtimeGreaterThanOrEqualTo(String value) {
+            addCriterion("endTime >=", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeLessThan(Date value) {
-            addCriterionForJDBCDate("endTime <", value, "endtime");
+        public Criteria andEndtimeLessThan(String value) {
+            addCriterion("endTime <", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("endTime <=", value, "endtime");
+        public Criteria andEndtimeLessThanOrEqualTo(String value) {
+            addCriterion("endTime <=", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeIn(List<Date> values) {
-            addCriterionForJDBCDate("endTime in", values, "endtime");
+        public Criteria andEndtimeLike(String value) {
+            addCriterion("endTime like", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("endTime not in", values, "endtime");
+        public Criteria andEndtimeNotLike(String value) {
+            addCriterion("endTime not like", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("endTime between", value1, value2, "endtime");
+        public Criteria andEndtimeIn(List<String> values) {
+            addCriterion("endTime in", values, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("endTime not between", value1, value2, "endtime");
+        public Criteria andEndtimeNotIn(List<String> values) {
+            addCriterion("endTime not in", values, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeBetween(String value1, String value2) {
+            addCriterion("endTime between", value1, value2, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeNotBetween(String value1, String value2) {
+            addCriterion("endTime not between", value1, value2, "endtime");
             return (Criteria) this;
         }
 
@@ -1022,66 +1004,6 @@ public class TPlurExample {
             return (Criteria) this;
         }
 
-        public Criteria andFkWorkiconIsNull() {
-            addCriterion("fk_workIcon is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkWorkiconIsNotNull() {
-            addCriterion("fk_workIcon is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkWorkiconEqualTo(Integer value) {
-            addCriterion("fk_workIcon =", value, "fkWorkicon");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkWorkiconNotEqualTo(Integer value) {
-            addCriterion("fk_workIcon <>", value, "fkWorkicon");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkWorkiconGreaterThan(Integer value) {
-            addCriterion("fk_workIcon >", value, "fkWorkicon");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkWorkiconGreaterThanOrEqualTo(Integer value) {
-            addCriterion("fk_workIcon >=", value, "fkWorkicon");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkWorkiconLessThan(Integer value) {
-            addCriterion("fk_workIcon <", value, "fkWorkicon");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkWorkiconLessThanOrEqualTo(Integer value) {
-            addCriterion("fk_workIcon <=", value, "fkWorkicon");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkWorkiconIn(List<Integer> values) {
-            addCriterion("fk_workIcon in", values, "fkWorkicon");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkWorkiconNotIn(List<Integer> values) {
-            addCriterion("fk_workIcon not in", values, "fkWorkicon");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkWorkiconBetween(Integer value1, Integer value2) {
-            addCriterion("fk_workIcon between", value1, value2, "fkWorkicon");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkWorkiconNotBetween(Integer value1, Integer value2) {
-            addCriterion("fk_workIcon not between", value1, value2, "fkWorkicon");
-            return (Criteria) this;
-        }
-
         public Criteria andFkWorkstateIsNull() {
             addCriterion("fk_workState is null");
             return (Criteria) this;
@@ -1139,66 +1061,6 @@ public class TPlurExample {
 
         public Criteria andFkWorkstateNotBetween(Integer value1, Integer value2) {
             addCriterion("fk_workState not between", value1, value2, "fkWorkstate");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeIsNull() {
-            addCriterion("fk_locationType is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeIsNotNull() {
-            addCriterion("fk_locationType is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeEqualTo(Integer value) {
-            addCriterion("fk_locationType =", value, "fkLocationtype");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeNotEqualTo(Integer value) {
-            addCriterion("fk_locationType <>", value, "fkLocationtype");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeGreaterThan(Integer value) {
-            addCriterion("fk_locationType >", value, "fkLocationtype");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("fk_locationType >=", value, "fkLocationtype");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeLessThan(Integer value) {
-            addCriterion("fk_locationType <", value, "fkLocationtype");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeLessThanOrEqualTo(Integer value) {
-            addCriterion("fk_locationType <=", value, "fkLocationtype");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeIn(List<Integer> values) {
-            addCriterion("fk_locationType in", values, "fkLocationtype");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeNotIn(List<Integer> values) {
-            addCriterion("fk_locationType not in", values, "fkLocationtype");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeBetween(Integer value1, Integer value2) {
-            addCriterion("fk_locationType between", value1, value2, "fkLocationtype");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkLocationtypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("fk_locationType not between", value1, value2, "fkLocationtype");
             return (Criteria) this;
         }
 

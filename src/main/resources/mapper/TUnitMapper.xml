@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.school.entity.TUnit" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="style" property="style" jdbcType="VARCHAR" />
+    <result column="iconlocation" property="iconlocation" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, style
+    id, style, iconlocation
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TUnitExample" >
     select
@@ -97,8 +98,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.school.entity.TUnit" >
-    insert into t_unit (id, style)
-    values (#{id,jdbcType=INTEGER}, #{style,jdbcType=VARCHAR})
+    insert into t_unit (id, style, iconlocation
+      )
+    values (#{id,jdbcType=INTEGER}, #{style,jdbcType=VARCHAR}, #{iconlocation,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.school.entity.TUnit" >
     insert into t_unit
@@ -109,6 +112,9 @@
       <if test="style != null" >
         style,
       </if>
+      <if test="iconlocation != null" >
+        iconlocation,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -116,6 +122,9 @@
       </if>
       <if test="style != null" >
         #{style,jdbcType=VARCHAR},
+      </if>
+      <if test="iconlocation != null" >
+        #{iconlocation,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -134,6 +143,9 @@
       <if test="record.style != null" >
         style = #{record.style,jdbcType=VARCHAR},
       </if>
+      <if test="record.iconlocation != null" >
+        iconlocation = #{record.iconlocation,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -142,7 +154,8 @@
   <update id="updateByExample" parameterType="map" >
     update t_unit
     set id = #{record.id,jdbcType=INTEGER},
-      style = #{record.style,jdbcType=VARCHAR}
+      style = #{record.style,jdbcType=VARCHAR},
+      iconlocation = #{record.iconlocation,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -153,12 +166,16 @@
       <if test="style != null" >
         style = #{style,jdbcType=VARCHAR},
       </if>
+      <if test="iconlocation != null" >
+        iconlocation = #{iconlocation,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.school.entity.TUnit" >
     update t_unit
-    set style = #{style,jdbcType=VARCHAR}
+    set style = #{style,jdbcType=VARCHAR},
+      iconlocation = #{iconlocation,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

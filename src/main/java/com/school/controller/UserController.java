@@ -91,7 +91,6 @@ public class UserController {
         Message ms = new Message();
         try {
             if (userService.login(user)) {
-                System.out.println("登录成功");
                 ms.setMsg("登录成功");
                 ms.setStatus(true);
                 ms.setData(user);
@@ -226,8 +225,6 @@ public class UserController {
 
     @RequestMapping("/getUser")
     public ModelAndView getMyUser(String phoneno) {
-
-        System.out.println("进入获取user");
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         try {
             TUser users = userService.selectByPhoneno(phoneno);
@@ -235,7 +232,6 @@ public class UserController {
                 return null;
             } else {
                 mav.addObject("tuser",users);
-                System.out.println(users);
             }
         }catch (Exception e){
            mav.addObject("tuser",null);

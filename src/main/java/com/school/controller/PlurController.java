@@ -33,17 +33,18 @@ public class PlurController {
 
     @RequestMapping("/selectPlurSchool")
     public ModelAndView selectPlurBySchool(int fkSchoolId) {
+        System.out.println("进入学校兼职查询");
         List<TPlur> plurList = null;
-        List<TWorkicon> workiconList = null;
         List<TUnit> unitList = null;
         try {
             plurList = plurService.selectBySchool(fkSchoolId);
-            workiconList = plurService.selectAllWorkicon();
             unitList = plurService.selectAllUnit();
             ms.setStatus(true);
             if (plurList.size() > 0) {
                 ms.setMsg("加载中...");
+                ms.setStatus(true);
             } else {
+                ms.setStatus(false);
                 ms.setMsg("该学校无兼职，等待发布中");
             }
         } catch (Exception e) {
@@ -52,7 +53,6 @@ public class PlurController {
         } finally {
             mav.addObject("ms", ms);
             mav.addObject("plur", plurList);
-            mav.addObject("workicon", workiconList);
             mav.addObject("unit", unitList);
             return mav;
         }
@@ -82,10 +82,12 @@ public class PlurController {
      */
     @RequestMapping("/myPlur")
     public ModelAndView selectMyPlur(int id) {
-        List<TPlur> plurList = plurService.selectByUser(id);
+        System.out.println("进入我的兼职");
+        List<TPlur> plurList = plurService.selectByAccept(id);
         List<TPlur> goplurList = new ArrayList<TPlur>();
         List<TPlur> endplurList = new ArrayList<TPlur>();
-        List<TWorkicon> workiconList = plurService.selectAllWorkicon();
+        Message ms2 = new Message();
+        List<TUnit> workiconList = plurService.selectAllUnit();
         for(TPlur p:plurList){
             if(p.getFkWorkstate()==2){
                 goplurList.add(p);
@@ -93,9 +95,53 @@ public class PlurController {
                 endplurList.add(p);
             }
         }
+        if(goplurList.size()>0){
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+        if(endplurList.size()>0){
+            ms2.setStatus(true);
+        }else{
+            ms2.setStatus(false);
+        }
+        mav.addObject("ms",ms);
+        mav.addObject("ms2",ms2);
         mav.addObject("workicon",workiconList);
         mav.addObject("goplur",goplurList);
         mav.addObject("endplur",endplurList);
         return  mav;
+    }
+    @RequestMapping("/publisher")
+    public ModelAndView getPublisherPlur(int fkPublisher){
+        System.out.println("进入发布者获取兼职详情");
+        List<TPlur> publisherList = plurService.selectByPublisher(fkPublisher);
+        List<TUnit> unitList = plurService.selectAllUnit();
+        List<TPlur> newPulisherList = new ArrayList<TPlur>();
+        for(TPlur p:publisherList){
+            if(p.getFkWorkstate()==1){
+                newPulisherList.add(p);
+            }
+        }
+        if (newPulisherList.size()>0){
+            ms.setStatus(true);
+        }else {
+            ms.setStatus(false);
+        }
+        mav.addObject("ms",ms);
+        mav.addObject("publisher",newPulisherList);
+        mav.addObject("unit",unitList);
+        return mav;
+    }
+    @RequestMapping("/insertPlur")
+    public ModelAndView insertplur(TPlur plur){
+        boolean flag = plurService.insertPlur(plur);
+        if(flag==true){
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+        mav.addObject("ms",ms);
+        return mav;
     }
 }
