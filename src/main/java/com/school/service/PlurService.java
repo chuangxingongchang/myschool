@@ -34,4 +34,6 @@ public interface PlurService {
 
     //发布岗位
     boolean insertPlur(TPlur plur);
+    //更新访问次数
+    boolean updateCounts(int id,int counts);
 }

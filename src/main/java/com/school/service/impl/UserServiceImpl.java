@@ -7,6 +7,7 @@ import com.school.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -95,5 +96,16 @@ public class UserServiceImpl implements UserService {
     public TUser selectById(int id) {
        TUser user = userMapper.selectByPrimaryKey(id);
        return user;
+    }
+    @Override
+    public List<TUser> selectUserIdIn(List<Integer> id) {
+        TUserExample tue = new TUserExample();
+        List<TUser> lu = new ArrayList<>();
+        if (id !=null && id.size() !=0) {
+            tue.or()
+                    .andIdIn(id);
+            lu = userMapper.selectByExample(tue);
+        }
+        return lu;
     }
 }

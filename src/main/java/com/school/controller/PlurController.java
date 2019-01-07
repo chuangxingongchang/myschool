@@ -1,6 +1,7 @@
 package com.school.controller;
 
 import com.school.entity.*;
+import com.school.service.JobAllUnitService;
 import com.school.service.PlurService;
 import com.school.service.UserService;
 import com.school.util.Message;
@@ -20,6 +21,8 @@ public class PlurController {
     private PlurService plurService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private JobAllUnitService jobAllUnitService;
 
     private ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
 
@@ -69,8 +72,21 @@ public class PlurController {
     public ModelAndView getThisPlurs(int id,int fkPublisher){
         List<TUnit> unitList = plurService.selectAllUnit();
         TUser user = userService.selectById(fkPublisher);
+        TPlur plur = plurService.selectByTplurId(id);
+        List<TSettle> settleLsit = jobAllUnitService.selectAllSettle();
+        int count = plur.getCounts();
+        count++;
+        boolean flag = plurService.updateCounts(plur.getId(),count);
+        if(flag==true){
+            ms.setStatus(true);
+        }else {
+            ms.setStatus(false);
+        }
+        plur.setCounts(count);
+        mav.addObject("ms",ms);
+        mav.addObject("settle",settleLsit);
         mav.addObject("unit",unitList);
-        mav.addObject("thisplur",plurService.selectByTplurId(id));
+        mav.addObject("thisplur",plur);
         mav.addObject("pushuser",user);
         return mav;
     }
@@ -91,7 +107,7 @@ public class PlurController {
         for(TPlur p:plurList){
             if(p.getFkWorkstate()==2){
                 goplurList.add(p);
-            }else if(p.getFkWorkstate()==3){
+            }else if(p.getFkWorkstate()==3||p.getFkWorkstate()==4){
                 endplurList.add(p);
             }
         }

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.school.mapper.TSignupMapper" >
+  <resultMap id="BaseResultMap" type="com.school.entity.TSignup" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pk_plurid" property="pkPlurid" jdbcType="INTEGER" />
+    <result column="pk_uid" property="pkUid" jdbcType="INTEGER" />
+    <result column="signstate" property="signstate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, pk_plurid, pk_uid, signstate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TSignupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_signup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_signup
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_signup
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.school.entity.TSignupExample" >
+    delete from t_signup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.school.entity.TSignup" >
+    insert into t_signup (id, pk_plurid, pk_uid, 
+      signstate)
+    values (#{id,jdbcType=INTEGER}, #{pkPlurid,jdbcType=INTEGER}, #{pkUid,jdbcType=INTEGER}, 
+      #{signstate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.school.entity.TSignup" >
+    insert into t_signup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pkPlurid != null" >
+        pk_plurid,
+      </if>
+      <if test="pkUid != null" >
+        pk_uid,
+      </if>
+      <if test="signstate != null" >
+        signstate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pkPlurid != null" >
+        #{pkPlurid,jdbcType=INTEGER},
+      </if>
+      <if test="pkUid != null" >
+        #{pkUid,jdbcType=INTEGER},
+      </if>
+      <if test="signstate != null" >
+        #{signstate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.school.entity.TSignupExample" resultType="java.lang.Integer" >
+    select count(*) from t_signup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_signup
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.pkPlurid != null" >
+        pk_plurid = #{record.pkPlurid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pkUid != null" >
+        pk_uid = #{record.pkUid,jdbcType=INTEGER},
+      </if>
+      <if test="record.signstate != null" >
+        signstate = #{record.signstate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_signup
+    set id = #{record.id,jdbcType=INTEGER},
+      pk_plurid = #{record.pkPlurid,jdbcType=INTEGER},
+      pk_uid = #{record.pkUid,jdbcType=INTEGER},
+      signstate = #{record.signstate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.school.entity.TSignup" >
+    update t_signup
+    <set >
+      <if test="pkPlurid != null" >
+        pk_plurid = #{pkPlurid,jdbcType=INTEGER},
+      </if>
+      <if test="pkUid != null" >
+        pk_uid = #{pkUid,jdbcType=INTEGER},
+      </if>
+      <if test="signstate != null" >
+        signstate = #{signstate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.school.entity.TSignup" >
+    update t_signup
+    set pk_plurid = #{pkPlurid,jdbcType=INTEGER},
+      pk_uid = #{pkUid,jdbcType=INTEGER},
+      signstate = #{signstate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

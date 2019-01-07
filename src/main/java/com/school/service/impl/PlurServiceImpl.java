@@ -92,4 +92,18 @@ public class PlurServiceImpl implements PlurService {
             return false;
         }
     }
+
+    @Override
+    public boolean updateCounts(int id, int counts) {
+        TPlurExample tPlurExample = new TPlurExample();
+        TPlur plur  = new TPlur();
+        plur.setCounts(counts);
+        tPlurExample.or().andIdEqualTo(id);
+       int b =  plurMapper.updateByExampleSelective(plur,tPlurExample);
+       if(b>0){
+           return true;
+       }else{
+           return false;
+       }
+    }
 }

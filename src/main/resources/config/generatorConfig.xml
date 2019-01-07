@@ -51,6 +51,7 @@
         <!-- tableName：数据库表名，domainObjectName：生成文件名 ，schema：数据源-->
 
         <table tableName="t_plur"></table>
+        <table tableName="t_signup"></table>
 
     </context>
 </generatorConfiguration>
