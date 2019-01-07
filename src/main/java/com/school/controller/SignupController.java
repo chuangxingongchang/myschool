@@ -1,5 +1,6 @@
 package com.school.controller;
 
+import com.school.entity.TSignup;
 import com.school.entity.TUser;
 import com.school.service.SignupService;
 import com.school.service.UserService;
@@ -23,13 +24,20 @@ public class SignupController {
     private ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
     private Message ms   = new Message();
 
+    /**
+     * @param pkPlurid
+     * @param signstate
+     * @return
+     * 描述：获取所有的兼职报名者信息
+     */
     @RequestMapping("/getSignupAll")
     public ModelAndView getsignUp(int pkPlurid,String signstate){
+        System.out.println("pkPlurid:"+pkPlurid);
+        System.out.println("signstate:"+signstate);
         List<Integer> integerList  = signupService.selectPlurId(pkPlurid,signstate);
         List<TUser>  userList  = new ArrayList<TUser>();
         if (integerList.size()>0){
             for (Integer i : integerList) {
-                System.out.println(i);
                 TUser user = userService.selectById(i);
                 userList.add(user);
             }
@@ -40,5 +48,17 @@ public class SignupController {
         mav.addObject("signup",userList);
         mav.addObject("ms",ms);
         return  mav;
+    }
+    @RequestMapping("/updateSignstate")
+    public ModelAndView updatesignState(TSignup signup){
+        System.out.println("更新signstate"+signup.getPkUid()+"plur"+signup.getPkPlurid());
+        boolean flag = signupService.updateSignupState(signup);
+        if (flag){
+            ms.setStatus(true);
+        }else {
+            ms.setStatus(false);
+        }
+        mav.addObject("mss",ms);
+        return mav;
     }
 }
