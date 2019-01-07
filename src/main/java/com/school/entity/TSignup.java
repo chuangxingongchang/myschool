@@ -11,5 +11,4 @@ public class TSignup {
     private Integer pkUid;
 
     private String signstate;
-
 }

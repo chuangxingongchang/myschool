@@ -20,7 +20,7 @@
         </commentGenerator>
 
         <!--链接数据库的配置-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql:///test" userId="root" password="root"></jdbcConnection>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql:///sc_school" userId="root" password="root"></jdbcConnection>
        <!--关于生成实体类的设置-->
         <!--targetPackage生成代码的目标目录-->
         <!--targetProject目录所属位置-->
@@ -50,7 +50,7 @@
         <!--需要生成的代码对应的表名-->
         <!-- tableName：数据库表名，domainObjectName：生成文件名 ，schema：数据源-->
 
-        <table tableName="t_plur"></table>
+
         <table tableName="t_signup"></table>
 
     </context>
