@@ -52,7 +52,8 @@ public class SignupController {
     @RequestMapping("/updateSignstate")
     public ModelAndView updatesignState(TSignup signup){
         System.out.println("更新signstate"+signup.getPkUid()+"plur"+signup.getPkPlurid());
-        boolean flag = signupService.updateSignupState(signup);
+        int s  = signupService.selectBySignup(signup);
+        boolean flag = signupService.updateSignupState(s);
         if (flag){
             ms.setStatus(true);
         }else {

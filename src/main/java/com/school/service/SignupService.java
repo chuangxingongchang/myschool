@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface SignupService {
     List<Integer> selectPlurId(int plurid,String signstate);
-    boolean updateSignupState(TSignup signup);
+    int selectBySignup(TSignup signup);
+    boolean updateSignupState(int id);
 }

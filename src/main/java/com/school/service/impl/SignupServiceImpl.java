@@ -15,9 +15,9 @@ public class SignupServiceImpl implements SignupService {
     @Autowired
     private TSignupMapper tSignupMapper;
 
-    private TSignupExample signupExample = new TSignupExample();
     @Override
     public List<Integer> selectPlurId(int plurid,String signstate) {
+        TSignupExample signupExample = new TSignupExample();
         signupExample.or().andPkPluridEqualTo(plurid)
         .andSignstateEqualTo(signstate);
         List<TSignup> signupList = tSignupMapper.selectByExample(signupExample);
@@ -29,18 +29,22 @@ public class SignupServiceImpl implements SignupService {
     }
 
     @Override
-    public boolean updateSignupState(TSignup signup) {
-        TSignup signup1 = new TSignup();
-        signup1.setSignstate("进行");
-        TSignupExample.Criteria criteria =  signupExample.createCriteria();
-        TSignupExample.Criteria criteria1 =  signupExample.createCriteria();
-        criteria
-                .andPkPluridEqualTo(3);
-        criteria1
-                .andPkUidEqualTo(9);
-        signupExample.or(criteria1);
-        signupExample.or(criteria);
-        int b = tSignupMapper.updateByExampleSelective(signup1,signupExample);
+    public int selectBySignup(TSignup signup) {
+        TSignupExample signupExample = new TSignupExample();
+        signupExample.or().andPkPluridEqualTo(signup.getPkPlurid())
+        .andPkUidEqualTo(signup.getPkUid());
+        List<TSignup> signupList = tSignupMapper.selectByExample(signupExample);
+        int id  = signupList.get(0).getId();
+        return id;
+    }
+
+    @Override
+    public boolean updateSignupState(int id) {
+        TSignupExample signupExample = new TSignupExample();
+        TSignup signup = new TSignup();
+        signup.setId(id);
+        signup.setSignstate("进行");
+        int b = tSignupMapper.updateByPrimaryKeySelective(signup);
         if (b>0){
             return true;
         }else {
