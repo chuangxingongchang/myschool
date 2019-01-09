@@ -353,6 +353,66 @@ public class TSignupExample {
             addCriterion("signstate not between", value1, value2, "signstate");
             return (Criteria) this;
         }
+
+        public Criteria andSignmoneyIsNull() {
+            addCriterion("signMoney is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignmoneyIsNotNull() {
+            addCriterion("signMoney is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignmoneyEqualTo(Double value) {
+            addCriterion("signMoney =", value, "signmoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignmoneyNotEqualTo(Double value) {
+            addCriterion("signMoney <>", value, "signmoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignmoneyGreaterThan(Double value) {
+            addCriterion("signMoney >", value, "signmoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignmoneyGreaterThanOrEqualTo(Double value) {
+            addCriterion("signMoney >=", value, "signmoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignmoneyLessThan(Double value) {
+            addCriterion("signMoney <", value, "signmoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignmoneyLessThanOrEqualTo(Double value) {
+            addCriterion("signMoney <=", value, "signmoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignmoneyIn(List<Double> values) {
+            addCriterion("signMoney in", values, "signmoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignmoneyNotIn(List<Double> values) {
+            addCriterion("signMoney not in", values, "signmoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignmoneyBetween(Double value1, Double value2) {
+            addCriterion("signMoney between", value1, value2, "signmoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignmoneyNotBetween(Double value1, Double value2) {
+            addCriterion("signMoney not between", value1, value2, "signmoney");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

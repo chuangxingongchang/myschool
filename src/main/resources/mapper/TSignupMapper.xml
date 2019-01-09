@@ -6,6 +6,7 @@
     <result column="pk_plurid" property="pkPlurid" jdbcType="INTEGER" />
     <result column="pk_uid" property="pkUid" jdbcType="INTEGER" />
     <result column="signstate" property="signstate" jdbcType="VARCHAR" />
+    <result column="signMoney" property="signmoney" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, pk_plurid, pk_uid, signstate
+    id, pk_plurid, pk_uid, signstate, signMoney
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TSignupExample" >
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.school.entity.TSignup" >
     insert into t_signup (id, pk_plurid, pk_uid, 
-      signstate)
+      signstate, signMoney)
     values (#{id,jdbcType=INTEGER}, #{pkPlurid,jdbcType=INTEGER}, #{pkUid,jdbcType=INTEGER}, 
-      #{signstate,jdbcType=VARCHAR})
+      #{signstate,jdbcType=VARCHAR}, #{signmoney,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.school.entity.TSignup" >
     insert into t_signup
@@ -119,6 +120,9 @@
       <if test="signstate != null" >
         signstate,
       </if>
+      <if test="signmoney != null" >
+        signMoney,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -132,6 +136,9 @@
       </if>
       <if test="signstate != null" >
         #{signstate,jdbcType=VARCHAR},
+      </if>
+      <if test="signmoney != null" >
+        #{signmoney,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.signstate != null" >
         signstate = #{record.signstate,jdbcType=VARCHAR},
       </if>
+      <if test="record.signmoney != null" >
+        signMoney = #{record.signmoney,jdbcType=DOUBLE},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       pk_plurid = #{record.pkPlurid,jdbcType=INTEGER},
       pk_uid = #{record.pkUid,jdbcType=INTEGER},
-      signstate = #{record.signstate,jdbcType=VARCHAR}
+      signstate = #{record.signstate,jdbcType=VARCHAR},
+      signMoney = #{record.signmoney,jdbcType=DOUBLE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="signstate != null" >
         signstate = #{signstate,jdbcType=VARCHAR},
       </if>
+      <if test="signmoney != null" >
+        signMoney = #{signmoney,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -190,7 +204,8 @@
     update t_signup
     set pk_plurid = #{pkPlurid,jdbcType=INTEGER},
       pk_uid = #{pkUid,jdbcType=INTEGER},
-      signstate = #{signstate,jdbcType=VARCHAR}
+      signstate = #{signstate,jdbcType=VARCHAR},
+      signMoney = #{signmoney,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
