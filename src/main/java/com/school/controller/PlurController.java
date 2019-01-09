@@ -3,6 +3,7 @@ package com.school.controller;
 import com.school.entity.*;
 import com.school.service.JobAllUnitService;
 import com.school.service.PlurService;
+import com.school.service.SignupService;
 import com.school.service.UserService;
 import com.school.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class PlurController {
     private UserService userService;
     @Autowired
     private JobAllUnitService jobAllUnitService;
+    @Autowired
+    private SignupService signupService;
 
     private ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
 
@@ -94,13 +97,36 @@ public class PlurController {
     /**
      * @param id
      * @return
+     * 获取当前进行的兼职的详细信息及用户信息
+     */
+    @RequestMapping("/getGothisplur")
+    public ModelAndView getGoplur(int id){
+        String signstate = "进行";
+        List<TUnit> unitList = plurService.selectAllUnit();
+        TPlur plur = plurService.selectByTplurId(id);
+        List<TSettle> settleLsit = jobAllUnitService.selectAllSettle();
+        List<Integer> integerList  = signupService.selectPlurId(id,signstate);
+        List<TUser>  userList  = new ArrayList<TUser>();
+            for (Integer i : integerList) {
+                TUser user = userService.selectById(i);
+                userList.add(user);
+        }
+        mav.addObject("settle",settleLsit);
+        mav.addObject("unit",unitList);
+        mav.addObject("thisplur",plur);
+        mav.addObject("usergo",userList);
+        return mav;
+    }
+    /**
+     * @param id
+     * @return
      * 描述:根据登录用户id查询用户所有兼职
      */
     @RequestMapping("/myPlur")
     public ModelAndView selectMyPlur(int id) {
         System.out.println("进入我的兼职");
         List<TPlur> plurList = plurService.selectByAccept(id);
-        List<TPlur> goplurList = new ArrayList<TPlur>();
+        List<TPlur> goplurList  = new ArrayList<TPlur>();
         List<TPlur> endplurList = new ArrayList<TPlur>();
         Message ms2 = new Message();
         List<TUnit> workiconList = plurService.selectAllUnit();
@@ -134,9 +160,15 @@ public class PlurController {
         List<TPlur> publisherList = plurService.selectByPublisher(fkPublisher);
         List<TUnit> unitList = plurService.selectAllUnit();
         List<TPlur> newPulisherList = new ArrayList<TPlur>();
+        List<TPlur> goPulisherList = new ArrayList<TPlur>();
+        List<TPlur> endPulisherList = new ArrayList<TPlur>();
         for(TPlur p:publisherList){
             if(p.getFkWorkstate()==1){
                 newPulisherList.add(p);
+            }else if (p.getFkWorkstate()==2){
+                goPulisherList.add(p);
+            }else{
+                endPulisherList.add(p);
             }
         }
         if (newPulisherList.size()>0){
@@ -144,8 +176,24 @@ public class PlurController {
         }else {
             ms.setStatus(false);
         }
+        Message ms1 = new Message();
+        if (goPulisherList.size()>0){
+            ms1.setStatus(true);
+        }else {
+            ms1.setStatus(false);
+        }
+        Message ms2 = new Message();
+        if (endPulisherList.size()>0){
+            ms2.setStatus(true);
+        }else {
+            ms2.setStatus(false);
+        }
         mav.addObject("ms",ms);
+        mav.addObject("ms1",ms1);
+        mav.addObject("ms2",ms2);
         mav.addObject("publisher",newPulisherList);
+        mav.addObject("gopublisher",goPulisherList);
+        mav.addObject("endpublisher",endPulisherList);
         mav.addObject("unit",unitList);
         return mav;
     }
