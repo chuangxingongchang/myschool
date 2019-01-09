@@ -237,7 +237,7 @@ public class ForumArticleController {
     public ModelAndView selectForumSingleType(int id) {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         List<TForumArticleVo> lfaVo = fas.findByFkTypeIdToArticle(id);
-        if (lfaVo != null && lfaVo.size() != 0) {
+        if (lfaVo.size() != 0 ) {
             List<Integer> li = new ArrayList<>();
             for (TForumArticleVo tf : lfaVo) {
                 li.add(tf.getFkUserKey().getId());
@@ -251,7 +251,7 @@ public class ForumArticleController {
                 }
             }
         }
-        modelAndView.addObject("lfavo", lfaVo);
+        modelAndView.addObject("listTypeForumVo", lfaVo);
         return modelAndView;
     }
 
