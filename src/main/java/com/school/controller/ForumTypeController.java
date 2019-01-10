@@ -38,6 +38,14 @@ public class ForumTypeController {
 
     ReadWriteLock rwl = new ReentrantReadWriteLock();
 
+
+
+
+
+
+
+
+    /*查询全部类型*/
     @RequestMapping("/all")
     public ModelAndView selectForumTypeAll() {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
@@ -54,11 +62,11 @@ public class ForumTypeController {
             }
         } catch (Exception e) {
             log.info(e.toString());
-        } finally {
+        }
             rwl.readLock().unlock();
             modelAndView.addObject("ftype", lft);
             return modelAndView;
-        }
+
     }
 
 

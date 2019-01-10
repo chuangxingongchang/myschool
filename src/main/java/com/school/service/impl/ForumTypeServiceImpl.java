@@ -19,14 +19,12 @@ import java.util.List;
  * @Field:论坛类型分类实现层
  */
 @Service
-@Transactional
 public class ForumTypeServiceImpl implements ForumTypeService {
     Logger log = LoggerFactory.getLogger(ForumTypeServiceImpl.class);
     @Autowired
     TForumTypeMapper ftm;
 
     @Override
-    @Transactional(readOnly = true)
     public List<TForumType> selectForumTypeAll() {
         TForumTypeExample fte = new TForumTypeExample();
         List<TForumType> lft = new ArrayList<>();
@@ -36,9 +34,8 @@ public class ForumTypeServiceImpl implements ForumTypeService {
             lft = ftm.selectByExample(fte);
         } catch (Exception e) {
             log.info(e.toString());
-        } finally {
-            return lft;
         }
+            return lft;
 
     }
 

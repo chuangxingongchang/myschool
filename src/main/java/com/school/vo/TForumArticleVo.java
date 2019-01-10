@@ -25,6 +25,36 @@ public class TForumArticleVo {
 
     private Integer commentCount;
 
+    private String contentDescribe;
+
+    private String isNull;
+
+    private Integer isNullInt;
+
+    public String getContentDescribe() {
+        return contentDescribe;
+    }
+
+    public void setContentDescribe(String contentDescribe) {
+        this.contentDescribe = contentDescribe;
+    }
+
+    public String getIsNull() {
+        return isNull;
+    }
+
+    public void setIsNull(String isNull) {
+        this.isNull = isNull;
+    }
+
+    public Integer getIsNullInt() {
+        return isNullInt;
+    }
+
+    public void setIsNullInt(Integer isNullInt) {
+        this.isNullInt = isNullInt;
+    }
+
     public Integer getId() {
         return id;
     }

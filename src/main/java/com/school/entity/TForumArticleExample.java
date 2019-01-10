@@ -751,6 +751,206 @@ public class TForumArticleExample {
             addCriterion("comment_count not between", value1, value2, "commentCount");
             return (Criteria) this;
         }
+
+        public Criteria andContentDescribeIsNull() {
+            addCriterion("content_describe is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeIsNotNull() {
+            addCriterion("content_describe is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeEqualTo(String value) {
+            addCriterion("content_describe =", value, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeNotEqualTo(String value) {
+            addCriterion("content_describe <>", value, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeGreaterThan(String value) {
+            addCriterion("content_describe >", value, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeGreaterThanOrEqualTo(String value) {
+            addCriterion("content_describe >=", value, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeLessThan(String value) {
+            addCriterion("content_describe <", value, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeLessThanOrEqualTo(String value) {
+            addCriterion("content_describe <=", value, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeLike(String value) {
+            addCriterion("content_describe like", value, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeNotLike(String value) {
+            addCriterion("content_describe not like", value, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeIn(List<String> values) {
+            addCriterion("content_describe in", values, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeNotIn(List<String> values) {
+            addCriterion("content_describe not in", values, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeBetween(String value1, String value2) {
+            addCriterion("content_describe between", value1, value2, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentDescribeNotBetween(String value1, String value2) {
+            addCriterion("content_describe not between", value1, value2, "contentDescribe");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIsNull() {
+            addCriterion("is_null is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIsNotNull() {
+            addCriterion("is_null is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullEqualTo(String value) {
+            addCriterion("is_null =", value, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullNotEqualTo(String value) {
+            addCriterion("is_null <>", value, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullGreaterThan(String value) {
+            addCriterion("is_null >", value, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullGreaterThanOrEqualTo(String value) {
+            addCriterion("is_null >=", value, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullLessThan(String value) {
+            addCriterion("is_null <", value, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullLessThanOrEqualTo(String value) {
+            addCriterion("is_null <=", value, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullLike(String value) {
+            addCriterion("is_null like", value, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullNotLike(String value) {
+            addCriterion("is_null not like", value, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIn(List<String> values) {
+            addCriterion("is_null in", values, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullNotIn(List<String> values) {
+            addCriterion("is_null not in", values, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullBetween(String value1, String value2) {
+            addCriterion("is_null between", value1, value2, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullNotBetween(String value1, String value2) {
+            addCriterion("is_null not between", value1, value2, "isNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntIsNull() {
+            addCriterion("is_null_int is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntIsNotNull() {
+            addCriterion("is_null_int is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntEqualTo(Integer value) {
+            addCriterion("is_null_int =", value, "isNullInt");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntNotEqualTo(Integer value) {
+            addCriterion("is_null_int <>", value, "isNullInt");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntGreaterThan(Integer value) {
+            addCriterion("is_null_int >", value, "isNullInt");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_null_int >=", value, "isNullInt");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntLessThan(Integer value) {
+            addCriterion("is_null_int <", value, "isNullInt");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntLessThanOrEqualTo(Integer value) {
+            addCriterion("is_null_int <=", value, "isNullInt");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntIn(List<Integer> values) {
+            addCriterion("is_null_int in", values, "isNullInt");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntNotIn(List<Integer> values) {
+            addCriterion("is_null_int not in", values, "isNullInt");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntBetween(Integer value1, Integer value2) {
+            addCriterion("is_null_int between", value1, value2, "isNullInt");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsNullIntNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_null_int not between", value1, value2, "isNullInt");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

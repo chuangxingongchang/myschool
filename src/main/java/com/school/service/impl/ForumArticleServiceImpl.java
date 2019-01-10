@@ -2,7 +2,6 @@ package com.school.service.impl;
 
 import com.school.entity.TForumArticle;
 import com.school.entity.TForumArticleExample;
-import com.school.entity.TForumComment;
 import com.school.entity.TUser;
 import com.school.finals.FinalsString;
 import com.school.mapper.TForumArticleMapper;
@@ -260,7 +259,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
     public Long selectArticleCount(int userId) {
         TForumArticleExample fae = new TForumArticleExample();
         fae.or().andFkUserKeyEqualTo(userId);
-        return tam.countByExample(fae);
+        return (long)tam.countByExample(fae);
     }
 
     @Override
@@ -272,6 +271,8 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         tForumArticle.setViolationCount(0);
         tForumArticle.setFkApplaudStatus(0);
         tForumArticle.setFkApplaudStatus(0);
+        tForumArticle.setIsNull("");
+        tForumArticle.setIsNullInt(0);
         int i =tam.insert(tForumArticle);
         if (i != 0 ) {
             b = true;
@@ -310,7 +311,6 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         }catch (Exception e){
             System.out.println(e.toString());
         }
-
         return lfa;
     }
 
@@ -333,6 +333,9 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         avo.setFkUserKey(u);
         avo.setFkForumTypeKey(tf.getFkForumTypeKey());
         avo.setBrowseConut(tf.getBrowseConut());
+        avo.setIsNull(tf.getIsNull());
+        avo.setIsNullInt(tf.getIsNullInt());
+        avo.setContentDescribe(tf.getContentDescribe());
         return avo;
 
     }

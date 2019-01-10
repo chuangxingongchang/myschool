@@ -2,13 +2,13 @@ package com.school.mapper;
 
 import com.school.entity.TForumArticle;
 import com.school.entity.TForumArticleExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface TForumArticleMapper {
-    long countByExample(TForumArticleExample example);
+    int countByExample(TForumArticleExample example);
 
     int deleteByExample(TForumArticleExample example);
 

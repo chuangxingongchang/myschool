@@ -52,9 +52,13 @@ public class UpLoadUtil {
      * @param fileName 文件名称
      * @return
      */
-    public static boolean writeDataInServlet(String data, String fileName){
+    public static boolean writeDataInServlet(String data, String fileName,String path){
         boolean b = true;
         try {
+            File f = new File(path);
+            if (!f.exists()) {
+                f.mkdir();
+            }
             // 生成文件
             FileWriter dataFile = new FileWriter(fileName);
             dataFile.write(data);
@@ -117,12 +121,6 @@ public class UpLoadUtil {
         }
         return imageByte;
     }
-
-
-
-
-
-
 
 
 }

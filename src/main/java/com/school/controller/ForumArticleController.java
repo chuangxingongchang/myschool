@@ -210,19 +210,31 @@ public class ForumArticleController {
     }
 
 
+    /**
+     * 添加文章
+     * @param tForumArticle
+     * @return
+     */
     @RequestMapping("/addArticle")
     public  boolean addArticle(TForumArticle tForumArticle ) {
+        System.out.println(tForumArticle.toString());
+        boolean b = false;
         //文件目录
         String path = FinalsString.PROJECT_STATIC_RESOURCE_PATH_TEXT;
         //文件名称
         String fileName = path+"/"+StringUitl.createStringRandomName();
-        boolean b = UpLoadUtil.writeDataInServlet(tForumArticle.getContentText(), fileName);
-        if (b){
-           tForumArticle.setContentText(fileName);
+        try {
+            b = UpLoadUtil.writeDataInServlet(tForumArticle.getContentText(), fileName, path);
+        }catch (Exception e){
+            b = false;
+            return b;
         }
-        if (tForumArticle != null) {
+
+        if (b){
+            tForumArticle.setContentText(fileName);
             b = fas.addArticle(tForumArticle);
         }
+
         return b;
 
     }

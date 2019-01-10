@@ -23,6 +23,12 @@ public class TForumArticle {
 
     private Integer commentCount;
 
+    private String contentDescribe;
+
+    private String isNull;
+
+    private Integer isNullInt;
+
     public Integer getId() {
         return id;
     }
@@ -103,6 +109,30 @@ public class TForumArticle {
         this.commentCount = commentCount;
     }
 
+    public String getContentDescribe() {
+        return contentDescribe;
+    }
+
+    public void setContentDescribe(String contentDescribe) {
+        this.contentDescribe = contentDescribe == null ? null : contentDescribe.trim();
+    }
+
+    public String getIsNull() {
+        return isNull;
+    }
+
+    public void setIsNull(String isNull) {
+        this.isNull = isNull == null ? null : isNull.trim();
+    }
+
+    public Integer getIsNullInt() {
+        return isNullInt;
+    }
+
+    public void setIsNullInt(Integer isNullInt) {
+        this.isNullInt = isNullInt;
+    }
+
     @Override
     public String toString() {
         return "TForumArticle{" +
@@ -116,6 +146,9 @@ public class TForumArticle {
                 ", fkApplaudStatus=" + fkApplaudStatus +
                 ", browseConut=" + browseConut +
                 ", commentCount=" + commentCount +
+                ", contentDescribe='" + contentDescribe + '\'' +
+                ", isNull='" + isNull + '\'' +
+                ", isNullInt=" + isNullInt +
                 '}';
     }
 }
