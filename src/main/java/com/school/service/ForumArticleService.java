@@ -24,7 +24,7 @@ public interface ForumArticleService {
      * @param id fk_forum_type_key
      * @return List<TForumArticleVo>
      */
-    List<TForumArticleVo> findByFkTypeIdToArticle(int id);
+    List<TForumArticleVo> findByFkTypeIdToArticle(int id,int start, int end);
 
     /**
      * 通过 标题 查询

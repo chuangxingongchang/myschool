@@ -102,33 +102,28 @@ public class ForumArticleServiceImpl implements ForumArticleService {
     }
 
     @Override
-    public List<TForumArticleVo> findByFkTypeIdToArticle(int id) {
-        TForumArticleExample fae = new TForumArticleExample();
+    public List<TForumArticleVo> findByFkTypeIdToArticle(int id, int start, int end) {
         List<TForumArticle> lfa = new ArrayList<>();
         List<TForumArticleVo> lfavO = new ArrayList<>();
-        //最新文章则不加条件 只排序
+        Map<String, Object> map = new HashMap<>();
+        //最新文章则不加条件 只排序 limit
+        map.put("start", start);
+        map.put("end", end);
         if (id != 2) {
-            fae.or()
-                    .andFkForumTypeKeyEqualTo(id);
             if (id == 1) {
-                fae.setOrderByClause("browse_conut desc");
-
+                map.put("order_desc", "browse_conut desc");
             } else {
-                fae.setOrderByClause("create_time desc");
+                map.put("order_desc", "create_time desc");
             }
-            List<TForumArticle> list = tam.selectByExample(fae);
-            for (TForumArticle tf : list) {
-                lfavO.add(get(tf));
-            }
+            map.put("typeId", id);
+            lfa = tam.selectLimitOrderTimeDescAndWhere(map);
         } else {
-            fae.setOrderByClause("create_time desc");
-            List<TForumArticle> list = tam.selectByExample(fae);
-            for (TForumArticle tf : list) {
-                lfavO.add(get(tf));
-            }
+            map.put("order_desc", "create_time desc");
+            lfa = tam.selectLimitOrderTimeDesc(map);
         }
-
-
+        for (TForumArticle tf : lfa) {
+            lfavO.add(get(tf));
+        }
         return lfavO;
     }
 

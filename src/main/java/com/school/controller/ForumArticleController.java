@@ -246,9 +246,10 @@ public class ForumArticleController {
      * @return
      */
     @RequestMapping("/singleTypeAll")
-    public ModelAndView selectForumSingleType(int id) {
+    public ModelAndView selectForumSingleType(int id,int start, int end) {
+        System.out.println(id+","+start+","+end);
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-        List<TForumArticleVo> lfaVo = fas.findByFkTypeIdToArticle(id);
+        List<TForumArticleVo> lfaVo = fas.findByFkTypeIdToArticle(id,start,end);
         if (lfaVo.size() != 0 ) {
             List<Integer> li = new ArrayList<>();
             for (TForumArticleVo tf : lfaVo) {
