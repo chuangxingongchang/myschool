@@ -13,7 +13,7 @@ public class TForumArticleVo {
 
     private String contentText;
 
-    private Date createTime;
+    private String createTime;
 
     private TUser fkUserKey;
 
@@ -87,11 +87,11 @@ public class TForumArticleVo {
         this.contentText = contentText == null ?null :  contentText.trim();;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 

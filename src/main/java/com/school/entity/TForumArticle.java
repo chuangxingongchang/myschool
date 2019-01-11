@@ -11,7 +11,7 @@ public class TForumArticle {
 
     private String contentText;
 
-    private Date createTime;
+    private String createTime;
 
     private Integer fkUserKey;
 
@@ -61,11 +61,11 @@ public class TForumArticle {
         this.contentText = contentText == null ? null : contentText.trim();
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 

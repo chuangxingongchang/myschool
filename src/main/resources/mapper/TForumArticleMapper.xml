@@ -6,7 +6,7 @@
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="fk_forum_type_key" property="fkForumTypeKey" jdbcType="INTEGER" />
     <result column="content_text" property="contentText" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
     <result column="fk_user_key" property="fkUserKey" jdbcType="INTEGER" />
     <result column="violation_count" property="violationCount" jdbcType="INTEGER" />
     <result column="fk_applaud_status" property="fkApplaudStatus" jdbcType="INTEGER" />
@@ -75,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, fk_forum_type_key, content_text, create_time, fk_user_key, violation_count, 
+    id, title, fk_forum_type_key, content_text, create_time, fk_user_key, violation_count,
     fk_applaud_status, browse_conut, comment_count, content_describe, is_null, is_null_int
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TForumArticleExample" >
@@ -110,12 +110,12 @@
   </delete>
   <insert id="insert" parameterType="com.school.entity.TForumArticle" >
     insert into t_forum_article (id, title, fk_forum_type_key, 
-      content_text, create_time, fk_user_key, 
+      content_text, create_time, fk_user_key,
       violation_count, fk_applaud_status, browse_conut, 
       comment_count, content_describe, is_null, 
       is_null_int)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{fkForumTypeKey,jdbcType=INTEGER}, 
-      #{contentText,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{fkUserKey,jdbcType=INTEGER}, 
+      #{contentText,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{fkUserKey,jdbcType=INTEGER},
       #{violationCount,jdbcType=INTEGER}, #{fkApplaudStatus,jdbcType=INTEGER}, #{browseConut,jdbcType=INTEGER}, 
       #{commentCount,jdbcType=INTEGER}, #{contentDescribe,jdbcType=VARCHAR}, #{isNull,jdbcType=VARCHAR}, 
       #{isNullInt,jdbcType=INTEGER})
@@ -177,7 +177,7 @@
         #{contentText,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=DATE},
+        #{createTime,jdbcType=VARCHAR},
       </if>
       <if test="fkUserKey != null" >
         #{fkUserKey,jdbcType=INTEGER},
@@ -227,7 +227,7 @@
         content_text = #{record.contentText,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null" >
-        create_time = #{record.createTime,jdbcType=DATE},
+        create_time = #{record.createTime,jdbcType=VARCHAR},
       </if>
       <if test="record.fkUserKey != null" >
         fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
@@ -264,7 +264,7 @@
       title = #{record.title,jdbcType=VARCHAR},
       fk_forum_type_key = #{record.fkForumTypeKey,jdbcType=INTEGER},
       content_text = #{record.contentText,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=DATE},
+      create_time = #{record.createTime,jdbcType=VARCHAR},
       fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
       violation_count = #{record.violationCount,jdbcType=INTEGER},
       fk_applaud_status = #{record.fkApplaudStatus,jdbcType=INTEGER},
@@ -290,7 +290,7 @@
         content_text = #{contentText,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=DATE},
+        create_time = #{createTime,jdbcType=VARCHAR},
       </if>
       <if test="fkUserKey != null" >
         fk_user_key = #{fkUserKey,jdbcType=INTEGER},
@@ -324,7 +324,7 @@
     set title = #{title,jdbcType=VARCHAR},
       fk_forum_type_key = #{fkForumTypeKey,jdbcType=INTEGER},
       content_text = #{contentText,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=VARCHAR},
       fk_user_key = #{fkUserKey,jdbcType=INTEGER},
       violation_count = #{violationCount,jdbcType=INTEGER},
       fk_applaud_status = #{fkApplaudStatus,jdbcType=INTEGER},
@@ -383,6 +383,13 @@
     SELECT  <include refid="Base_Column_List"/>
     FROM t_forum_article WHERE fk_user_key = #{userId}
     ORDER BY create_time ASC limit 10
+
+  </select>
+  <select id="selectLimitOrderDescBrow" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from  t_forum_article
+    where fk_forum_type_key  = #{typeId}
+    order by fk_forum_type_key desc
 
   </select>
 </mapper>

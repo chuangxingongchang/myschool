@@ -37,4 +37,6 @@ public interface TForumArticleMapper {
     Integer selectBrowseCount(int userId);
 
     List<TForumArticle> selectLimitArticle(int userId);
+
+    List<TForumArticle> selectLimitOrderDescBrow(int typeId);
 }

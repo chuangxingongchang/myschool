@@ -6,6 +6,7 @@ import com.school.entity.TUser;
 import com.school.finals.FinalsString;
 import com.school.mapper.TForumArticleMapper;
 import com.school.service.ForumArticleService;
+import com.school.util.DateUtil;
 import com.school.util.StringUitl;
 import com.school.util.UpLoadUtil;
 import com.school.vo.TForumArticleVo;
@@ -31,7 +32,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
     @Autowired
     TForumArticleMapper tam;
     ReadWriteLock rwl = new ReentrantReadWriteLock();
-    private String url = FinalsString.PROJECT_STATIC_RESOURCE_PATH_TEXT+"/";
+    private String url = FinalsString.PROJECT_STATIC_RESOURCE_PATH_TEXT + "/";
 
     /**
      * 查询文章
@@ -105,18 +106,29 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         TForumArticleExample fae = new TForumArticleExample();
         List<TForumArticle> lfa = new ArrayList<>();
         List<TForumArticleVo> lfavO = new ArrayList<>();
+        //最新文章则不加条件 只排序
+        if (id != 2) {
+            fae.or()
+                    .andFkForumTypeKeyEqualTo(id);
+            if (id == 1) {
+                fae.setOrderByClause("browse_conut desc");
 
-        fae.or()
-                .andFkForumTypeKeyEqualTo(id);
-        if (id == 1) {
-            fae.setOrderByClause("browse_conut desc");
-
-        }else {
+            } else {
+                fae.setOrderByClause("create_time desc");
+            }
+            List<TForumArticle> list = tam.selectByExample(fae);
+            for (TForumArticle tf : list) {
+                lfavO.add(get(tf));
+            }
+        } else {
             fae.setOrderByClause("create_time desc");
+            List<TForumArticle> list = tam.selectByExample(fae);
+            for (TForumArticle tf : list) {
+                lfavO.add(get(tf));
+            }
         }
-        for (TForumArticle tf : lfa) {
-            lfavO.add(get(tf));
-        }
+
+
         return lfavO;
     }
 
@@ -133,10 +145,9 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             }
 
         } catch (Exception e) {
-
-        } finally {
-            return lfaVo;
+            return null;
         }
+        return lfaVo;
     }
 
     @Override
@@ -177,7 +188,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             if (i != 0) {
                 b = true;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             return b;
         }
         return b;
@@ -220,8 +231,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         Integer i = 0;
         try {
             i = tam.selectBrowseCount(userId);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return i;
         }
         return i;
@@ -236,7 +246,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             for (TForumArticle tForumArticle : lfa) {
                 tForumArticle.setContentText(UpLoadUtil.inputFileData(tForumArticle.getContentText()).toString());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
         return lfa;
@@ -249,7 +259,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             for (TForumArticle tForumArticle : l) {
                 tForumArticle.setContentText(UpLoadUtil.inputFileData(tForumArticle.getContentText()).toString());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
         return l;
@@ -259,7 +269,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
     public Long selectArticleCount(int userId) {
         TForumArticleExample fae = new TForumArticleExample();
         fae.or().andFkUserKeyEqualTo(userId);
-        return (long)tam.countByExample(fae);
+        return (long) tam.countByExample(fae);
     }
 
     @Override
@@ -267,14 +277,14 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         boolean b = false;
         tForumArticle.setBrowseConut(0);
         tForumArticle.setCommentCount(0);
-        tForumArticle.setCreateTime(new Date());
+        tForumArticle.setCreateTime(DateUtil.getDate(new Date()));
         tForumArticle.setViolationCount(0);
         tForumArticle.setFkApplaudStatus(0);
         tForumArticle.setFkApplaudStatus(0);
         tForumArticle.setIsNull("");
         tForumArticle.setIsNullInt(0);
-        int i =tam.insert(tForumArticle);
-        if (i != 0 ) {
+        int i = tam.insert(tForumArticle);
+        if (i != 0) {
             b = true;
         }
         return b;
@@ -288,14 +298,14 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         try {
             if (tForumArticle != null) {
                 i = tam.updateByPrimaryKeySelective(tForumArticle);
-                if (i !=0) {
+                if (i != 0) {
                     b = true;
                 }
             }
-        }finally {
+        } catch (Exception e) {
             return b;
         }
-
+        return b;
     }
 
     @Override
@@ -303,15 +313,56 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         TForumArticleExample fae = new TForumArticleExample();
         fae.or()
                 .andIdIn(list);
-        List<TForumArticle> lfa =  tam.selectByExample(fae);
+        List<TForumArticle> lfa = tam.selectByExample(fae);
         try {
             for (TForumArticle tForumArticle : lfa) {
                 tForumArticle.setContentText(UpLoadUtil.inputFileData(tForumArticle.getContentText()).toString());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
         return lfa;
+    }
+
+    @Override
+    public boolean addListArticle(List<TForumArticle> listArticle) {
+        boolean b = false;
+        int i = 0;
+        for (TForumArticle tForumArticle : listArticle) {
+            TForumArticleExample tForumArticleExample = new TForumArticleExample();
+            tForumArticleExample.or()
+                    .andTitleEqualTo(tForumArticle.getTitle())
+                    .andFkForumTypeKeyEqualTo(1)
+                    .andContentTextEqualTo(tForumArticle.getContentText())
+                    .andFkUserKeyEqualTo(tForumArticle.getFkUserKey());
+            List<TForumArticle> list = tam.selectByExample(tForumArticleExample);
+            if (list.size() == 0) {
+                tForumArticle.setFkForumTypeKey(1);
+                tForumArticle.setId(null);
+                i = tam.insert(tForumArticle);
+                if (i != 1) {
+                    try {
+                        throw new Exception();
+                    } catch (Exception e) {
+                        return false;
+                    }
+                }
+                b = true;
+            }
+
+
+        }
+
+        return b;
+    }
+
+    @Override
+    public List<TForumArticle> selectTypeLimitOrderDescBro(int type_id) {
+        List<TForumArticle> list = tam.selectLimitOrderDescBrow(type_id);
+        if (0 != list.size()) {
+            return list;
+        }
+        return null;
     }
 
 
@@ -319,17 +370,18 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         TForumArticleVo avo = new TForumArticleVo();
         avo.setId(tf.getId());
         avo.setApplaud(tf.getFkApplaudStatus());
-        try {
+     /*   try {
             avo.setContentText(UpLoadUtil.inputFileData(tf.getContentText()).toString());
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
-        }
+        }*/
+        avo.setContentText(tf.getContentText());
         avo.setCommentCount(tf.getCommentCount());
         avo.setCreateTime(tf.getCreateTime());
         avo.setViolationCount(tf.getViolationCount());
         avo.setTitle(tf.getTitle());
         TUser u = new TUser();
-        u.setId(tf.getId());
+        u.setId(tf.getFkUserKey());
         avo.setFkUserKey(u);
         avo.setFkForumTypeKey(tf.getFkForumTypeKey());
         avo.setBrowseConut(tf.getBrowseConut());

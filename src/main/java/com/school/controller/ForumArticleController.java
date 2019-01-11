@@ -263,7 +263,7 @@ public class ForumArticleController {
                 }
             }
         }
-        modelAndView.addObject("listTypeForumVo", lfaVo);
+        modelAndView.addObject("listTypeForumVo",lfaVo);
         return modelAndView;
     }
 

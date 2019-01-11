@@ -103,4 +103,8 @@ public interface ForumArticleService {
      * @return
      */
     List<TForumArticle> selectFindById(List<Integer> list);
+
+    List<TForumArticle> selectTypeLimitOrderDescBro(int type_id);
+
+    boolean addListArticle(List<TForumArticle> listArticle);
 }
