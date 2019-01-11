@@ -100,15 +100,24 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         return lfa;
 
     }
-
     @Override
-    public List<TForumArticleVo> findByFkTypeIdToArticle(int id, int start, int end) {
+    public List<TForumArticleVo> findByFkTypeIdToArticle(int id, int start, int end,String dateTime) {
         List<TForumArticle> lfa = new ArrayList<>();
         List<TForumArticleVo> lfavO = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
         //最新文章则不加条件 只排序 limit
         map.put("start", start);
         map.put("end", end);
+
+        if (dateTime.equals("2888-88-88")) {
+            map.put("dateTime",null);
+            map.put("time","");
+        }else{
+            map.put("dateTime",dateTime);
+
+        }
+        System.out.println(map.get("dateTime"));
+        //判断分类
         if (id != 2) {
             if (id == 1) {
                 map.put("order_desc", "browse_conut desc");

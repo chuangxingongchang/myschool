@@ -396,6 +396,9 @@
   <select id="selectLimitOrderTimeDesc" parameterType="java.util.Map" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from  t_forum_article
+    <if test="dateTime != null">
+      where create_time > #{dateTime}
+    </if>
     order by #{order_desc}
      limit #{start},#{end}
   </select>
@@ -404,7 +407,15 @@
   <select id="selectLimitOrderTimeDescAndWhere" parameterType="java.util.Map" resultMap="BaseResultMap">
     select  <include refid="Base_Column_List"/>
     from t_forum_article
-    where fk_forum_type_key = #{typeId}
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="dateTime != null">
+        and create_time > #{dateTime}
+      </if>
+      <if test="typeId != null">
+        and fk_forum_type_key = #{typeId}
+      </if>
+    </trim>
+
     order by #{order_desc}
      LIMIT #{start},#{end}
   </select>
