@@ -27,7 +27,8 @@ public class PlurServiceImpl implements PlurService {
     @Override
     public List<TPlur> selectBySchool(int shoolId) {
         TPlurExample tPlurExample = new TPlurExample();
-        tPlurExample.or().andFkSchoolEqualTo(shoolId);
+        tPlurExample.or().andFkSchoolEqualTo(shoolId)
+        .andFkWorkstateEqualTo(1);
         return plurMapper.selectByExample(tPlurExample);
     }
     //根据id查询当前兼职

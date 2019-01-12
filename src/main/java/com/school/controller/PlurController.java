@@ -42,6 +42,7 @@ public class PlurController {
         System.out.println("进入学校兼职查询");
         List<TPlur> plurList = null;
         List<TUnit> unitList = null;
+        List<TSettle> settleList = jobAllUnitService.selectAllSettle();
         try {
             plurList = plurService.selectBySchool(fkSchoolId);
             unitList = plurService.selectAllUnit();
@@ -58,6 +59,7 @@ public class PlurController {
             ms.setStatus(false);
         } finally {
             mav.addObject("ms", ms);
+            mav.addObject("settl",settleList);
             mav.addObject("plur", plurList);
             mav.addObject("unit", unitList);
             return mav;

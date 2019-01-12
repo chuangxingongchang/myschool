@@ -1,15 +1,18 @@
 package com.school.service.impl;
 
-import com.school.entity.TPlur;
-import com.school.entity.TSignup;
-import com.school.entity.TSignupExample;
+import com.school.entity.*;
+import com.school.mapper.TIncomeMapper;
 import com.school.mapper.TPlurMapper;
 import com.school.mapper.TSignupMapper;
+import com.school.mapper.TUserMapper;
 import com.school.service.SignupService;
+import com.school.util.DateUtil;
+import com.school.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,6 +21,10 @@ public class SignupServiceImpl implements SignupService {
     private TSignupMapper tSignupMapper;
     @Autowired
     private TPlurMapper plurMapper;
+    @Autowired
+    private TUserMapper userMapper;
+    @Autowired
+    private TIncomeMapper incomeMapper;
 
     @Override
     public List<Integer> selectPlurId(int plurid,String signstate) {
@@ -30,6 +37,21 @@ public class SignupServiceImpl implements SignupService {
             integerList.add(t.getPkUid());
         }
         return  integerList;
+    }
+
+
+    @Override
+    public List<TSignup> selectSignup(int plurid, String signstate) {
+        TSignupExample signupExample = new TSignupExample();
+        signupExample.or().andPkPluridEqualTo(plurid)
+                .andSignstateEqualTo(signstate);
+        List<TSignup> signupList = tSignupMapper.selectByExample(signupExample);
+        for (TSignup t : signupList) {
+            if(t.getSignmoney()==null){
+                t.setSignmoney(0.0);
+            }
+        }
+        return signupList;
     }
 
     @Override
@@ -115,6 +137,99 @@ public class SignupServiceImpl implements SignupService {
             return true;
         }else {
             return false;
+        }
+    }
+
+    @Override
+    public Message updateMoney(int pkPlurid, double summoney) {
+        Message ms = new Message();
+        TPlur plur = plurMapper.selectByPrimaryKey(pkPlurid);
+        TUser user = userMapper.selectByPrimaryKey(plur.getFkPublisher());
+        if(summoney>user.getBalance()){
+            ms.setMsg("您的余额不足，请充值");
+            ms.setStatus(false);
+        }else{
+            if(user.getCredit()<=98){
+                int credit = user.getCredit()+2;
+                user.setCredit(credit);
+            }
+            double balance = user.getBalance()-summoney;
+            user.setBalance(balance);
+            int a = userMapper.updateByPrimaryKeySelective(user);
+            if(a>0){
+                TSignupExample signupExample = new TSignupExample();
+                signupExample.or().andPkPluridEqualTo(pkPlurid);
+                List<TSignup> signupList = tSignupMapper.selectByExample(signupExample);
+                if(signupList.size()>0){
+                    int b = 0;
+                    for (TSignup s : signupList) {
+                        TUser u = userMapper.selectByPrimaryKey(s.getPkUid());
+                        double sumbalance = u.getBalance()+s.getSignmoney();
+                        u.setBalance(sumbalance);
+                        b = userMapper.updateByPrimaryKeySelective(u);
+                        TIncome tIncome = new TIncome();
+                        tIncome.setFkUid(s.getPkUid());
+                        tIncome.setContent(plur.getWorkcontent());
+                        String date = DateUtil.getDate(new Date());
+                        tIncome.setMoneytime(date);
+                        tIncome.setMoneys(s.getSignmoney());
+                        int c = incomeMapper.insertSelective(tIncome);
+                        if(b<0){
+                            try {
+                                throw new Exception();
+                            } catch (Exception e) {
+                                ms.setStatus(false);
+                               ms.setMsg("系统异常...");
+                               break;
+                            }
+                        }
+                    }
+                    int c = plurMapper.deleteByPrimaryKey(pkPlurid);
+                    int d = tSignupMapper.deleteByExample(signupExample);
+                    if(c<=0||d<=0){
+                        try {
+                            throw new Exception();
+                        } catch (Exception e) {
+                            ms.setStatus(false);
+                            ms.setMsg("系统异常...");
+                        }
+                    }else{
+                        ms.setStatus(true);
+                    }
+                }else{
+                    try {
+                        throw new Exception();
+                    } catch (Exception e) {
+                        ms.setStatus(false);
+                        ms.setMsg("系统异常");
+                    }
+                }
+            }else{
+                try {
+                    throw  new Exception();
+                } catch (Exception e) {
+                    ms.setStatus(false);
+                    ms.setMsg("支付异常...");
+                }
+            }
+        }
+        return ms;
+    }
+
+    @Override
+    public Message insertSignup(TSignup signup) {
+        int a = tSignupMapper.insertSelective(signup);
+        Message ms = new Message();
+        if(a>0){
+            ms.setStatus(true);
+            return ms;
+        }else {
+            try {
+                throw new Exception();
+            } catch (Exception e) {
+                ms.setStatus(false);
+               return ms;
+            }
         }
     }
 }

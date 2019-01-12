@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.school.mapper.TIncomeMapper" >
+  <resultMap id="BaseResultMap" type="com.school.entity.TIncome" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="fk_uid" property="fkUid" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="moneyTime" property="moneytime" jdbcType="VARCHAR" />
+    <result column="moneys" property="moneys" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, fk_uid, content, moneyTime, moneys
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TIncomeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_income
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_income
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_income
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.school.entity.TIncomeExample" >
+    delete from t_income
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.school.entity.TIncome" >
+    insert into t_income (id, fk_uid, content, 
+      moneyTime, moneys)
+    values (#{id,jdbcType=INTEGER}, #{fkUid,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{moneytime,jdbcType=VARCHAR}, #{moneys,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.school.entity.TIncome" >
+    insert into t_income
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkUid != null" >
+        fk_uid,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="moneytime != null" >
+        moneyTime,
+      </if>
+      <if test="moneys != null" >
+        moneys,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fkUid != null" >
+        #{fkUid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="moneytime != null" >
+        #{moneytime,jdbcType=VARCHAR},
+      </if>
+      <if test="moneys != null" >
+        #{moneys,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.school.entity.TIncomeExample" resultType="java.lang.Integer" >
+    select count(*) from t_income
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_income
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.fkUid != null" >
+        fk_uid = #{record.fkUid,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moneytime != null" >
+        moneyTime = #{record.moneytime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moneys != null" >
+        moneys = #{record.moneys,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_income
+    set id = #{record.id,jdbcType=INTEGER},
+      fk_uid = #{record.fkUid,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      moneyTime = #{record.moneytime,jdbcType=VARCHAR},
+      moneys = #{record.moneys,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.school.entity.TIncome" >
+    update t_income
+    <set >
+      <if test="fkUid != null" >
+        fk_uid = #{fkUid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="moneytime != null" >
+        moneyTime = #{moneytime,jdbcType=VARCHAR},
+      </if>
+      <if test="moneys != null" >
+        moneys = #{moneys,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.school.entity.TIncome" >
+    update t_income
+    set fk_uid = #{fkUid,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      moneyTime = #{moneytime,jdbcType=VARCHAR},
+      moneys = #{moneys,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

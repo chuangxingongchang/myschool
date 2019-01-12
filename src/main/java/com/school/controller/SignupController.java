@@ -86,4 +86,59 @@ public class SignupController {
         mav.addObject("mes",ms);
         return mav;
     }
+    /**
+     * @param pkPlurid
+     * @param signstate
+     * @return
+     *描述:根据当前兼职id 和状态得到所有完成人员的信息 并计算他们的总值
+     */
+    @RequestMapping("/signupEnd")
+    public ModelAndView getsignUpEnd(int pkPlurid,String signstate){
+        List<Integer> integerList  = signupService.selectPlurId(pkPlurid,signstate);
+        List<TUser>  userList  = new ArrayList<TUser>();
+        List<TSignup> signupList = signupService.selectSignup(pkPlurid,signstate);
+        if (integerList.size()>0) {
+            for (Integer i : integerList) {
+                TUser user = userService.selectById(i);
+                userList.add(user);
+            }
+        }
+        double sumMoney = 0.0;
+        for (TSignup t : signupList) {
+            sumMoney += t.getSignmoney();
+        }
+        ms.setData(sumMoney);
+        mav.addObject("mm",ms);
+        mav.addObject("enduser",userList);
+        mav.addObject("endMoney",signupList);
+        return mav;
+    }
+
+    /**
+     * @param pkPlurid
+     * @param summoney
+     * @return
+     * 描述:根据提供的兼职id和总支付的钱，更新TSignup、TPlur、TUser的金额，
+     * 支付成功删除该条兼职的TSignup\TPlur的记录
+     */
+    @RequestMapping("/updateUserMoney")
+    public ModelAndView topayMoney(int pkPlurid,double summoney){
+        ms = signupService.updateMoney(pkPlurid,summoney);
+        mav.addObject("upMoney",ms);
+        System.out.println("执行成功与否？"+ms.isStatus());
+        return  mav;
+    }
+
+    /**
+     * @param signup
+     * @return
+     * 描述:用户对兼职进行报名，并把信息放入TSignup,
+     * 发布者查看当前报名者信息，以便发布者确认
+     */
+    @RequestMapping("/startSignup")
+    public ModelAndView comeSignup(TSignup signup){
+        ms = signupService.insertSignup(signup);
+        mav.addObject("startms",ms);
+        return mav;
+    }
 }
