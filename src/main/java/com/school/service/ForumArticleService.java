@@ -29,11 +29,11 @@ public interface ForumArticleService {
     List<TForumArticleVo> findByFkTypeIdToArticle(int id,int start, int end,String dateTime);
 
     /**
-     * 通过 标题 查询
-     * @param title article
+     * 通过 id 查询
+     * @param article_id article_id
      * @return TForumArticle
      */
-    TForumArticleVo findByTitleToArticle(String title);
+    TForumArticleVo findByTitleToArticle(int article_id);
 
     /**
      * Titile限制条数返回Article

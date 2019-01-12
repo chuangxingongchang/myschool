@@ -33,6 +33,7 @@ public class ForumCommentServiceImpl implements ForumCommentService {
         TForumCommentExample fce = new TForumCommentExample();
         fce.or()
                 .andFkForumArticleKeyEqualTo(id);
+        fce.setOrderByClause("create_time asc");
         lfc = fcm.selectByExample(fce);
         try {
             if (lfc != null && lfc.size() != 0) {

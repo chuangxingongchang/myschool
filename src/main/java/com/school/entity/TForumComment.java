@@ -11,7 +11,7 @@ public class TForumComment {
 
     private String ranks;
 
-    private Date createTime;
+    private String createTime;
 
     private String contentText;
 
@@ -47,11 +47,11 @@ public class TForumComment {
         this.ranks = ranks == null ? null : ranks.trim();
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 

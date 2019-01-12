@@ -16,8 +16,8 @@
     <result column="is_null" property="isNull" jdbcType="VARCHAR" />
     <result column="is_null_int" property="isNullInt" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
+  <sql id="Example_Where_Clause">
+    <where>
       <foreach collection="oredCriteria" item="criteria" separator="or" >
         <if test="criteria.valid" >
           <trim prefix="(" suffix=")" prefixOverrides="and" >
