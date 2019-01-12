@@ -241,14 +241,17 @@ public class ForumArticleController {
 
     /**
      * 通过分类类型ID 查询 分类下的所有 文章
-     *
-     * @param id
+     * @param id 类型
+     * @param start 开始index
+     * @param end 截止index
+     * @Param dateTime 时间
      * @return
      */
     @RequestMapping("/singleTypeAll")
-    public ModelAndView selectForumSingleType(int id) {
+    public ModelAndView selectForumSingleType(int id,int start, int end,String dateTime) {
+        System.out.println(id+","+start+","+end+","+dateTime);
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-        List<TForumArticleVo> lfaVo = fas.findByFkTypeIdToArticle(id);
+        List<TForumArticleVo> lfaVo = fas.findByFkTypeIdToArticle(id,start,end,dateTime);
         if (lfaVo.size() != 0 ) {
             List<Integer> li = new ArrayList<>();
             for (TForumArticleVo tf : lfaVo) {

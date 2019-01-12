@@ -100,35 +100,39 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         return lfa;
 
     }
-
     @Override
-    public List<TForumArticleVo> findByFkTypeIdToArticle(int id) {
-        TForumArticleExample fae = new TForumArticleExample();
+    public List<TForumArticleVo> findByFkTypeIdToArticle(int id, int start, int end,String dateTime) {
         List<TForumArticle> lfa = new ArrayList<>();
         List<TForumArticleVo> lfavO = new ArrayList<>();
-        //最新文章则不加条件 只排序
-        if (id != 2) {
-            fae.or()
-                    .andFkForumTypeKeyEqualTo(id);
-            if (id == 1) {
-                fae.setOrderByClause("browse_conut desc");
+        Map<String, Object> map = new HashMap<>();
+        //最新文章则不加条件 只排序 limit
+        map.put("start", start);
+        map.put("end", end);
 
-            } else {
-                fae.setOrderByClause("create_time desc");
-            }
-            List<TForumArticle> list = tam.selectByExample(fae);
-            for (TForumArticle tf : list) {
-                lfavO.add(get(tf));
-            }
-        } else {
-            fae.setOrderByClause("create_time desc");
-            List<TForumArticle> list = tam.selectByExample(fae);
-            for (TForumArticle tf : list) {
-                lfavO.add(get(tf));
-            }
+        if (dateTime.equals("2888-88-88")) {
+            map.put("dateTime",null);
+            map.put("time","");
+        }else{
+            map.put("dateTime",dateTime);
+
         }
-
-
+        System.out.println(map.get("dateTime"));
+        //判断分类
+        if (id != 2) {
+            if (id == 1) {
+                map.put("order_desc", "browse_conut desc");
+            } else {
+                map.put("order_desc", "create_time desc");
+            }
+            map.put("typeId", id);
+            lfa = tam.selectLimitOrderTimeDescAndWhere(map);
+        } else {
+            map.put("order_desc", "create_time desc");
+            lfa = tam.selectLimitOrderTimeDesc(map);
+        }
+        for (TForumArticle tf : lfa) {
+            lfavO.add(get(tf));
+        }
         return lfavO;
     }
 

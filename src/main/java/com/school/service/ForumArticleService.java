@@ -20,11 +20,13 @@ public interface ForumArticleService {
     List<TForumArticleVo> findByTitleAndContentLikeToArticle(String likeTitle);
 
     /**
-     * 查询 分类下的 所有 文章
-     * @param id fk_forum_type_key
-     * @return List<TForumArticleVo>
+     * 查询 分类下 文章 一次返回start-end条
+     * @param id 分类
+     * @param start 开始index
+     * @param end 结束 index
+     * @return
      */
-    List<TForumArticleVo> findByFkTypeIdToArticle(int id);
+    List<TForumArticleVo> findByFkTypeIdToArticle(int id,int start, int end,String dateTime);
 
     /**
      * 通过 标题 查询
