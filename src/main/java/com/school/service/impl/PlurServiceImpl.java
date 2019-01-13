@@ -107,4 +107,14 @@ public class PlurServiceImpl implements PlurService {
            return false;
        }
     }
+
+    @Override
+    public List<TPlur> selectPlurBySL(int fkSchoolId, int fkTimetype) {
+        TPlurExample plurExample = new TPlurExample();
+        plurExample.or().andFkSchoolEqualTo(fkSchoolId)
+                .andFkTimetypeEqualTo(fkTimetype)
+                .andFkWorkstateEqualTo(1);
+        List<TPlur> tPlurList = plurMapper.selectByExample(plurExample);
+        return tPlurList;
+    }
 }

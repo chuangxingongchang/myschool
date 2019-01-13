@@ -210,4 +210,19 @@ public class PlurController {
         mav.addObject("ms",ms);
         return mav;
     }
+    @RequestMapping("/SLjob")
+    public ModelAndView selectBySLPlur(int fkSchool,int fkTimetype){
+        System.out.println("进入短长期兼职");
+        List<TPlur> tPlurList = plurService.selectPlurBySL(fkSchool,fkTimetype);
+        List<TUnit> unitList = plurService.selectAllUnit();
+        if(tPlurList.size()>0){
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+        mav.addObject("mssl",ms);
+        mav.addObject("unit",unitList);
+        mav.addObject("slList",tPlurList);
+        return mav;
+    }
 }

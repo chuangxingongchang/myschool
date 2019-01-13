@@ -36,4 +36,6 @@ public interface PlurService {
     boolean insertPlur(TPlur plur);
     //更新访问次数
     boolean updateCounts(int id,int counts);
+    //根据学校查询短期、长期
+    List<TPlur> selectPlurBySL(int fkSchoolId,int fkTimetype);
 }

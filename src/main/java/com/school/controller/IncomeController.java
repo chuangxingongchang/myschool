@@ -26,6 +26,7 @@ public class IncomeController {
      */
     @RequestMapping("/myincome")
     public ModelAndView getMyAllincome(int fkUid){
+        System.out.println("进入收入明细页");
         List<TIncome> incomeList = incomeService.selectAllIncome(fkUid);
         if(incomeList.size()>0){
             ms.setStatus(true);
