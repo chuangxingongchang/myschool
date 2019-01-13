@@ -28,7 +28,7 @@ public class ForumCommentReplyServiceImpl  implements ForumCommentReplyService {
                 .andFkForumCommentKeyIn(id);
         List<TCommentReply> lcr = crm.selectByExample(cre);
         try {
-            if (lcr != null && lcr.size() != 0) {
+            if (lcr != null) {
                 return lcr;
             }
         } catch (Exception e) {

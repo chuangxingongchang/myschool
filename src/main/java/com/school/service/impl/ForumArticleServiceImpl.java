@@ -137,10 +137,10 @@ public class ForumArticleServiceImpl implements ForumArticleService {
     }
 
     @Override
-    public TForumArticleVo findByTitleToArticle(String title) {
+    public TForumArticleVo findByTitleToArticle(int article_id) {
         TForumArticleExample fae = new TForumArticleExample();
         fae.or()
-                .andTitleEqualTo(title);
+                .andIdEqualTo(article_id);
         List<TForumArticle> lfa = tam.selectByExample(fae);
         TForumArticleVo lfaVo = null;
         try {
@@ -161,19 +161,24 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         fae.or()
                 .andTitleLike("%" + title + "%");
         List<TForumArticle> lfa = tam.selectByExample(fae);
-        if (lfa != null && lfa.size() != 0) {
-            if (lfa.size() >= 6) {
-                for (int i = 0; i < 5; i++) {
-                    lfaVo.add(get(lfa.get(i)));
+        try{
+            if (lfa != null) {
+                if (lfa.size() >= 6) {
+                    for (int i = 0; i < 5; i++) {
+                        lfaVo.add(get(lfa.get(i)));
+                    }
+                } else if (lfa.size() <= 5) {
+                    for (TForumArticle tf : lfa) {
+                        lfaVo.add(get(tf));
+                    }
                 }
-            } else if (lfa.size() <= 5) {
-                for (TForumArticle tf : lfa) {
-                    lfaVo.add(get(tf));
-                }
+            }else {
+                return  null;
             }
-
+        }catch (Exception e){
+            System.out.println(e.toString());
+            return null;
         }
-
         return lfaVo;
     }
 
@@ -374,12 +379,11 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         TForumArticleVo avo = new TForumArticleVo();
         avo.setId(tf.getId());
         avo.setApplaud(tf.getFkApplaudStatus());
-     /*   try {
+       try {
             avo.setContentText(UpLoadUtil.inputFileData(tf.getContentText()).toString());
         } catch (Exception e) {
             System.out.println(e.toString());
-        }*/
-        avo.setContentText(tf.getContentText());
+        }
         avo.setCommentCount(tf.getCommentCount());
         avo.setCreateTime(tf.getCreateTime());
         avo.setViolationCount(tf.getViolationCount());
