@@ -97,30 +97,6 @@ public class StringUitl {
         return news;
     }
 
-    /**
-     * 获取评论楼层
-     *
-     * @param rank
-     * @return
-     */
-    public static String getRank(int rank) {
-        String rankS = "";
-        if (rank == 1) {
-            rankS = "沙发";
-        } else if (rank == 2) {
-            rankS = "板凳";
-        } else if (rank > 3) {
-            rankS = rank + "楼";
-        }
-        return rankS;
-
-
-    }
-
-    public static void main(String[] args) {
-
-        System.out.println(stringFilter("是你呀还是我呀"));
-    }
 
     /**
      * 敏感词汇验证

@@ -59,20 +59,21 @@ public class ForumCommentController {
      * 添加评论
      * @param articleId 文章
      * @param userId 评论人
-     * @param rank 楼
+     * @param ranks 楼
      * @param content 内容
      * @return boolean
      */
     @RequestMapping("/addComment")
     public boolean addComment(
-            int articleId, int userId, int rank, String content) {
+            int articleId, int userId, String ranks, String content) {
         boolean b = false;
         TForumComment tfc = new TForumComment();
         if (articleId != 0 && userId != 0 && content!= null) {
-            tfc.setCreateTime(DateUtil.getDate(new Date()));
+            tfc.setCreateTime(DateUtil.getLongDate(new Date()));
             tfc.setFkForumArticleKey(articleId);
             tfc.setFkUserKey(userId);
-            tfc.setRanks(StringUitl.getRank(rank));
+            tfc.setContentText(content);
+            tfc.setRanks(ranks);
             b  = forumCommentService.addComment(tfc);
         }
         if (b) {

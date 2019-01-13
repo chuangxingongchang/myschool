@@ -2,6 +2,7 @@ package com.school.controller;
 
 import com.school.entity.TCommentReply;
 import com.school.service.ForumCommentReplyService;
+import com.school.util.DateUtil;
 import com.school.util.StringUitl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,9 +40,9 @@ public class ForumCommentReplyController {
             }
         }catch (Exception e) {
 
-        }finally {
-            return modelAndView;
         }
+            return modelAndView;
+
     }
 
     /**
@@ -51,7 +53,7 @@ public class ForumCommentReplyController {
      * @return boolean
      */
     @RequestMapping("/add")
-    public boolean addReply(int commentKey,String content, int userId) {
+    public boolean addReply(int commentKey,String content, int userId,String ranks) {
         TCommentReply tcr = new TCommentReply();
         boolean b = false;
         try {
@@ -59,7 +61,8 @@ public class ForumCommentReplyController {
                 tcr.setContentText(content);
                 tcr.setFkForumCommentKey(commentKey);
                 tcr.setFkUserKey(userId);
-
+                tcr.setCreateTime(DateUtil.getLongDate(new Date()));
+                tcr.setRanks(ranks);
                 b = forumCommentReplyService.addReply(tcr);
             }
         }catch (Exception e){

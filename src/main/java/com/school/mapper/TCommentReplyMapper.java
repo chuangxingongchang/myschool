@@ -2,12 +2,11 @@ package com.school.mapper;
 
 import com.school.entity.TCommentReply;
 import com.school.entity.TCommentReplyExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 public interface TCommentReplyMapper {
-    long countByExample(TCommentReplyExample example);
+    int countByExample(TCommentReplyExample example);
 
     int deleteByExample(TCommentReplyExample example);
 
