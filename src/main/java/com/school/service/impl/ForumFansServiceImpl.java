@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: XiTao
@@ -29,17 +31,18 @@ public class ForumFansServiceImpl implements ForumFansService {
     }
 
     @Override
-    public List<TForumFans> selectMeFansUser(int userId) {
-        TForumFansExample ffe = new TForumFansExample();
-        ffe.or().andFkDecideUserEqualTo(userId);
-        List<TForumFans> lff = new ArrayList<>();
-        try {
-                lff = ffm.selectByExample(ffe);
-
-        } finally {
-            return lff;
+    public List<TForumFans> selectMeFansUser(int userId,int start,int end) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("start",start);
+        map.put("end",end);
+        List<TForumFans> forumFans  = ffm.selectLimitStartToEnd(map);
+        if (forumFans == null) {
+            return  null;
         }
+        return forumFans;
     }
+
 
     @Override
     public boolean addFans(int userId, int decideId) {

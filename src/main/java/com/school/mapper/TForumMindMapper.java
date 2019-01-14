@@ -5,6 +5,7 @@ import com.school.entity.TForumMindExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TForumMindMapper {
     long countByExample(TForumMindExample example);
@@ -28,4 +29,6 @@ public interface TForumMindMapper {
     int updateByPrimaryKeySelective(TForumMind record);
 
     int updateByPrimaryKey(TForumMind record);
+
+    List<TForumMind> selectLimitStartToEnd(Map<String,Object> map);
 }

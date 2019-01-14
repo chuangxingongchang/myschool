@@ -282,37 +282,52 @@ public class ForumArticleController {
         return modelAndView;
     }
 
-    @RequestMapping("personalAll")
+    /**
+     * 根据用户_Id查询 用户信息
+     * @param userId
+     * @return
+     */
+    @RequestMapping("personalAllInfo")
     public ModelAndView selectPersonalAll(int userId) {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         Map map = new HashMap();
-        List<TForumArticle> lfa = fas.selectLimitArticle(userId);
-        map.put("articleLimit", lfa);
-        Long count = fas.selectArticleCount(userId);
-        map.put("articleC", count);
-        Integer count1 = fas.selectBrowseCountArticle(userId);
-        map.put("browseC", count1);
-
-
-        Long l1 = forumFansService.selectCountFansUser(userId);
-        map.put("fansC", l1);
-        List<Integer> li = new ArrayList<>();
-        li.add(userId);
-        List<TUser> tuser = userService.selectUserIdIn(li);
-        TUser u = new TUser();
-        for (TUser tUser : tuser) {
-            u = tUser;
+        //查询最近动态
+        List<TForumArticle> newsArticleList = fas.selectLimitArticle(userId);
+        //查询动态用户
+        List<Integer> integers = new ArrayList<>();
+        for (TForumArticle forumArticle : newsArticleList) {
+            integers.add(forumArticle.getFkUserKey());
         }
-        map.put("tuser", u);
+        List<TUser> newsUserList = userService.selectUserIdIn(integers);
+        map.put("newsUserList", newsUserList);
+        map.put("newsArticleList", newsArticleList);
 
-        TIntegralIco tin = inte.selectFkIdICO(u.getFkIntegralId());
-        map.put("inte", tin);
-
-        Long l = mindService.selectCountMindUser(userId);
-        map.put("mindC", l);
-
-        Long signL = forumUserSignService.selectSignCount(userId);
-        map.put("signC", signL);
+        //个人发布过多少论坛
+        Long totalArticleItem = fas.selectArticleCount(userId);
+        map.put("totalArticleItem", totalArticleItem);
+        //所有文章总浏览量
+        Integer totalArticleBrowse = fas.selectBrowseCountArticle(userId);
+        map.put("totalArticleBrowse", totalArticleBrowse);
+        //粉丝数量
+        Long  totalFansItem = forumFansService.selectCountFansUser(userId);
+        map.put("totalFansItem", totalFansItem);
+        //个人信息
+        List<Integer> personId = new ArrayList<>();
+        personId.add(userId);
+        List<TUser> user = userService.selectUserIdIn(personId);
+        map.put("user", user);
+        try{
+            TIntegralIco personIntegralIco = inte.selectFkIdICO(user.get(0).getFkIntegralId());
+            map.put("personIntegralIco", personIntegralIco);
+        }catch(NullPointerException |IndexOutOfBoundsException e ){
+            System.out.println(e.toString());
+        }
+        //个人关注的数量
+        Long totalMindItem = mindService.selectCountMindUser(userId);
+        map.put("totalMindItem", totalMindItem);
+        //个人收藏数量
+        Long totalSignItem = forumUserSignService.selectSignCount(userId);
+        map.put("totalSignItem", totalSignItem);
         modelAndView.addAllObjects(map);
         return modelAndView;
     }
