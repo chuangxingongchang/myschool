@@ -41,6 +41,12 @@ public class ForumFansController {
         return  modelAndView;
     }
 
+    /**
+     * 删除粉丝
+     * @param userId 主动关注的人 成为粉丝
+     * @param deid 被动人
+     * @return
+     */
     @RequestMapping("/deleteFans")
     public  boolean deleteFans(int userId,int deid){
         boolean b = false;

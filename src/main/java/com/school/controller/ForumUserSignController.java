@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2018/12/28.
+ * 用户收藏controller
  */
 @RestController
 @RequestMapping("/sign")
@@ -26,6 +27,12 @@ public class ForumUserSignController {
 
     boolean b = false;
 
+    /**
+     * 判断用户是否收藏过
+     * @param userId 谁
+     * @param articleId 是否关注的 文章
+     * @return
+     */
     @RequestMapping("/boolean")
     public boolean selectMeWhetherSign(int userId, int articleId){
 
@@ -34,6 +41,12 @@ public class ForumUserSignController {
 
     }
 
+    /**
+     * 添加收藏
+     * @param userId 谁
+     * @param articleId 收藏文章_id
+     * @return
+     */
     @RequestMapping("/add")
     public boolean addSign(int userId, int articleId){
         b =   forumUserSignService.addSign(userId,articleId);
@@ -41,6 +54,12 @@ public class ForumUserSignController {
 
     }
 
+    /**
+     * 删除收藏
+     * @param userId 谁
+     * @param articleId 删除收藏文章_id
+     * @return
+     */
     @RequestMapping("/delete")
     public boolean deleteSign(int userId, int articleId){
         b =   forumUserSignService.deleteSign(userId,articleId);

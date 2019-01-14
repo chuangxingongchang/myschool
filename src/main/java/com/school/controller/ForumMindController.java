@@ -30,6 +30,12 @@ public class ForumMindController {
     @Autowired
     UserService userService;
 
+    /**
+     * 添加关注
+     * @param mindUserId
+     * @param decideUserId
+     * @return
+     */
     @RequestMapping("/addMind")
     public boolean addMind(int mindUserId, int decideUserId){
         boolean b = false;
@@ -39,15 +45,8 @@ public class ForumMindController {
             tForumMind.setFkDecideUser(decideUserId);
             tForumMind.setFkMindUser(mindUserId);
              mindService.insertMeMindPerson(tForumMind);
-
             fansService.selectMeTrueFalseFans(mindUserId,decideUserId);
-
               b = fansService.addFans(mindUserId,decideUserId);
-
-
-
-
-
         }
 
          return b;
@@ -87,6 +86,12 @@ public class ForumMindController {
         return modelAndView;
     }
 
+    /**
+     * 判断用户是否关注过谁
+     * @param userId 主动关注人
+     * @param deId 被动人
+     * @return
+     */
     @RequestMapping("/booleanMind")
     public boolean selectMeTrueFalseMindHe(int userId, int deId){
        return   mindService.selectMeTrueFalseMindHe(userId,deId);

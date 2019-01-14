@@ -26,7 +26,7 @@ public class ForumUserSignServiceImpl implements ForumUserSignService {
                 .andFkUserKeyEqualTo(userId);
         List<TFkUserSign> list = tFkUserSignMapper.selectByExample(tFkUserSignExample);
         tFkUserSignExample.clear();
-        if (list != null && list.size() != 0) {
+        if (list.size() != 0) {
             for (TFkUserSign tFkUserSign : list) {
                 if (tFkUserSign.getStatus() == 1) {
                     b = true;
