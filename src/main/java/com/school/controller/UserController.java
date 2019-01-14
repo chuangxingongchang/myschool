@@ -1,6 +1,7 @@
 package com.school.controller;
 
 import com.school.entity.TUser;
+import com.school.service.SchoolService;
 import com.school.service.UserService;
 import com.school.util.JuheSend;
 import com.school.util.Message;
@@ -24,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SchoolService schoolService;
     /**
      * 用户注册
      */
@@ -226,8 +230,11 @@ public class UserController {
     @RequestMapping("/getUser")
     public ModelAndView getMyUser(String phoneno) {
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
+        Message ms = new Message();
         try {
             TUser users = userService.selectByPhoneno(phoneno);
+            String schoolname = schoolService.selectByFkSchoolId(users.getFkSchoolId());
+            ms.setMsg(schoolname);
             if (users == null) {
                 return null;
             } else {
@@ -236,6 +243,7 @@ public class UserController {
         }catch (Exception e){
            mav.addObject("tuser",null);
         }
+        mav.addObject("scms",ms);
         return mav;
     }
 

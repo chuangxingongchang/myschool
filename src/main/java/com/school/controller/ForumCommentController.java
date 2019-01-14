@@ -68,7 +68,7 @@ public class ForumCommentController {
         boolean b = false;
         TForumComment tfc = new TForumComment();
         if (articleId != 0 && userId != 0 && content!= null) {
-            tfc.setCreateTime(new Date());
+            tfc.setCreateTime(String.valueOf(new Date()));
             tfc.setFkForumArticleKey(articleId);
             tfc.setFkUserKey(userId);
             tfc.setRanks(StringUitl.getRank(rank));
