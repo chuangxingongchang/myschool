@@ -20,7 +20,7 @@ public class ForumUserApplaudController {
      * 添加点赞
      * @param userId 谁
      * @param articleId 给哪篇文章点赞
-     * @return
+     *
      */
     @RequestMapping("/add")
     public boolean addApplaud(int userId, int articleId){
