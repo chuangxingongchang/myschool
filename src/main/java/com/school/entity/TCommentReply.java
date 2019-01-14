@@ -9,6 +9,10 @@ public class TCommentReply {
 
     private Integer fkUserKey;
 
+    private String createTime;
+
+    private String ranks;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +43,21 @@ public class TCommentReply {
 
     public void setFkUserKey(Integer fkUserKey) {
         this.fkUserKey = fkUserKey;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? null : createTime.trim();
+    }
+
+    public String getRanks() {
+        return ranks;
+    }
+
+    public void setRanks(String ranks) {
+        this.ranks = ranks == null ? null : ranks.trim();
     }
 }

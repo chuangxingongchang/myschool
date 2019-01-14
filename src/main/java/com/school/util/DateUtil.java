@@ -12,7 +12,7 @@ import java.util.Date;
 public class DateUtil {
 
     /**
-     * 获取时间String
+     * 获取 短 时间String
      *
      * @param date
      * @return
@@ -23,7 +23,18 @@ public class DateUtil {
         System.out.println(h);
         return h;
     }
-
+    /**
+     * 获取 长 时间String
+     *
+     * @param date
+     * @return
+     */
+    public static String getLongDate(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String h = simpleDateFormat.format(date);
+        System.out.println(h);
+        return h;
+    }
     /**
      * 获取时间date
      *

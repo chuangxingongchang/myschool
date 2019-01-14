@@ -353,6 +353,146 @@ public class TCommentReplyExample {
             addCriterion("fk_user_key not between", value1, value2, "fkUserKey");
             return (Criteria) this;
         }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(String value) {
+            addCriterion("create_time =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(String value) {
+            addCriterion("create_time <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(String value) {
+            addCriterion("create_time >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("create_time >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(String value) {
+            addCriterion("create_time <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(String value) {
+            addCriterion("create_time <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLike(String value) {
+            addCriterion("create_time like", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotLike(String value) {
+            addCriterion("create_time not like", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<String> values) {
+            addCriterion("create_time in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<String> values) {
+            addCriterion("create_time not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(String value1, String value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(String value1, String value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksIsNull() {
+            addCriterion("ranks is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksIsNotNull() {
+            addCriterion("ranks is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksEqualTo(String value) {
+            addCriterion("ranks =", value, "ranks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksNotEqualTo(String value) {
+            addCriterion("ranks <>", value, "ranks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksGreaterThan(String value) {
+            addCriterion("ranks >", value, "ranks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksGreaterThanOrEqualTo(String value) {
+            addCriterion("ranks >=", value, "ranks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksLessThan(String value) {
+            addCriterion("ranks <", value, "ranks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksLessThanOrEqualTo(String value) {
+            addCriterion("ranks <=", value, "ranks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksLike(String value) {
+            addCriterion("ranks like", value, "ranks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksNotLike(String value) {
+            addCriterion("ranks not like", value, "ranks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksIn(List<String> values) {
+            addCriterion("ranks in", values, "ranks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksNotIn(List<String> values) {
+            addCriterion("ranks not in", values, "ranks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksBetween(String value1, String value2) {
+            addCriterion("ranks between", value1, value2, "ranks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRanksNotBetween(String value1, String value2) {
+            addCriterion("ranks not between", value1, value2, "ranks");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
