@@ -29,7 +29,7 @@ public interface ForumMindService {
      * @param userId
      * @return
      */
-    List<TForumMind> selectMeMindUser(int userId);
+    List<TForumMind> selectMeMindUser(int userId,int start,int end);
 
     boolean selectMeTrueFalseMindHe(int userId, int deId);
 

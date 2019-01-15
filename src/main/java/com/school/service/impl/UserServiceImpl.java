@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
     public List<TUser> selectUserIdIn(List<Integer> id) {
         TUserExample tue = new TUserExample();
         List<TUser> lu = new ArrayList<>();
-        if (id !=null && id.size() !=0) {
+        if (id.size() !=0) {
             tue.or()
                     .andIdIn(id);
             lu = userMapper.selectByExample(tue);

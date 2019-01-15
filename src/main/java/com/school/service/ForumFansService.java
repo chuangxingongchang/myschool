@@ -22,7 +22,7 @@ public interface ForumFansService {
      * @param userId
      * @return  List<TForumFans>
      */
-    List<TForumFans> selectMeFansUser(int userId);
+    List<TForumFans> selectMeFansUser(int userId,int start, int end);
 
     /**
      * 添加粉丝

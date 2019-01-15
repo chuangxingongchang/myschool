@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: XiTao
@@ -48,15 +51,16 @@ public class ForumMindServiceImpl implements ForumMindService {
     }
 
     @Override
-    public List<TForumMind> selectMeMindUser(int userId) {
-        TForumMindExample fme = new TForumMindExample();
-        fme.or()
-                .andFkMindUserEqualTo(userId);
-        List<TForumMind> lfm = fmm.selectByExample(fme);
-
-
-            return lfm;
-
+    public List<TForumMind> selectMeMindUser(int userId, int start, int end) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("start", start);
+        map.put("end", end);
+        List<TForumMind> tForumMindList = fmm.selectLimitStartToEnd(map);
+        if (tForumMindList == null) {
+            return  null;
+        }
+        return tForumMindList;
 
     }
 
@@ -67,7 +71,7 @@ public class ForumMindServiceImpl implements ForumMindService {
         tForumMindExample.or()
                 .andFkMindUserEqualTo(userId)
                 .andFkDecideUserEqualTo(deId);
-       List<TForumMind> list =  fmm.selectByExample(tForumMindExample);
+        List<TForumMind> list = fmm.selectByExample(tForumMindExample);
         if (list.size() != 0 && list != null) {
             b = true;
         }
@@ -81,7 +85,7 @@ public class ForumMindServiceImpl implements ForumMindService {
         tForumMindExample.or()
                 .andFkMindUserEqualTo(userId)
                 .andFkDecideUserEqualTo(deId);
-        int  i = fmm.deleteByExample(tForumMindExample);
+        int i = fmm.deleteByExample(tForumMindExample);
         b = IntUtil.addDeleteUpdate(i);
 
 

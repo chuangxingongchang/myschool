@@ -5,6 +5,7 @@ import com.school.entity.TForumFansExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TForumFansMapper {
     long countByExample(TForumFansExample example);
@@ -28,4 +29,6 @@ public interface TForumFansMapper {
     int updateByPrimaryKeySelective(TForumFans record);
 
     int updateByPrimaryKey(TForumFans record);
+
+    List<TForumFans> selectLimitStartToEnd(Map<String,Object> map);
 }
