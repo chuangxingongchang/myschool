@@ -36,7 +36,7 @@ public class DateUtil {
         return h;
     }
     /**
-     * 获取时间date
+     * String获取时间 短 date
      *
      * @param s
      * @return
@@ -51,20 +51,43 @@ public class DateUtil {
         }
         return date;
     }
+    public static Date getLongDate(String s) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(s);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
 
     /**
-     * 时间戳转 String
+     * 时间戳转 长时间 String
      * @param args
      * @return
      */
-    public static String DateTimeTOString(String args) {
+    public static String DateTimeTOLongString(String args) {
         String format;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         long lt = new Long(args);
         Date date = new Date(lt);
         format = simpleDateFormat.format(date);
         return format;
     }
 
+    /**
+     * 时间戳转类型String的格式日期（yyyy-MM-dd）
+     * @param args
+     * @return
+     */
+    public static String DateTimeTOString(String args) {
+        String format;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd ");
+        long lt = new Long(args);
+        Date date = new Date(lt);
+        format = simpleDateFormat.format(date);
+        return format;
+    }
 
 }
