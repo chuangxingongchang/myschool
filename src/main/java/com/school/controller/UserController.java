@@ -1,6 +1,7 @@
 package com.school.controller;
 
 import com.school.entity.TUser;
+import com.school.service.SchoolService;
 import com.school.service.UserService;
 import com.school.util.JuheSend;
 import com.school.util.Message;
@@ -24,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SchoolService schoolService;
     /**
      * 用户注册
      */
@@ -87,6 +91,7 @@ public class UserController {
      */
     @RequestMapping("/logins")
     public ModelAndView login(TUser user) {
+        System.out.println("进入登录");
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         Message ms = new Message();
         try {
@@ -102,7 +107,7 @@ public class UserController {
             ms.setStatus(false);
             ms.setMsg("发生错误，请重新登录");
         } finally {
-            mav.addObject(ms);
+            mav.addObject("ms",ms);
             return mav;
         }
     }
@@ -225,17 +230,23 @@ public class UserController {
 
     @RequestMapping("/getUser")
     public ModelAndView getMyUser(String phoneno) {
+        System.out.println("获取用户中。。。。。。。。。。。。");
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
-        try {
-            TUser users = userService.selectByPhoneno(phoneno);
-            if (users == null) {
-                return null;
-            } else {
-                mav.addObject("tuser",users);
+        Message ms = new Message();
+        TUser users = userService.selectByPhoneno(phoneno);
+            if(users.getFkSchoolId()!=null){
+                String schoolname = schoolService.selectByFkSchoolId(users.getFkSchoolId());
+                ms.setMsg(schoolname);
+            }else{
+                ms.setMsg("您没有设置学校");
             }
-        }catch (Exception e){
-           mav.addObject("tuser",null);
-        }
+            if (users == null) {
+                ms.setStatus(false);
+            } else {
+                ms.setStatus(true);
+            }
+            mav.addObject("tuser",users);
+            mav.addObject("scms",ms);
         return mav;
     }
 
