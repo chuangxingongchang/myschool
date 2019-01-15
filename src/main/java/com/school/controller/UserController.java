@@ -3,7 +3,6 @@ package com.school.controller;
 import com.school.entity.TUser;
 import com.school.service.SchoolService;
 import com.school.service.UserService;
-import com.school.util.JuheSend;
 import com.school.util.Message;
 import com.school.util.Randoms;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,7 @@ public class UserController {
             ms.setStatus(false);
             ms.setMsg("验证码过时，请从新发送验证码");
         } finally {
-            mav.addObject(ms);
+            mav.addObject("mss",ms);
             return mav;
         }
     }
@@ -71,18 +70,20 @@ public class UserController {
         //获取验证码（调用工具类Randoms，随机获取六位验证码）
         String code = String.valueOf(Randoms.getIntRan());
         //发送验证码到手机（调用工具类JuheSend,使用聚合短信接口实现短信发送
-        boolean flag = JuheSend.mobileQuery(phoneno, code);
+        //boolean flag = JuheSend.mobileQuery(phoneno, code);
+        boolean flag = true;
         if (flag) {
             System.out.println("验证码发送:" + code);
             request.getSession().setAttribute("code", code);
             //session 中存在的验证码，存在5分钟
             request.getSession().setMaxInactiveInterval(300);
             ms.setStatus(true);
+            ms.setData(code);
         } else {
             ms.setStatus(false);
             ms.setMsg("验证码发送失败");
         }
-        mav.addObject(ms);
+        mav.addObject("mss",ms);
         return mav;
     }
 
@@ -209,6 +210,7 @@ public class UserController {
      */
     @RequestMapping("/updateUser")
     public ModelAndView updateMyUser(TUser user) {
+        System.out.println("用户修改进入jjjjjjjjjjjj");
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         Message ms = new Message();
         try {
