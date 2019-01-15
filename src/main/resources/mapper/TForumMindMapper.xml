@@ -179,7 +179,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectLimitStartToEnd" parameterType="java.util.map" resultMap="BaseResultMap">
+  <select id="selectLimitStartToEnd" parameterType="java.util.Map" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
     from t_forum_mind
     where fk_decide_user = #{userId}

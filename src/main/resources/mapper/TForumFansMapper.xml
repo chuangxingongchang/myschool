@@ -178,7 +178,7 @@
       fk_fans_user = #{fkFansUser,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectLimitStartToEnd" parameterType="java.util.map" resultMap="BaseResultMap">
+  <select id="selectLimitStartToEnd" parameterType="java.util.Map" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
      from t_forum_fans
     where fk_decide_user = #{userId}
