@@ -552,53 +552,63 @@ public class TUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andBrithdayEqualTo(Date value) {
-            addCriterionForJDBCDate("brithday =", value, "brithday");
+        public Criteria andBrithdayEqualTo(String value) {
+            addCriterion("brithday =", value, "brithday");
             return (Criteria) this;
         }
 
-        public Criteria andBrithdayNotEqualTo(Date value) {
-            addCriterionForJDBCDate("brithday <>", value, "brithday");
+        public Criteria andBrithdayNotEqualTo(String value) {
+            addCriterion("brithday <>", value, "brithday");
             return (Criteria) this;
         }
 
-        public Criteria andBrithdayGreaterThan(Date value) {
-            addCriterionForJDBCDate("brithday >", value, "brithday");
+        public Criteria andBrithdayGreaterThan(String value) {
+            addCriterion("brithday >", value, "brithday");
             return (Criteria) this;
         }
 
-        public Criteria andBrithdayGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("brithday >=", value, "brithday");
+        public Criteria andBrithdayGreaterThanOrEqualTo(String value) {
+            addCriterion("brithday >=", value, "brithday");
             return (Criteria) this;
         }
 
-        public Criteria andBrithdayLessThan(Date value) {
-            addCriterionForJDBCDate("brithday <", value, "brithday");
+        public Criteria andBrithdayLessThan(String value) {
+            addCriterion("brithday <", value, "brithday");
             return (Criteria) this;
         }
 
-        public Criteria andBrithdayLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("brithday <=", value, "brithday");
+        public Criteria andBrithdayLessThanOrEqualTo(String value) {
+            addCriterion("brithday <=", value, "brithday");
             return (Criteria) this;
         }
 
-        public Criteria andBrithdayIn(List<Date> values) {
-            addCriterionForJDBCDate("brithday in", values, "brithday");
+        public Criteria andBrithdayLike(String value) {
+            addCriterion("brithday like", value, "brithday");
             return (Criteria) this;
         }
 
-        public Criteria andBrithdayNotIn(List<Date> values) {
-            addCriterionForJDBCDate("brithday not in", values, "brithday");
+        public Criteria andBrithdayNotLike(String value) {
+            addCriterion("brithday not like", value, "brithday");
             return (Criteria) this;
         }
 
-        public Criteria andBrithdayBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("brithday between", value1, value2, "brithday");
+        public Criteria andBrithdayIn(List<String> values) {
+            addCriterion("brithday in", values, "brithday");
             return (Criteria) this;
         }
 
-        public Criteria andBrithdayNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("brithday not between", value1, value2, "brithday");
+        public Criteria andBrithdayNotIn(List<String> values) {
+            addCriterion("brithday not in", values, "brithday");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrithdayBetween(String value1, String value2) {
+            addCriterion("brithday between", value1, value2, "brithday");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrithdayNotBetween(String value1, String value2) {
+            addCriterion("brithday not between", value1, value2, "brithday");
             return (Criteria) this;
         }
 

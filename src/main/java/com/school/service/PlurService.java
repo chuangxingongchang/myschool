@@ -8,8 +8,14 @@ public interface PlurService {
     //查询所有兼职
     List<TPlur> selectAllTplur();
 
-    //根据学校进行查询，用户登录根据用户的学校显示当前用户的信息
+    //根据学校按时间先后顺序进行查询，用户登录根据用户的学校显示当前用户的信息
     List<TPlur> selectBySchool(int schoolId);
+
+    //根据学校访问次数，进行兼职的热门查询
+    List<TPlur> selectBySchoolCount(int schoolId);
+
+    //根据用户的信用度进行查询
+    List<SchoolCreditPlur> selectBySchoolCredit(int schoolId);
 
     //根据兼职id查询当前兼职
     TPlur selectByTplurId(int id);
@@ -38,4 +44,5 @@ public interface PlurService {
     boolean updateCounts(int id,int counts);
     //根据学校查询短期、长期
     List<TPlur> selectPlurBySL(int fkSchoolId,int fkTimetype);
+
 }

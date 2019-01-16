@@ -158,7 +158,6 @@ public class PlurController {
     }
     @RequestMapping("/publisher")
     public ModelAndView getPublisherPlur(int fkPublisher){
-        System.out.println("进入发布者获取兼职详情");
         List<TPlur> publisherList = plurService.selectByPublisher(fkPublisher);
         List<TUnit> unitList = plurService.selectAllUnit();
         List<TPlur> newPulisherList = new ArrayList<TPlur>();
@@ -210,6 +209,13 @@ public class PlurController {
         mav.addObject("ms",ms);
         return mav;
     }
+
+    /**
+     * @param fkSchool
+     * @param fkTimetype
+     * @return
+     * 根据时间类型和学校查询短期或长期兼职
+     */
     @RequestMapping("/SLjob")
     public ModelAndView selectBySLPlur(int fkSchool,int fkTimetype){
         System.out.println("进入短长期兼职");
@@ -223,6 +229,47 @@ public class PlurController {
         mav.addObject("mssl",ms);
         mav.addObject("unit",unitList);
         mav.addObject("slList",tPlurList);
+        return mav;
+    }
+
+    /**
+     * @param fkSchoolId
+     * @return
+     * 根据信用度执行查询学校的兼职
+     */
+    @RequestMapping("selectPlurSchoolBycredit")
+    public ModelAndView getplurByCreditDesc(int fkSchoolId){
+        System.out.println("根据信用度排序。。。。");
+        List<TUnit> unitList2 = plurService.selectAllUnit();
+        List<SchoolCreditPlur> creditPlurList = plurService.selectBySchoolCredit(fkSchoolId);
+        if(creditPlurList!=null&&creditPlurList.size()>0) {
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+        mav.addObject("unitcr",unitList2);
+        mav.addObject("creditms",ms);
+        mav.addObject("cre",creditPlurList);
+        return mav;
+    }
+    /**
+     * @param fkSchoolId
+     * @return
+     * 根据访问次数执行查询学校的兼职
+     */
+    @RequestMapping("/selectPlurSchoolByCount")
+    public ModelAndView selectplurByCount(int fkSchoolId){
+        System.out.println("根据访问次数排序。。。。");
+        List<TUnit> unitList1 = plurService.selectAllUnit();
+        List<TPlur> plurlist = plurService.selectBySchoolCount(fkSchoolId);
+        if(plurlist!=null&&plurlist.size()>0){
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+        mav.addObject("unitco",unitList1);
+        mav.addObject("counms",ms);
+        mav.addObject("cou",plurlist);
         return mav;
     }
 }

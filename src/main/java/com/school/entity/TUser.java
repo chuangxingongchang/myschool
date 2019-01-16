@@ -17,7 +17,7 @@ public class TUser {
 
     private String phoneno;
 
-    private Date brithday;
+    private String brithday;
 
     private String sex;
 
@@ -50,7 +50,7 @@ public class TUser {
     }
 
     public void setPword(String pword) {
-        this.pword = pword;
+        this.pword = pword == null ? null : pword.trim();
     }
 
     public String getNickname() {
@@ -58,7 +58,7 @@ public class TUser {
     }
 
     public void setNickname(String nickname) {
-        this.nickname = nickname;
+        this.nickname = nickname == null ? null : nickname.trim();
     }
 
     public String getTruename() {
@@ -66,7 +66,7 @@ public class TUser {
     }
 
     public void setTruename(String truename) {
-        this.truename = truename;
+        this.truename = truename == null ? null : truename.trim();
     }
 
     public String getIdcard() {
@@ -74,7 +74,7 @@ public class TUser {
     }
 
     public void setIdcard(String idcard) {
-        this.idcard = idcard;
+        this.idcard = idcard == null ? null : idcard.trim();
     }
 
     public String getPhoneno() {
@@ -82,15 +82,15 @@ public class TUser {
     }
 
     public void setPhoneno(String phoneno) {
-        this.phoneno = phoneno;
+        this.phoneno = phoneno == null ? null : phoneno.trim();
     }
 
-    public Date getBrithday() {
+    public String getBrithday() {
         return brithday;
     }
 
-    public void setBrithday(Date brithday) {
-        this.brithday = brithday;
+    public void setBrithday(String brithday) {
+        this.brithday = brithday == null ? null : brithday.trim();
     }
 
     public String getSex() {
@@ -98,7 +98,7 @@ public class TUser {
     }
 
     public void setSex(String sex) {
-        this.sex = sex;
+        this.sex = sex == null ? null : sex.trim();
     }
 
     public String getAddress() {
@@ -106,7 +106,7 @@ public class TUser {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address = address == null ? null : address.trim();
     }
 
     public String getAvatar() {
@@ -114,7 +114,7 @@ public class TUser {
     }
 
     public void setAvatar(String avatar) {
-        this.avatar = avatar;
+        this.avatar = avatar == null ? null : avatar.trim();
     }
 
     public Integer getCredit() {

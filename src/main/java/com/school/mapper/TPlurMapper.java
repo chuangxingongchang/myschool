@@ -2,8 +2,10 @@ package com.school.mapper;
 
 import com.school.entity.TPlur;
 import com.school.entity.TPlurExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 public interface TPlurMapper {
     int countByExample(TPlurExample example);
@@ -27,4 +29,6 @@ public interface TPlurMapper {
     int updateByPrimaryKeySelective(TPlur record);
 
     int updateByPrimaryKey(TPlur record);
+
+    List selectPlurAndcredit(Map map);
 }

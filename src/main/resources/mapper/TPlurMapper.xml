@@ -1,120 +1,122 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.school.mapper.TPlurMapper" >
-  <resultMap id="BaseResultMap" type="com.school.entity.TPlur" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="subject" property="subject" jdbcType="VARCHAR" />
-    <result column="money" property="money" jdbcType="DOUBLE" />
-    <result column="fk_unit" property="fkUnit" jdbcType="INTEGER" />
-    <result column="releaseTime" property="releasetime" jdbcType="VARCHAR" />
-    <result column="counts" property="counts" jdbcType="INTEGER" />
-    <result column="persons" property="persons" jdbcType="INTEGER" />
-    <result column="fk_settle" property="fkSettle" jdbcType="INTEGER" />
-    <result column="wordTime" property="wordtime" jdbcType="VARCHAR" />
-    <result column="endTime" property="endtime" jdbcType="VARCHAR" />
-    <result column="workContent" property="workcontent" jdbcType="VARCHAR" />
-    <result column="fk_publisher" property="fkPublisher" jdbcType="INTEGER" />
-    <result column="fk_accept" property="fkAccept" jdbcType="INTEGER" />
-    <result column="workAddress" property="workaddress" jdbcType="VARCHAR" />
-    <result column="fk_workState" property="fkWorkstate" jdbcType="INTEGER" />
-    <result column="fk_timeType" property="fkTimetype" jdbcType="INTEGER" />
-    <result column="fk_workType" property="fkWorktype" jdbcType="INTEGER" />
-    <result column="fk_school" property="fkSchool" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+<mapper namespace="com.school.mapper.TPlurMapper">
+    <resultMap id="BaseResultMap" type="com.school.entity.TPlur">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="subject" property="subject" jdbcType="VARCHAR"/>
+        <result column="money" property="money" jdbcType="DOUBLE"/>
+        <result column="fk_unit" property="fkUnit" jdbcType="INTEGER"/>
+        <result column="releaseTime" property="releasetime" jdbcType="VARCHAR"/>
+        <result column="counts" property="counts" jdbcType="INTEGER"/>
+        <result column="persons" property="persons" jdbcType="INTEGER"/>
+        <result column="fk_settle" property="fkSettle" jdbcType="INTEGER"/>
+        <result column="wordTime" property="wordtime" jdbcType="VARCHAR"/>
+        <result column="endTime" property="endtime" jdbcType="VARCHAR"/>
+        <result column="workContent" property="workcontent" jdbcType="VARCHAR"/>
+        <result column="fk_publisher" property="fkPublisher" jdbcType="INTEGER"/>
+        <result column="fk_accept" property="fkAccept" jdbcType="INTEGER"/>
+        <result column="workAddress" property="workaddress" jdbcType="VARCHAR"/>
+        <result column="fk_workState" property="fkWorkstate" jdbcType="INTEGER"/>
+        <result column="fk_timeType" property="fkTimetype" jdbcType="INTEGER"/>
+        <result column="fk_workType" property="fkWorktype" jdbcType="INTEGER"/>
+        <result column="fk_school" property="fkSchool" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
     id, subject, money, fk_unit, releaseTime, counts, persons, fk_settle, wordTime, endTime, 
     workContent, fk_publisher, fk_accept, workAddress, fk_workState, fk_timeType, fk_workType, 
     fk_school
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TPlurExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from t_plur
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_plur
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TPlurExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from t_plur
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_plur
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_plur
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.school.entity.TPlurExample" >
-    delete from t_plur
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.school.entity.TPlur" >
+    <delete id="deleteByExample" parameterType="com.school.entity.TPlurExample">
+        delete from t_plur
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.school.entity.TPlur">
     insert into t_plur (id, subject, money, 
       fk_unit, releaseTime, counts, 
       persons, fk_settle, wordTime, 
@@ -130,271 +132,271 @@
       #{fkTimetype,jdbcType=INTEGER}, #{fkWorktype,jdbcType=INTEGER}, #{fkSchool,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.school.entity.TPlur" >
-    insert into t_plur
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="subject != null" >
-        subject,
-      </if>
-      <if test="money != null" >
-        money,
-      </if>
-      <if test="fkUnit != null" >
-        fk_unit,
-      </if>
-      <if test="releasetime != null" >
-        releaseTime,
-      </if>
-      <if test="counts != null" >
-        counts,
-      </if>
-      <if test="persons != null" >
-        persons,
-      </if>
-      <if test="fkSettle != null" >
-        fk_settle,
-      </if>
-      <if test="wordtime != null" >
-        wordTime,
-      </if>
-      <if test="endtime != null" >
-        endTime,
-      </if>
-      <if test="workcontent != null" >
-        workContent,
-      </if>
-      <if test="fkPublisher != null" >
-        fk_publisher,
-      </if>
-      <if test="fkAccept != null" >
-        fk_accept,
-      </if>
-      <if test="workaddress != null" >
-        workAddress,
-      </if>
-      <if test="fkWorkstate != null" >
-        fk_workState,
-      </if>
-      <if test="fkTimetype != null" >
-        fk_timeType,
-      </if>
-      <if test="fkWorktype != null" >
-        fk_workType,
-      </if>
-      <if test="fkSchool != null" >
-        fk_school,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="subject != null" >
-        #{subject,jdbcType=VARCHAR},
-      </if>
-      <if test="money != null" >
-        #{money,jdbcType=DOUBLE},
-      </if>
-      <if test="fkUnit != null" >
-        #{fkUnit,jdbcType=INTEGER},
-      </if>
-      <if test="releasetime != null" >
-        #{releasetime,jdbcType=VARCHAR},
-      </if>
-      <if test="counts != null" >
-        #{counts,jdbcType=INTEGER},
-      </if>
-      <if test="persons != null" >
-        #{persons,jdbcType=INTEGER},
-      </if>
-      <if test="fkSettle != null" >
-        #{fkSettle,jdbcType=INTEGER},
-      </if>
-      <if test="wordtime != null" >
-        #{wordtime,jdbcType=VARCHAR},
-      </if>
-      <if test="endtime != null" >
-        #{endtime,jdbcType=VARCHAR},
-      </if>
-      <if test="workcontent != null" >
-        #{workcontent,jdbcType=VARCHAR},
-      </if>
-      <if test="fkPublisher != null" >
-        #{fkPublisher,jdbcType=INTEGER},
-      </if>
-      <if test="fkAccept != null" >
-        #{fkAccept,jdbcType=INTEGER},
-      </if>
-      <if test="workaddress != null" >
-        #{workaddress,jdbcType=VARCHAR},
-      </if>
-      <if test="fkWorkstate != null" >
-        #{fkWorkstate,jdbcType=INTEGER},
-      </if>
-      <if test="fkTimetype != null" >
-        #{fkTimetype,jdbcType=INTEGER},
-      </if>
-      <if test="fkWorktype != null" >
-        #{fkWorktype,jdbcType=INTEGER},
-      </if>
-      <if test="fkSchool != null" >
-        #{fkSchool,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.school.entity.TPlurExample" resultType="java.lang.Integer" >
-    select count(*) from t_plur
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update t_plur
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.subject != null" >
+    <insert id="insertSelective" parameterType="com.school.entity.TPlur">
+        insert into t_plur
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="subject != null">
+                subject,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+            <if test="fkUnit != null">
+                fk_unit,
+            </if>
+            <if test="releasetime != null">
+                releaseTime,
+            </if>
+            <if test="counts != null">
+                counts,
+            </if>
+            <if test="persons != null">
+                persons,
+            </if>
+            <if test="fkSettle != null">
+                fk_settle,
+            </if>
+            <if test="wordtime != null">
+                wordTime,
+            </if>
+            <if test="endtime != null">
+                endTime,
+            </if>
+            <if test="workcontent != null">
+                workContent,
+            </if>
+            <if test="fkPublisher != null">
+                fk_publisher,
+            </if>
+            <if test="fkAccept != null">
+                fk_accept,
+            </if>
+            <if test="workaddress != null">
+                workAddress,
+            </if>
+            <if test="fkWorkstate != null">
+                fk_workState,
+            </if>
+            <if test="fkTimetype != null">
+                fk_timeType,
+            </if>
+            <if test="fkWorktype != null">
+                fk_workType,
+            </if>
+            <if test="fkSchool != null">
+                fk_school,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="subject != null">
+                #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                #{money,jdbcType=DOUBLE},
+            </if>
+            <if test="fkUnit != null">
+                #{fkUnit,jdbcType=INTEGER},
+            </if>
+            <if test="releasetime != null">
+                #{releasetime,jdbcType=VARCHAR},
+            </if>
+            <if test="counts != null">
+                #{counts,jdbcType=INTEGER},
+            </if>
+            <if test="persons != null">
+                #{persons,jdbcType=INTEGER},
+            </if>
+            <if test="fkSettle != null">
+                #{fkSettle,jdbcType=INTEGER},
+            </if>
+            <if test="wordtime != null">
+                #{wordtime,jdbcType=VARCHAR},
+            </if>
+            <if test="endtime != null">
+                #{endtime,jdbcType=VARCHAR},
+            </if>
+            <if test="workcontent != null">
+                #{workcontent,jdbcType=VARCHAR},
+            </if>
+            <if test="fkPublisher != null">
+                #{fkPublisher,jdbcType=INTEGER},
+            </if>
+            <if test="fkAccept != null">
+                #{fkAccept,jdbcType=INTEGER},
+            </if>
+            <if test="workaddress != null">
+                #{workaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="fkWorkstate != null">
+                #{fkWorkstate,jdbcType=INTEGER},
+            </if>
+            <if test="fkTimetype != null">
+                #{fkTimetype,jdbcType=INTEGER},
+            </if>
+            <if test="fkWorktype != null">
+                #{fkWorktype,jdbcType=INTEGER},
+            </if>
+            <if test="fkSchool != null">
+                #{fkSchool,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.school.entity.TPlurExample" resultType="java.lang.Integer">
+        select count(*) from t_plur
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_plur
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.subject != null">
+                subject = #{record.subject,jdbcType=VARCHAR},
+            </if>
+            <if test="record.money != null">
+                money = #{record.money,jdbcType=DOUBLE},
+            </if>
+            <if test="record.fkUnit != null">
+                fk_unit = #{record.fkUnit,jdbcType=INTEGER},
+            </if>
+            <if test="record.releasetime != null">
+                releaseTime = #{record.releasetime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.counts != null">
+                counts = #{record.counts,jdbcType=INTEGER},
+            </if>
+            <if test="record.persons != null">
+                persons = #{record.persons,jdbcType=INTEGER},
+            </if>
+            <if test="record.fkSettle != null">
+                fk_settle = #{record.fkSettle,jdbcType=INTEGER},
+            </if>
+            <if test="record.wordtime != null">
+                wordTime = #{record.wordtime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.endtime != null">
+                endTime = #{record.endtime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.workcontent != null">
+                workContent = #{record.workcontent,jdbcType=VARCHAR},
+            </if>
+            <if test="record.fkPublisher != null">
+                fk_publisher = #{record.fkPublisher,jdbcType=INTEGER},
+            </if>
+            <if test="record.fkAccept != null">
+                fk_accept = #{record.fkAccept,jdbcType=INTEGER},
+            </if>
+            <if test="record.workaddress != null">
+                workAddress = #{record.workaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.fkWorkstate != null">
+                fk_workState = #{record.fkWorkstate,jdbcType=INTEGER},
+            </if>
+            <if test="record.fkTimetype != null">
+                fk_timeType = #{record.fkTimetype,jdbcType=INTEGER},
+            </if>
+            <if test="record.fkWorktype != null">
+                fk_workType = #{record.fkWorktype,jdbcType=INTEGER},
+            </if>
+            <if test="record.fkSchool != null">
+                fk_school = #{record.fkSchool,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_plur
+        set id = #{record.id,jdbcType=INTEGER},
         subject = #{record.subject,jdbcType=VARCHAR},
-      </if>
-      <if test="record.money != null" >
         money = #{record.money,jdbcType=DOUBLE},
-      </if>
-      <if test="record.fkUnit != null" >
         fk_unit = #{record.fkUnit,jdbcType=INTEGER},
-      </if>
-      <if test="record.releasetime != null" >
         releaseTime = #{record.releasetime,jdbcType=VARCHAR},
-      </if>
-      <if test="record.counts != null" >
         counts = #{record.counts,jdbcType=INTEGER},
-      </if>
-      <if test="record.persons != null" >
         persons = #{record.persons,jdbcType=INTEGER},
-      </if>
-      <if test="record.fkSettle != null" >
         fk_settle = #{record.fkSettle,jdbcType=INTEGER},
-      </if>
-      <if test="record.wordtime != null" >
         wordTime = #{record.wordtime,jdbcType=VARCHAR},
-      </if>
-      <if test="record.endtime != null" >
         endTime = #{record.endtime,jdbcType=VARCHAR},
-      </if>
-      <if test="record.workcontent != null" >
         workContent = #{record.workcontent,jdbcType=VARCHAR},
-      </if>
-      <if test="record.fkPublisher != null" >
         fk_publisher = #{record.fkPublisher,jdbcType=INTEGER},
-      </if>
-      <if test="record.fkAccept != null" >
         fk_accept = #{record.fkAccept,jdbcType=INTEGER},
-      </if>
-      <if test="record.workaddress != null" >
         workAddress = #{record.workaddress,jdbcType=VARCHAR},
-      </if>
-      <if test="record.fkWorkstate != null" >
         fk_workState = #{record.fkWorkstate,jdbcType=INTEGER},
-      </if>
-      <if test="record.fkTimetype != null" >
         fk_timeType = #{record.fkTimetype,jdbcType=INTEGER},
-      </if>
-      <if test="record.fkWorktype != null" >
         fk_workType = #{record.fkWorktype,jdbcType=INTEGER},
-      </if>
-      <if test="record.fkSchool != null" >
-        fk_school = #{record.fkSchool,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update t_plur
-    set id = #{record.id,jdbcType=INTEGER},
-      subject = #{record.subject,jdbcType=VARCHAR},
-      money = #{record.money,jdbcType=DOUBLE},
-      fk_unit = #{record.fkUnit,jdbcType=INTEGER},
-      releaseTime = #{record.releasetime,jdbcType=VARCHAR},
-      counts = #{record.counts,jdbcType=INTEGER},
-      persons = #{record.persons,jdbcType=INTEGER},
-      fk_settle = #{record.fkSettle,jdbcType=INTEGER},
-      wordTime = #{record.wordtime,jdbcType=VARCHAR},
-      endTime = #{record.endtime,jdbcType=VARCHAR},
-      workContent = #{record.workcontent,jdbcType=VARCHAR},
-      fk_publisher = #{record.fkPublisher,jdbcType=INTEGER},
-      fk_accept = #{record.fkAccept,jdbcType=INTEGER},
-      workAddress = #{record.workaddress,jdbcType=VARCHAR},
-      fk_workState = #{record.fkWorkstate,jdbcType=INTEGER},
-      fk_timeType = #{record.fkTimetype,jdbcType=INTEGER},
-      fk_workType = #{record.fkWorktype,jdbcType=INTEGER},
-      fk_school = #{record.fkSchool,jdbcType=INTEGER}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.school.entity.TPlur" >
-    update t_plur
-    <set >
-      <if test="subject != null" >
-        subject = #{subject,jdbcType=VARCHAR},
-      </if>
-      <if test="money != null" >
-        money = #{money,jdbcType=DOUBLE},
-      </if>
-      <if test="fkUnit != null" >
-        fk_unit = #{fkUnit,jdbcType=INTEGER},
-      </if>
-      <if test="releasetime != null" >
-        releaseTime = #{releasetime,jdbcType=VARCHAR},
-      </if>
-      <if test="counts != null" >
-        counts = #{counts,jdbcType=INTEGER},
-      </if>
-      <if test="persons != null" >
-        persons = #{persons,jdbcType=INTEGER},
-      </if>
-      <if test="fkSettle != null" >
-        fk_settle = #{fkSettle,jdbcType=INTEGER},
-      </if>
-      <if test="wordtime != null" >
-        wordTime = #{wordtime,jdbcType=VARCHAR},
-      </if>
-      <if test="endtime != null" >
-        endTime = #{endtime,jdbcType=VARCHAR},
-      </if>
-      <if test="workcontent != null" >
-        workContent = #{workcontent,jdbcType=VARCHAR},
-      </if>
-      <if test="fkPublisher != null" >
-        fk_publisher = #{fkPublisher,jdbcType=INTEGER},
-      </if>
-      <if test="fkAccept != null" >
-        fk_accept = #{fkAccept,jdbcType=INTEGER},
-      </if>
-      <if test="workaddress != null" >
-        workAddress = #{workaddress,jdbcType=VARCHAR},
-      </if>
-      <if test="fkWorkstate != null" >
-        fk_workState = #{fkWorkstate,jdbcType=INTEGER},
-      </if>
-      <if test="fkTimetype != null" >
-        fk_timeType = #{fkTimetype,jdbcType=INTEGER},
-      </if>
-      <if test="fkWorktype != null" >
-        fk_workType = #{fkWorktype,jdbcType=INTEGER},
-      </if>
-      <if test="fkSchool != null" >
-        fk_school = #{fkSchool,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.school.entity.TPlur" >
+        fk_school = #{record.fkSchool,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.school.entity.TPlur">
+        update t_plur
+        <set>
+            <if test="subject != null">
+                subject = #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                money = #{money,jdbcType=DOUBLE},
+            </if>
+            <if test="fkUnit != null">
+                fk_unit = #{fkUnit,jdbcType=INTEGER},
+            </if>
+            <if test="releasetime != null">
+                releaseTime = #{releasetime,jdbcType=VARCHAR},
+            </if>
+            <if test="counts != null">
+                counts = #{counts,jdbcType=INTEGER},
+            </if>
+            <if test="persons != null">
+                persons = #{persons,jdbcType=INTEGER},
+            </if>
+            <if test="fkSettle != null">
+                fk_settle = #{fkSettle,jdbcType=INTEGER},
+            </if>
+            <if test="wordtime != null">
+                wordTime = #{wordtime,jdbcType=VARCHAR},
+            </if>
+            <if test="endtime != null">
+                endTime = #{endtime,jdbcType=VARCHAR},
+            </if>
+            <if test="workcontent != null">
+                workContent = #{workcontent,jdbcType=VARCHAR},
+            </if>
+            <if test="fkPublisher != null">
+                fk_publisher = #{fkPublisher,jdbcType=INTEGER},
+            </if>
+            <if test="fkAccept != null">
+                fk_accept = #{fkAccept,jdbcType=INTEGER},
+            </if>
+            <if test="workaddress != null">
+                workAddress = #{workaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="fkWorkstate != null">
+                fk_workState = #{fkWorkstate,jdbcType=INTEGER},
+            </if>
+            <if test="fkTimetype != null">
+                fk_timeType = #{fkTimetype,jdbcType=INTEGER},
+            </if>
+            <if test="fkWorktype != null">
+                fk_workType = #{fkWorktype,jdbcType=INTEGER},
+            </if>
+            <if test="fkSchool != null">
+                fk_school = #{fkSchool,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.school.entity.TPlur">
     update t_plur
     set subject = #{subject,jdbcType=VARCHAR},
       money = #{money,jdbcType=DOUBLE},
@@ -415,4 +417,10 @@
       fk_school = #{fkSchool,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <!--df-->
+    <select id="selectPlurAndcredit" parameterType="java.util.Map" resultType="com.school.entity.SchoolCreditPlur">
+
+        select * ,(select credit from t_user where id = p.fk_publisher) as credit from t_plur as p
+        where fk_school = #{schoolId} and fk_workState = #{fkWorkstate} order by credit desc
+    </select>
 </mapper>

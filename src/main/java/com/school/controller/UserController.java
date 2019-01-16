@@ -232,7 +232,6 @@ public class UserController {
 
     @RequestMapping("/getUser")
     public ModelAndView getMyUser(String phoneno) {
-        System.out.println("获取用户中。。。。。。。。。。。。");
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         Message ms = new Message();
         TUser users = userService.selectByPhoneno(phoneno);

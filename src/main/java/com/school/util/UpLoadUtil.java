@@ -98,7 +98,8 @@ public class UpLoadUtil {
            imageStream.flush();
            imageStream.close();
        }catch (IOException io){
-           b  = false;
+           io.getStackTrace();
+//           b  = false;
        }
         return b;
     }

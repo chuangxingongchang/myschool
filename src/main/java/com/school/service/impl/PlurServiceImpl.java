@@ -7,7 +7,10 @@ import com.school.service.PlurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class PlurServiceImpl implements PlurService {
     @Autowired
@@ -23,14 +26,42 @@ public class PlurServiceImpl implements PlurService {
         TPlurExample tPlurExample = new TPlurExample();
         return plurMapper.selectByExample(tPlurExample);
     }
-    //根据学校进行查询兼职
+    //根据学校进行查询兼职,时间先后
     @Override
     public List<TPlur> selectBySchool(int shoolId) {
         TPlurExample tPlurExample = new TPlurExample();
         tPlurExample.or().andFkSchoolEqualTo(shoolId)
-        .andFkWorkstateEqualTo(1);
+                .andFkWorkstateEqualTo(1);
+        tPlurExample.setOrderByClause("releaseTime desc");
         return plurMapper.selectByExample(tPlurExample);
     }
+    //学校兼职热门显示
+    @Override
+    public List<TPlur> selectBySchoolCount(int fkSchoolId) {
+        TPlurExample tPlurExample = new TPlurExample();
+        tPlurExample.or().andFkSchoolEqualTo(fkSchoolId)
+                .andFkWorkstateEqualTo(1);
+        tPlurExample.setOrderByClause("counts desc");
+        return plurMapper.selectByExample(tPlurExample);
+    }
+    //学校兼职信用度显示
+    @Override
+    public List<SchoolCreditPlur> selectBySchoolCredit(int fkSchoolId) {
+        Map map = new HashMap();
+        map.put("schoolId",fkSchoolId);
+        map.put("fkWorkstate",1);
+        List<SchoolCreditPlur> list = plurMapper.selectPlurAndcredit(map);
+        if(null!=list){
+            return list;
+        }else{
+            try {
+                throw new Exception();
+            } catch (Exception e) {
+                return  null;
+            }
+        }
+    }
+
     //根据id查询当前兼职
     @Override
     public TPlur selectByTplurId(int id) {

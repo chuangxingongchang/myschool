@@ -8,7 +8,7 @@
     <result column="truename" property="truename" jdbcType="VARCHAR" />
     <result column="idcard" property="idcard" jdbcType="VARCHAR" />
     <result column="phoneno" property="phoneno" jdbcType="VARCHAR" />
-    <result column="brithday" property="brithday" jdbcType="DATE" />
+    <result column="brithday" property="brithday" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="avatar" property="avatar" jdbcType="VARCHAR" />
@@ -120,7 +120,7 @@
       fk_integral_id)
     values (#{id,jdbcType=INTEGER}, #{pword,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{truename,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{phoneno,jdbcType=VARCHAR}, 
-      #{brithday,jdbcType=DATE}, #{sex,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{brithday,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{avatar,jdbcType=VARCHAR}, #{credit,jdbcType=INTEGER}, #{fkSchoolId,jdbcType=INTEGER}, 
       #{createtime,jdbcType=DATE}, #{balance,jdbcType=DOUBLE}, #{integral,jdbcType=INTEGER}, 
       #{fkIntegralId,jdbcType=INTEGER})
@@ -197,7 +197,7 @@
         #{phoneno,jdbcType=VARCHAR},
       </if>
       <if test="brithday != null" >
-        #{brithday,jdbcType=DATE},
+        #{brithday,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
         #{sex,jdbcType=VARCHAR},
@@ -256,7 +256,7 @@
         phoneno = #{record.phoneno,jdbcType=VARCHAR},
       </if>
       <if test="record.brithday != null" >
-        brithday = #{record.brithday,jdbcType=DATE},
+        brithday = #{record.brithday,jdbcType=VARCHAR},
       </if>
       <if test="record.sex != null" >
         sex = #{record.sex,jdbcType=VARCHAR},
@@ -298,7 +298,7 @@
       truename = #{record.truename,jdbcType=VARCHAR},
       idcard = #{record.idcard,jdbcType=VARCHAR},
       phoneno = #{record.phoneno,jdbcType=VARCHAR},
-      brithday = #{record.brithday,jdbcType=DATE},
+      brithday = #{record.brithday,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=VARCHAR},
       address = #{record.address,jdbcType=VARCHAR},
       avatar = #{record.avatar,jdbcType=VARCHAR},
@@ -331,7 +331,7 @@
         phoneno = #{phoneno,jdbcType=VARCHAR},
       </if>
       <if test="brithday != null" >
-        brithday = #{brithday,jdbcType=DATE},
+        brithday = #{brithday,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
         sex = #{sex,jdbcType=VARCHAR},
@@ -370,7 +370,7 @@
       truename = #{truename,jdbcType=VARCHAR},
       idcard = #{idcard,jdbcType=VARCHAR},
       phoneno = #{phoneno,jdbcType=VARCHAR},
-      brithday = #{brithday,jdbcType=DATE},
+      brithday = #{brithday,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       avatar = #{avatar,jdbcType=VARCHAR},

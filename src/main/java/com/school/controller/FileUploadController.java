@@ -7,8 +7,6 @@ import com.school.util.UpLoadUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-
 /**
  * @Auther: XiTao
  * @Date: 2019/1/2
@@ -20,6 +18,7 @@ public class FileUploadController {
 
     @RequestMapping("/upload")
     public String uploadFile(String baseData) {
+        System.out.println("图片64bit"+baseData);
         boolean b  = false;
         System.out.println(baseData);
         //项目下的static地址

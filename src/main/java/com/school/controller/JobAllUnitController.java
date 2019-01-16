@@ -42,6 +42,7 @@ public class JobAllUnitController {
             return mav;
         }
     }
+
     @RequestMapping("/getAllTimeType")
     public ModelAndView getTimeType() {
         List<TTime> timetypeList = allTypeService.selectAllTime();
