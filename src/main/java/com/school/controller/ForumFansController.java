@@ -31,7 +31,7 @@ public class ForumFansController {
     UserService userService;
 
     /**
-     * 根据_id 查询粉丝
+     * 根据_id 查询粉丝信息
      *
      * @param userId 用户的ID
      * @return
@@ -52,6 +52,14 @@ public class ForumFansController {
         }
         return modelAndView;
     }
+    @RequestMapping("/fansAll")
+    public ModelAndView selectFans(int userId){
+        ModelAndView m = new ModelAndView(new MappingJackson2JsonView());
+        List<TForumFans> list = forumFansService.selectFans(userId);
+        m.addObject("meFans",list);
+        return m;
+    }
+
 
     /**
      * 删除粉丝
@@ -61,10 +69,14 @@ public class ForumFansController {
      * @return
      */
     @RequestMapping("/deleteFans")
-    public boolean deleteFans(int userId, int deid) {
+    public boolean deleteFans(Integer userId, Integer deid) {
         boolean b = false;
-        b = forumFansService.deleteFans(userId, deid);
-        b = forumMindService.deleteMind(userId, deid);
+        if (userId != null && deid != null) {
+            b = forumFansService.deleteFans(userId, deid);
+            if (b){
+                b = forumMindService.deleteMind(userId, deid);
+            }
+        }
         return b;
 
     }

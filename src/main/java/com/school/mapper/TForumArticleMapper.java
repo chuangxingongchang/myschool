@@ -43,4 +43,8 @@ public interface TForumArticleMapper {
     List<TForumArticle> selectLimitOrderTimeDesc(Map<String, Object> map);
 
     List<TForumArticle> selectLimitOrderTimeDescAndWhere(Map<String, Object> map);
+
+    List<TForumArticle> selectPersonalAllArticle(Map<String, Object> map);
+
+    List<TForumArticle> selectPersonalArticle(Map<String, Object> map);
 }

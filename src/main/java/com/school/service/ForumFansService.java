@@ -18,12 +18,18 @@ public interface ForumFansService {
     Long selectCountFansUser(int userId);
 
     /**
-     * 查询粉丝 用户
+     * 查询粉丝 用户 信息
      * @param userId
      * @return  List<TForumFans>
      */
     List<TForumFans> selectMeFansUser(int userId,int start, int end);
 
+    /**
+     * 查询粉丝
+     * @param userId
+     * @return
+     */
+    List<TForumFans> selectFans(int userId);
     /**
      * 添加粉丝
      * @param userId 主动关注的人

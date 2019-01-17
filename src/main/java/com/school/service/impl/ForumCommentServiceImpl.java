@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -57,5 +59,33 @@ public class ForumCommentServiceImpl implements ForumCommentService {
             b = true;
         }
         return b;
+    }
+
+    @Override
+    public List<Integer> selectFindByUserIdComment(int id,int start, int end) {
+        Map map = new HashMap();
+        map.put("userId",id);
+        map.put("start",start);
+        map.put("end",end);
+        System.out.println(id+" "+start+" "+end+" ");
+        List<Integer> list =  fcm.selectCommentByUserId(map);
+        if (list != null && list.size() !=0) {
+            return list;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Integer> selectNewsTimeComment(int id, int start, int end, String createTime) {
+        Map map = new HashMap();
+        map.put("userId",id);
+        map.put("start",start);
+        map.put("end",end);
+        map.put("createTime",createTime);
+        List<Integer> list =  fcm.selectNewsTimeCommentByUserId(map);
+        if (list != null && list.size() != 0) {
+            return list;
+        }
+        return null;
     }
 }

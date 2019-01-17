@@ -106,7 +106,37 @@ public interface ForumArticleService {
      */
     List<TForumArticle> selectFindById(List<Integer> list);
 
+    /**
+     * 查询单个分类浏览量最多的文章10 篇
+     * @param type_id
+     * @return
+     */
     List<TForumArticle> selectTypeLimitOrderDescBro(int type_id);
 
+    /**
+     * 添加文章
+     * @param listArticle List集合
+     * @return
+     */
     boolean addListArticle(List<TForumArticle> listArticle);
+
+    /**
+     * 查询个人文章 时间排序
+     * @param userId 用户
+     * @param start 开始条数
+     * @param end 截止条数
+     * @return
+     */
+    List<TForumArticle> selectPersonalAllArticle(int userId, int start, int end);
+
+    /**
+     * 用户所有文章时间大于createTime
+     * @param userId
+     * @param start
+     * @param end
+     * @param createTime
+     * @return
+     */
+    List<TForumArticle> selectPersonalArticle(int userId, int start, int end, String createTime);
+
 }

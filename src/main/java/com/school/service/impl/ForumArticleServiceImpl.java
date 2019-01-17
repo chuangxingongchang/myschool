@@ -2,6 +2,7 @@ package com.school.service.impl;
 
 import com.school.entity.TForumArticle;
 import com.school.entity.TForumArticleExample;
+import com.school.entity.TForumComment;
 import com.school.entity.TUser;
 import com.school.finals.FinalsString;
 import com.school.mapper.TForumArticleMapper;
@@ -322,6 +323,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         TForumArticleExample fae = new TForumArticleExample();
         fae.or()
                 .andIdIn(list);
+        fae.setOrderByClause("create_time desc");
         List<TForumArticle> lfa = tam.selectByExample(fae);
         try {
             for (TForumArticle tForumArticle : lfa) {
@@ -366,9 +368,38 @@ public class ForumArticleServiceImpl implements ForumArticleService {
     }
 
     @Override
+    public List<TForumArticle> selectPersonalAllArticle(int userId, int start, int end) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("start",start);
+        map.put("end",end);
+        List<TForumArticle> list = tam.selectPersonalAllArticle(map);
+        if (list == null){
+            return null;
+        }
+        return list;
+    }
+
+
+    @Override
+    public List<TForumArticle> selectPersonalArticle(int userId, int start, int end, String createTime) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("start",start);
+        map.put("end",end);
+        map.put("createTime",createTime);
+        List<TForumArticle> list = tam.selectPersonalArticle(map);
+        if (list == null){
+            return null;
+        }
+        return list;
+    }
+
+
+    @Override
     public List<TForumArticle> selectTypeLimitOrderDescBro(int type_id) {
         List<TForumArticle> list = tam.selectLimitOrderDescBrow(type_id);
-        if (0 != list.size()) {
+        if (list != null) {
             return list;
         }
         return null;

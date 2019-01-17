@@ -1,5 +1,6 @@
 package com.school.entity;
 
+
 public class TForumFans {
     private Integer id;
 
@@ -10,6 +11,7 @@ public class TForumFans {
     public Integer getId() {
         return id;
     }
+
 
     @Override
     public String toString() {

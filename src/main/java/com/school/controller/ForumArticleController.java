@@ -155,7 +155,7 @@ public class ForumArticleController {
                 //相关文章推荐
                 String titleUtil = StringUitl.aString(articleVo.getTitle());
                 List<TForumArticleVo> articleRelevantList = fas.findByTitleLikeLimite(titleUtil);
-                if (articleRelevantList != null ) {
+                if (articleRelevantList != null) {
                     List<Integer> listInteger = new ArrayList<>();
                     for (TForumArticleVo tavo : articleRelevantList) {
                         listInteger.add(tavo.getFkUserKey().getId());
@@ -172,7 +172,7 @@ public class ForumArticleController {
                             }
                         }
                     }
-                    map.put("articleRelevantList",articleRelevantList);
+                    map.put("articleRelevantList", articleRelevantList);
                 }
             }
         } catch (Exception e) {
@@ -251,6 +251,94 @@ public class ForumArticleController {
     }
 
     /**
+     * 查询个人 发布过的论坛
+     *
+     * @param userId 用户ID
+     * @param start  开始条数
+     * @param end    结束条数
+     * @return
+     */
+    @RequestMapping("/personalAllArticle")
+    public ModelAndView selectPersonalAllArticle(Integer userId, Integer start, Integer end) {
+        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+        if (userId != null && start != null && end != null) {
+            List<TForumArticle> list = fas.selectPersonalAllArticle(userId, start, end);
+            modelAndView.addObject("personalArticle", list);
+        }
+        return modelAndView;
+    }
+    @RequestMapping("/pulldownFreshArticle")
+    public ModelAndView selectPersonalAllArticle(Integer userId, Integer start, Integer end,String createTime) {
+        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+        if (userId != null && start != null && end != null && createTime != null) {
+            List<TForumArticle> list = fas.selectPersonalArticle(userId, start, end, createTime);
+            modelAndView.addObject("newsTimePersonalArticle", list);
+        }
+        return modelAndView;
+    }
+
+    /**
+     * 查询个人 回复过的帖子
+     *
+     * @param userId
+     * @param start
+     * @param end
+     * @return
+     */
+    @RequestMapping("/personalAllComment")
+    public ModelAndView selectPersonalAllComment(Integer userId, Integer start, Integer end) {
+        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+        if (userId != null && start != null && end != null) {
+            //评论过得文章
+            List<Integer> integers = forumCommentService.selectFindByUserIdComment(userId, start, end);
+            if (integers != null) {
+                //获取文章信息
+                List<TForumArticle> list = fas.selectFindById(integers);
+                List<Integer> integer = new ArrayList<>();
+                for (TForumArticle tForumArticle : list) {
+                    integer.add(tForumArticle.getFkUserKey());
+                }
+                List<TUser> tUsers = userService.selectUserIdIn(integer);
+                modelAndView.addObject("articleUserList", tUsers);
+                modelAndView.addObject("articleList", list);
+            }else
+            {
+                modelAndView.addObject("articleUserList", null);
+                modelAndView.addObject("articleList", null);
+            }
+
+        }
+        return modelAndView;
+    }
+
+
+
+    @RequestMapping("/pulldownFreshComment")
+    public ModelAndView selectPersonalAllComment(Integer userId, Integer start, Integer end,String createTime) {
+        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+        if (userId != null && start != null && end != null && createTime != null) {
+            //评论过得文章
+            List<Integer> integers = forumCommentService.selectNewsTimeComment(userId, start, end, createTime);
+            if (integers != null) {
+                //获取文章信息
+                List<TForumArticle> list = fas.selectFindById(integers);
+                List<Integer> integer = new ArrayList<>();
+                for (TForumArticle tForumArticle : list) {
+                    integer.add(tForumArticle.getFkUserKey());
+                }
+                List<TUser> tUsers = userService.selectUserIdIn(integer);
+                modelAndView.addObject("articleUserList", tUsers);
+                modelAndView.addObject("articleList", list);
+            }else {
+                modelAndView.addObject("articleUserList", null);
+                modelAndView.addObject("articleList", null);
+            }
+        }
+        return modelAndView;
+    }
+
+
+    /**
      * 通过分类类型ID 查询 分类下的所有 文章
      *
      * @param id    类型
@@ -283,7 +371,8 @@ public class ForumArticleController {
     }
 
     /**
-     * 根据用户_Id查询 用户信息
+     * 根据用户_Id查询个人中心 用户信息
+     *
      * @param userId
      * @return
      */
@@ -309,17 +398,17 @@ public class ForumArticleController {
         Integer totalArticleBrowse = fas.selectBrowseCountArticle(userId);
         map.put("totalArticleBrowse", totalArticleBrowse);
         //粉丝数量
-        Long  totalFansItem = forumFansService.selectCountFansUser(userId);
+        Long totalFansItem = forumFansService.selectCountFansUser(userId);
         map.put("totalFansItem", totalFansItem);
         //个人信息
         List<Integer> personId = new ArrayList<>();
         personId.add(userId);
         List<TUser> user = userService.selectUserIdIn(personId);
         map.put("user", user);
-        try{
+        try {
             TIntegralIco personIntegralIco = inte.selectFkIdICO(user.get(0).getFkIntegralId());
             map.put("personIntegralIco", personIntegralIco);
-        }catch(NullPointerException |IndexOutOfBoundsException e ){
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println(e.toString());
         }
         //个人关注的数量

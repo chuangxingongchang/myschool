@@ -31,16 +31,27 @@ public class ForumFansServiceImpl implements ForumFansService {
     }
 
     @Override
-    public List<TForumFans> selectMeFansUser(int userId,int start,int end) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("userId",userId);
-        map.put("start",start);
-        map.put("end",end);
-        List<TForumFans> forumFans  = ffm.selectLimitStartToEnd(map);
+    public List<TForumFans> selectMeFansUser(int userId, int start, int end) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("start", start);
+        map.put("end", end);
+        List<TForumFans> forumFans = ffm.selectLimitStartToEnd(map);
         if (forumFans == null) {
-            return  null;
+            return null;
         }
         return forumFans;
+    }
+
+    @Override
+    public List<TForumFans> selectFans(int userId) {
+        TForumFansExample example = new TForumFansExample();
+        example.or().andFkDecideUserEqualTo(userId);
+        List<TForumFans> list = ffm.selectByExample(example);
+        if (list != null) {
+            return list;
+        }
+        return null;
     }
 
 
@@ -50,14 +61,14 @@ public class ForumFansServiceImpl implements ForumFansService {
         int i = 0;
         TForumFans ff = new TForumFans();
 
-            ff.setFkDecideUser(decideId);
-            ff.setFkFansUser(userId);
-            i =ffm.insert(ff);
-            if (i != 0) {
-                b = true;
-            }
+        ff.setFkDecideUser(decideId);
+        ff.setFkFansUser(userId);
+        i = ffm.insert(ff);
+        if (i != 0) {
+            b = true;
+        }
 
-            return  b;
+        return b;
     }
 
     @Override
@@ -65,27 +76,28 @@ public class ForumFansServiceImpl implements ForumFansService {
         boolean b = false;
         TForumFansExample forumFansExample = new TForumFansExample();
         forumFansExample.or()
-                             .andFkDecideUserEqualTo(decideId)
+                .andFkDecideUserEqualTo(decideId)
                 .andFkFansUserEqualTo(userId);
-       List<TForumFans> lf =  ffm.selectByExample(forumFansExample);
-       if (lf != null && lf.size() !=0) {
-           b = true;
-       }
+        List<TForumFans> lf = ffm.selectByExample(forumFansExample);
+        if (lf != null && lf.size() != 0) {
+            b = true;
+        }
         return b;
     }
 
     @Override
     public boolean deleteFans(int userId, int decideId) {
+        System.out.println(userId+","+decideId);
         boolean b = false;
         TForumFansExample forumFansExample = new TForumFansExample();
         forumFansExample.or()
                 .andFkFansUserEqualTo(userId)
                 .andFkDecideUserEqualTo(decideId);
-       int i =  ffm.deleteByExample(forumFansExample);
-        System.out.println(i+"-----123123132");
-       if (i == 1){
-           b =true;
-       }
+        int i = ffm.deleteByExample(forumFansExample);
+        System.out.println(i);
+        if (i == 1) {
+            b = true;
+        }
         return b;
     }
 }

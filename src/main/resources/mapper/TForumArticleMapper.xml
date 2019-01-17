@@ -419,4 +419,21 @@
     order by #{order_desc}
      LIMIT #{start},#{end}
   </select>
+  <select id="selectPersonalAllArticle" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>
+    from t_forum_article
+    where fk_user_key = #{userId}
+    order by create_time
+    limit #{start},#{end}
+
+  </select>
+
+  <select id="selectPersonalArticle" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>
+    from t_forum_article
+    where fk_user_key = #{userId} and #{createTime} > create_time
+    order by create_time
+    limit #{start},#{end}
+
+  </select>
 </mapper>

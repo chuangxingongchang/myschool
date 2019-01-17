@@ -5,6 +5,7 @@ import com.school.entity.TForumCommentExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TForumCommentMapper {
     long countByExample(TForumCommentExample example);
@@ -28,4 +29,8 @@ public interface TForumCommentMapper {
     int updateByPrimaryKeySelective(TForumComment record);
 
     int updateByPrimaryKey(TForumComment record);
+
+    List<Integer> selectCommentByUserId(Map map);
+
+    List<Integer> selectNewsTimeCommentByUserId(Map map);
 }

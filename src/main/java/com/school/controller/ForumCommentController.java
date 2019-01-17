@@ -1,6 +1,7 @@
 package com.school.controller;
 
 import com.school.entity.TForumComment;
+import com.school.entity.TUser;
 import com.school.service.ForumArticleService;
 import com.school.service.ForumCommentService;
 import com.school.util.DateUtil;
@@ -28,29 +29,12 @@ public class ForumCommentController {
     ForumCommentService forumCommentService;
     @Autowired
     ForumArticleService forumArticleService;
-    List<TForumComment> list = new ArrayList<>();
 
     @RequestMapping("/toId")
     public ModelAndView selectFkArticleIdComment(int id) {
+        List<TForumComment> list = new ArrayList<>();
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-
-
         list = forumCommentService.selectFkIdToComment(id);
-
-
-        modelAndView.addObject("comment", list);
-        return modelAndView;
-    }
-
-
-    @RequestMapping("/toIId")
-    public ModelAndView selectFkArticleIdCom(int id) {
-        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-
-
-        list = forumCommentService.selectFkIdToComment(id);
-
-
         modelAndView.addObject("comment", list);
         return modelAndView;
     }
