@@ -23,7 +23,7 @@ spring:
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
   resources:
-    static-locations: classpath:static/text,classpath:static/image
+    static-locations: classpath:static/text,classpath:static/image,classpath:tempeletes
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
