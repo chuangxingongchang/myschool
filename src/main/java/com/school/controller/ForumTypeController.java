@@ -38,13 +38,6 @@ public class ForumTypeController {
 
     ReadWriteLock rwl = new ReentrantReadWriteLock();
 
-
-
-
-
-
-
-
     /*查询全部类型*/
     @RequestMapping("/all")
     public ModelAndView selectForumTypeAll() {
@@ -65,6 +58,9 @@ public class ForumTypeController {
         }
             rwl.readLock().unlock();
             modelAndView.addObject("ftype", lft);
+        for (TForumType tForumType : lft) {
+            System.out.println(tForumType.toString());
+        }
             return modelAndView;
 
     }

@@ -32,7 +32,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class ForumArticleController {
     Logger log = LoggerFactory.getLogger(ForumArticleController.class);
     @Autowired
-    ForumArticleService fas;
+    ForumArticleService forumArticleService;
     @Autowired
     UserService userService;
     ReadWriteLock rwl = new ReentrantReadWriteLock();
@@ -51,42 +51,35 @@ public class ForumArticleController {
 
 
     /**
-     * 根据标题查询Article中 标题and内容相匹配
+     * 查询方法
      *
-     * @param title
-     * @return Article Json
+     * @param title 输入的内容
+     * @param start 开始index
+     * @param end   结束index
+     * @return
      */
     @RequestMapping("/article/like")
-    public ModelAndView findByTitleAndContentLikeToArticle(String title) {
+    public ModelAndView findByTitleAndContentLikeToArticle(String title, Integer start, Integer end) {
+        System.out.println(title + "," + start + ',' + end);
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         List<TForumArticleVo> lfat = new ArrayList<>();
-        try {
-            if (title != null && !title.equals("")) {
-                lfat = fas.findByTitleAndContentLikeToArticle(title);
-            }
-        } finally {
-
+        if (title != null && !title.equals("") && start != null && end != null) {
+            lfat = forumArticleService.findByTitleAndContentLikeToArticle(title, start, end);
         }
         List<Integer> li = new ArrayList<>();
-        for (TForumArticleVo tf : lfat) {
-            try {
-                if (tf.getFkUserKey() != null && tf.getFkUserKey().getId() > 0) {
-                    li.add(tf.getFkUserKey().getId());
-                    List<TUser> lu = userService.selectUserIdIn(li);
-                    for (TUser tu : lu) {
-                        for (TForumArticleVo tfa : lfat) {
-                            if (tu.getId() == tfa.getFkUserKey().getId()) {
-                                tfa.setFkUserKey(tu);
-                            }
-                        }
+        if (lfat.size() != 0) {
+            for (TForumArticleVo tf : lfat) {
+                li.add(tf.getFkUserKey().getId());
+            }
+            List<TUser> lu = userService.selectUserIdIn(li);
+            for (TUser tu : lu) {
+                for (TForumArticleVo tfa : lfat) {
+                    if (tu.getId() == tfa.getFkUserKey().getId()) {
+                        tfa.setFkUserKey(tu);
                     }
                 }
-            } catch (Exception e) {
-                log.info(e.toString());
-            } finally {
             }
         }
-
         mav.addObject("farticle", lfat);
         return mav;
     }
@@ -101,7 +94,7 @@ public class ForumArticleController {
     public ModelAndView findByTitleToArticle(int article_id) {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         //这篇文章
-        TForumArticleVo articleVo = fas.findByTitleToArticle(article_id);
+        TForumArticleVo articleVo = forumArticleService.findByTitleToArticle(article_id);
         Map map = new HashMap();
         try {
             if (articleVo != null) {
@@ -154,7 +147,7 @@ public class ForumArticleController {
                 }
                 //相关文章推荐
                 String titleUtil = StringUitl.aString(articleVo.getTitle());
-                List<TForumArticleVo> articleRelevantList = fas.findByTitleLikeLimite(titleUtil);
+                List<TForumArticleVo> articleRelevantList = forumArticleService.findByTitleLikeLimite(titleUtil);
                 if (articleRelevantList != null) {
                     List<Integer> listInteger = new ArrayList<>();
                     for (TForumArticleVo tavo : articleRelevantList) {
@@ -184,13 +177,13 @@ public class ForumArticleController {
 
     @RequestMapping("/addViolation")
     public boolean updateViolationCount(int articleId) {
-        return fas.updateViolationCount(articleId);
+        return forumArticleService.updateViolationCount(articleId);
     }
 
     @RequestMapping("/browseCount")
     public ModelAndView selectBrowseCount(int userId) {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-        Integer count = fas.selectBrowseCountArticle(userId);
+        Integer count = forumArticleService.selectBrowseCountArticle(userId);
         modelAndView.addObject("browseCount", count);
         return modelAndView;
     }
@@ -198,7 +191,7 @@ public class ForumArticleController {
     @RequestMapping("/articleCount")
     public ModelAndView selectArticleCount(int userId) {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-        Long count = fas.selectArticleCount(userId);
+        Long count = forumArticleService.selectArticleCount(userId);
         modelAndView.addObject("articleCount", count);
         return modelAndView;
     }
@@ -206,7 +199,7 @@ public class ForumArticleController {
     @RequestMapping("/articleAllUser")
     public ModelAndView selectArticleAllUser(int userId) {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-        List<TForumArticle> lfa = fas.selectArticleAll(userId);
+        List<TForumArticle> lfa = forumArticleService.selectArticleAll(userId);
         modelAndView.addObject("articleAll", lfa);
         return modelAndView;
     }
@@ -214,7 +207,7 @@ public class ForumArticleController {
     @RequestMapping("/articleLimitUser")
     public ModelAndView selectArticleLimitUser(int userId) {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-        List<TForumArticle> lfa = fas.selectLimitArticle(userId);
+        List<TForumArticle> lfa = forumArticleService.selectLimitArticle(userId);
         modelAndView.addObject("articleLimit", lfa);
         return modelAndView;
     }
@@ -243,7 +236,7 @@ public class ForumArticleController {
 
         if (b) {
             tForumArticle.setContentText(fileName);
-            b = fas.addArticle(tForumArticle);
+            b = forumArticleService.addArticle(tForumArticle);
         }
 
         return b;
@@ -262,16 +255,27 @@ public class ForumArticleController {
     public ModelAndView selectPersonalAllArticle(Integer userId, Integer start, Integer end) {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         if (userId != null && start != null && end != null) {
-            List<TForumArticle> list = fas.selectPersonalAllArticle(userId, start, end);
+            List<TForumArticle> list = forumArticleService.selectPersonalAllArticle(userId, start, end);
             modelAndView.addObject("personalArticle", list);
         }
         return modelAndView;
     }
+
+    /**
+     * 下拉刷新
+     * 我发过的文章
+     *
+     * @param userId     用户
+     * @param start      开始index
+     * @param end        结束 index
+     * @param createTime 最新时间
+     * @return object
+     */
     @RequestMapping("/pulldownFreshArticle")
-    public ModelAndView selectPersonalAllArticle(Integer userId, Integer start, Integer end,String createTime) {
+    public ModelAndView selectPersonalAllArticle(Integer userId, Integer start, Integer end, String createTime) {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         if (userId != null && start != null && end != null && createTime != null) {
-            List<TForumArticle> list = fas.selectPersonalArticle(userId, start, end, createTime);
+            List<TForumArticle> list = forumArticleService.selectPersonalArticle(userId, start, end, createTime);
             modelAndView.addObject("newsTimePersonalArticle", list);
         }
         return modelAndView;
@@ -293,7 +297,7 @@ public class ForumArticleController {
             List<Integer> integers = forumCommentService.selectFindByUserIdComment(userId, start, end);
             if (integers != null) {
                 //获取文章信息
-                List<TForumArticle> list = fas.selectFindById(integers);
+                List<TForumArticle> list = forumArticleService.selectFindById(integers);
                 List<Integer> integer = new ArrayList<>();
                 for (TForumArticle tForumArticle : list) {
                     integer.add(tForumArticle.getFkUserKey());
@@ -301,27 +305,31 @@ public class ForumArticleController {
                 List<TUser> tUsers = userService.selectUserIdIn(integer);
                 modelAndView.addObject("articleUserList", tUsers);
                 modelAndView.addObject("articleList", list);
-            }else
-            {
-                modelAndView.addObject("articleUserList", null);
-                modelAndView.addObject("articleList", null);
             }
 
         }
         return modelAndView;
     }
 
-
-
+    /**
+     * 下拉刷新
+     * 我评论过得 文章
+     *
+     * @param userId     用户
+     * @param start      开始index
+     * @param end        结束index
+     * @param createTime 最新时间
+     * @return object
+     */
     @RequestMapping("/pulldownFreshComment")
-    public ModelAndView selectPersonalAllComment(Integer userId, Integer start, Integer end,String createTime) {
+    public ModelAndView selectPersonalAllComment(Integer userId, Integer start, Integer end, String createTime) {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         if (userId != null && start != null && end != null && createTime != null) {
             //评论过得文章
             List<Integer> integers = forumCommentService.selectNewsTimeComment(userId, start, end, createTime);
             if (integers != null) {
                 //获取文章信息
-                List<TForumArticle> list = fas.selectFindById(integers);
+                List<TForumArticle> list = forumArticleService.selectFindById(integers);
                 List<Integer> integer = new ArrayList<>();
                 for (TForumArticle tForumArticle : list) {
                     integer.add(tForumArticle.getFkUserKey());
@@ -329,9 +337,6 @@ public class ForumArticleController {
                 List<TUser> tUsers = userService.selectUserIdIn(integer);
                 modelAndView.addObject("articleUserList", tUsers);
                 modelAndView.addObject("articleList", list);
-            }else {
-                modelAndView.addObject("articleUserList", null);
-                modelAndView.addObject("articleList", null);
             }
         }
         return modelAndView;
@@ -339,36 +344,38 @@ public class ForumArticleController {
 
 
     /**
-     * 通过分类类型ID 查询 分类下的所有 文章
+     * 通过分类类型_ID 查询分类下的所有文章
+     * 并且排序
+     * 并分页
      *
-     * @param id    类型
-     * @param start 开始index
-     * @param end   截止index
-     * @return
-     * @Param dateTime 时间
+     * @param id       类型
+     * @param start    开始index
+     * @param end      截止index
+     * @param dateTime 判断是否点击的 最新
+     * @return object
      */
     @RequestMapping("/singleTypeAll")
-    public ModelAndView selectForumSingleType(int id, int start, int end, String dateTime) {
+    public ModelAndView selectForumSingleType(Integer id, Integer start, Integer end, String dateTime) {
         System.out.println(id + "," + start + "," + end + "," + dateTime);
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-        List<TForumArticleVo> lfaVo = fas.findByFkTypeIdToArticle(id, start, end, dateTime);
-        if (lfaVo.size() != 0) {
-            List<Integer> li = new ArrayList<>();
-            for (TForumArticleVo tf : lfaVo) {
-                li.add(tf.getFkUserKey().getId());
-            }
-            List<TUser> lu = userService.selectUserIdIn(li);
-            for (TUser tu : lu) {
-                for (TForumArticleVo favo : lfaVo) {
-                    if (tu.getId() == favo.getFkUserKey().getId()) {
-                        favo.setFkUserKey(tu);
+        if (id != null && start != null && end != null && dateTime != null) {
+            List<TForumArticleVo> forumArticleVoList = forumArticleService.findByFkTypeIdToArticle(id, start, end, dateTime);
+            if (forumArticleVoList.size() != 0) {
+                List<TUser> tUserList = userService.selectUserIdIn(getFkUserKey_Id(forumArticleVoList));
+                for (TUser tUser : tUserList) {
+                    for (TForumArticleVo forumArticleVo : forumArticleVoList) {
+                        if (tUser.getId() == forumArticleVo.getFkUserKey().getId()) {
+                            forumArticleVo.setFkUserKey(tUser);
+                        }
                     }
                 }
             }
         }
-        modelAndView.addObject("listTypeForumVo", lfaVo);
+
+        modelAndView.addObject("listTypeForumVo", "");
         return modelAndView;
     }
+
 
     /**
      * 根据用户_Id查询个人中心 用户信息
@@ -377,48 +384,62 @@ public class ForumArticleController {
      * @return
      */
     @RequestMapping("personalAllInfo")
-    public ModelAndView selectPersonalAll(int userId) {
+    public ModelAndView selectPersonalAll(Integer userId) {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         Map map = new HashMap();
-        //查询最近动态
-        List<TForumArticle> newsArticleList = fas.selectLimitArticle(userId);
-        //查询动态用户
-        List<Integer> integers = new ArrayList<>();
-        for (TForumArticle forumArticle : newsArticleList) {
-            integers.add(forumArticle.getFkUserKey());
+        if (userId != null) {
+            //查询最近动态
+            List<TForumArticle> newsArticleList = forumArticleService.selectLimitArticle(userId);
+            //查询动态用户
+            List<TUser> newsUserList = userService.selectUserIdIn(getFkUserKeyId(newsArticleList));
+            map.put("newsUserList", newsUserList);
+            map.put("newsArticleList", newsArticleList);
+            //个人发布过多少论坛
+            Long totalArticleItem = forumArticleService.selectArticleCount(userId);
+            map.put("totalArticleItem", totalArticleItem);
+            //所有文章总浏览量
+            Integer totalArticleBrowse = forumArticleService.selectBrowseCountArticle(userId);
+            map.put("totalArticleBrowse", totalArticleBrowse);
+            //粉丝数量
+            Long totalFansItem = forumFansService.selectCountFansUser(userId);
+            map.put("totalFansItem", totalFansItem);
+            //个人信息
+            List<Integer> personId = new ArrayList<>();
+            personId.add(userId);
+            List<TUser> user = userService.selectUserIdIn(personId);
+            map.put("user", user);
+            try {
+                TIntegralIco personIntegralIco = inte.selectFkIdICO(user.get(0).getFkIntegralId());
+                map.put("personIntegralIco", personIntegralIco);
+            } catch (NullPointerException | IndexOutOfBoundsException e) {
+                System.out.println(e.toString());
+            }
+            //个人关注的数量
+            Long totalMindItem = mindService.selectCountMindUser(userId);
+            map.put("totalMindItem", totalMindItem);
+            //个人收藏数量
+            Long totalSignItem = forumUserSignService.selectSignCount(userId);
+            map.put("totalSignItem", totalSignItem);
+            modelAndView.addAllObjects(map);
         }
-        List<TUser> newsUserList = userService.selectUserIdIn(integers);
-        map.put("newsUserList", newsUserList);
-        map.put("newsArticleList", newsArticleList);
-
-        //个人发布过多少论坛
-        Long totalArticleItem = fas.selectArticleCount(userId);
-        map.put("totalArticleItem", totalArticleItem);
-        //所有文章总浏览量
-        Integer totalArticleBrowse = fas.selectBrowseCountArticle(userId);
-        map.put("totalArticleBrowse", totalArticleBrowse);
-        //粉丝数量
-        Long totalFansItem = forumFansService.selectCountFansUser(userId);
-        map.put("totalFansItem", totalFansItem);
-        //个人信息
-        List<Integer> personId = new ArrayList<>();
-        personId.add(userId);
-        List<TUser> user = userService.selectUserIdIn(personId);
-        map.put("user", user);
-        try {
-            TIntegralIco personIntegralIco = inte.selectFkIdICO(user.get(0).getFkIntegralId());
-            map.put("personIntegralIco", personIntegralIco);
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-            System.out.println(e.toString());
-        }
-        //个人关注的数量
-        Long totalMindItem = mindService.selectCountMindUser(userId);
-        map.put("totalMindItem", totalMindItem);
-        //个人收藏数量
-        Long totalSignItem = forumUserSignService.selectSignCount(userId);
-        map.put("totalSignItem", totalSignItem);
-        modelAndView.addAllObjects(map);
         return modelAndView;
     }
 
+    //传入List VO 返回 用户ID
+    private List<Integer> getFkUserKey_Id(List<TForumArticleVo> o) {
+        List<Integer> list = new ArrayList<>();
+        for (TForumArticleVo forumArticleVo : o) {
+            list.add(forumArticleVo.getFkUserKey().getId());
+        }
+        return list;
+    }
+
+    //传入List 返回 用户ID
+    private List<Integer> getFkUserKeyId(List<TForumArticle> forumArticles) {
+        List<Integer> list = new ArrayList<>();
+        for (TForumArticle forumArticle : forumArticles) {
+            list.add(forumArticle.getFkUserKey());
+        }
+        return list;
+    }
 }

@@ -64,6 +64,7 @@ public class ForumMindServiceImpl implements ForumMindService {
 
     }
 
+
     @Override
     public boolean selectMeTrueFalseMindHe(int userId, int deId) {
         boolean b = false;

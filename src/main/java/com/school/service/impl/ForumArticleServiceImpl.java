@@ -35,89 +35,59 @@ public class ForumArticleServiceImpl implements ForumArticleService {
     ReadWriteLock rwl = new ReentrantReadWriteLock();
     private String url = FinalsString.PROJECT_STATIC_RESOURCE_PATH_TEXT + "/";
 
-    /**
-     * 查询文章
-     *
-     * @param likeTitle
-     * @return List<TForumArticle>
-     */
-    public List<TForumArticleVo> findByTitleAndContentLikeToArticle(String likeTitle) {
-        TForumArticleExample tae = new TForumArticleExample();
+    public List<TForumArticleVo> findByTitleAndContentLikeToArticle(String likeTitle, int start, int end) {
         List<TForumArticleVo> lfa = new ArrayList<>();
-
         //标题equal
-        List<TForumArticle> lone = new ArrayList<>();
-        tae.or()
-                .andTitleEqualTo(likeTitle);
-        lone = tam.selectByExample(tae);
-        if (lone != null && lone.size() != 0) {
-            for (TForumArticle tf : lone) {
+        Map map = new HashMap();
+        map.put("likeTitle", likeTitle);
+        map.put("start", start);
+        map.put("end", end);
+        List<TForumArticle> list = tam.selectTitleLimit(map);
+        if (list != null && list.size() != 0) {
+            for (TForumArticle tf : list) {
                 lfa.add(get(tf));
             }
         }
         //内容equal
-        tae = new TForumArticleExample();
-        tae.or()
-                .andContentTextEqualTo(likeTitle);
-        List<TForumArticle> ltwo = tam.selectByExample(tae);
-        if (ltwo != null && ltwo.size() != 0) {
-            for (TForumArticle tf : ltwo) {
+        List<TForumArticle> list1 = tam.selectContentLimit(map);
+        if (list1 != null && list1.size() != 0) {
+            for (TForumArticle tf : list1) {
                 lfa.add(get(tf));
             }
-            tae = new TForumArticleExample();
         }
         //%标题%
-        Map<String, Object> map = new HashMap<>();
-        map.put("title", likeTitle);
-        if (lone != null && lone.size() != 0) {
-            List<String> ls = new ArrayList<>();
-            for (TForumArticle tf : lone) {
-                ls.add(tf.getTitle());
-            }
-            map.put("map", ls);
-        }
-        List<TForumArticle> lthree = tam.selectLikeTitleNotIn(map);
-        if (lthree != null && lthree.size() != 0) {
-            for (TForumArticle tf : lthree) {
+        List<TForumArticle> list2 = tam.selectTitleLikeLimit(map);
+        if (list2 != null && list2.size() != 0) {
+            for (TForumArticle tf : list2) {
                 lfa.add(get(tf));
             }
         }
         //%内容%
-        map = new HashMap<>();
-        map.put("content_text", likeTitle);
-        if (ltwo != null && ltwo.size() != 0) {
-            List<String> ls = new ArrayList<>();
-            for (TForumArticle tf : ltwo) {
-                ls.add(tf.getContentText());
-            }
-            map.put("map", ls);
-        }
-        List<TForumArticle> lfour = tam.selectLikeContentNotIn(map);
-        if (lfour != null && lfour.size() != 0) {
-            for (TForumArticle tf : lfour) {
+        List<TForumArticle> list3 = tam.selectContentLikeLimit(map);
+        if (list3 != null && list3.size() != 0) {
+            for (TForumArticle tf : list3) {
                 lfa.add(get(tf));
             }
         }
-        return lfa;
+       return lfa;
 
     }
+
     @Override
-    public List<TForumArticleVo> findByFkTypeIdToArticle(int id, int start, int end,String dateTime) {
-        List<TForumArticle> lfa = new ArrayList<>();
+    public List<TForumArticleVo> findByFkTypeIdToArticle(int id, int start, int end, String dateTime) {
+        List<TForumArticle> lfa;
         List<TForumArticleVo> lfavO = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
         //最新文章则不加条件 只排序 limit
         map.put("start", start);
         map.put("end", end);
-
         if (dateTime.equals("2888-88-88")) {
-            map.put("dateTime",null);
-            map.put("time","");
-        }else{
-            map.put("dateTime",dateTime);
+            map.put("dateTime", null);
+            map.put("time", "");
+        } else {
+            map.put("dateTime", dateTime);
 
         }
-        System.out.println(map.get("dateTime"));
         //判断分类
         if (id != 2) {
             if (id == 1) {
@@ -162,7 +132,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         fae.or()
                 .andTitleLike("%" + title + "%");
         List<TForumArticle> lfa = tam.selectByExample(fae);
-        try{
+        try {
             if (lfa != null) {
                 if (lfa.size() >= 6) {
                     for (int i = 0; i < 5; i++) {
@@ -173,10 +143,10 @@ public class ForumArticleServiceImpl implements ForumArticleService {
                         lfaVo.add(get(tf));
                     }
                 }
-            }else {
-                return  null;
+            } else {
+                return null;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
             return null;
         }
@@ -369,12 +339,12 @@ public class ForumArticleServiceImpl implements ForumArticleService {
 
     @Override
     public List<TForumArticle> selectPersonalAllArticle(int userId, int start, int end) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("userId",userId);
-        map.put("start",start);
-        map.put("end",end);
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("start", start);
+        map.put("end", end);
         List<TForumArticle> list = tam.selectPersonalAllArticle(map);
-        if (list == null){
+        if (list == null) {
             return null;
         }
         return list;
@@ -383,13 +353,13 @@ public class ForumArticleServiceImpl implements ForumArticleService {
 
     @Override
     public List<TForumArticle> selectPersonalArticle(int userId, int start, int end, String createTime) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("userId",userId);
-        map.put("start",start);
-        map.put("end",end);
-        map.put("createTime",createTime);
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("start", start);
+        map.put("end", end);
+        map.put("createTime", createTime);
         List<TForumArticle> list = tam.selectPersonalArticle(map);
-        if (list == null){
+        if (list == null) {
             return null;
         }
         return list;
@@ -410,7 +380,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         TForumArticleVo avo = new TForumArticleVo();
         avo.setId(tf.getId());
         avo.setApplaud(tf.getFkApplaudStatus());
-       try {
+        try {
             avo.setContentText(UpLoadUtil.inputFileData(tf.getContentText()).toString());
         } catch (Exception e) {
             System.out.println(e.toString());

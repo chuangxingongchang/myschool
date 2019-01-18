@@ -85,8 +85,13 @@ public class ForumUserSignController {
                 userList.add(tFkUserSign.getFkUserKey());
                 li.add(tFkUserSign.getFkArticleKey());
             }
-            List<TUser> tUserList = userService.selectUserIdIn(userList);
-            List<TForumArticle> lfa = forumArticleService.selectFindById(li);
+            List<TUser> tUserList = new ArrayList<>();
+            List<TForumArticle> lfa = new ArrayList<>();
+            if (li.size() != 0){
+            tUserList = userService.selectUserIdIn(userList);
+            lfa = forumArticleService.selectFindById(li);
+            }
+
             modelAndView.addObject("articleSignUser",tUserList);
             modelAndView.addObject("articleAllSign", lfa);
         }

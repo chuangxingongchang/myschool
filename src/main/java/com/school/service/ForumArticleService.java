@@ -17,7 +17,7 @@ public interface ForumArticleService {
      * @param likeTitle article title
      * @return List<TForumArticleVo>
      */
-    List<TForumArticleVo> findByTitleAndContentLikeToArticle(String likeTitle);
+    List<TForumArticleVo> findByTitleAndContentLikeToArticle(String likeTitle,int start, int end);
 
     /**
      * 查询 分类下 文章 一次返回start-end条

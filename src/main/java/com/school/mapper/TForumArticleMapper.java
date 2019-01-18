@@ -30,10 +30,6 @@ public interface TForumArticleMapper {
 
     int updateByPrimaryKey(TForumArticle record);
 
-    List<TForumArticle> selectLikeTitleNotIn(Map<String, Object> map);
-
-    List<TForumArticle> selectLikeContentNotIn(Map<String, Object> map);
-
     Integer selectBrowseCount(int userId);
 
     List<TForumArticle> selectLimitArticle(int userId);
@@ -47,4 +43,12 @@ public interface TForumArticleMapper {
     List<TForumArticle> selectPersonalAllArticle(Map<String, Object> map);
 
     List<TForumArticle> selectPersonalArticle(Map<String, Object> map);
+
+    List<TForumArticle> selectTitleLimit(Map<String, Object> map);
+
+    List<TForumArticle> selectContentLimit(Map<String, Object> map);
+
+    List<TForumArticle> selectTitleLikeLimit(Map<String, Object> map);
+
+    List<TForumArticle> selectContentLikeLimit(Map<String, Object> map);
 }
