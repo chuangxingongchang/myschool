@@ -2,6 +2,7 @@ package com.school.service.impl;
 
 import com.school.entity.*;
 import com.school.mapper.TPlurMapper;
+import com.school.mapper.TSchoolMapper;
 import com.school.mapper.TUnitMapper;
 import com.school.service.PlurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,9 @@ public class PlurServiceImpl implements PlurService {
     private TPlurMapper plurMapper;
     @Autowired
     private TUnitMapper unitMapper;
+    @Autowired
+    private TSchoolMapper schoolMapper;
 
-
-   // private  TPlurExample plurexample = new TPlurExample();
     //查询所有兼职
     @Override
     public List<TPlur> selectAllTplur() {
@@ -58,6 +59,44 @@ public class PlurServiceImpl implements PlurService {
                 throw new Exception();
             } catch (Exception e) {
                 return  null;
+            }
+        }
+    }
+
+    @Override
+    public List<TPlur> selectByaccountAndtimeDesc(String schoolname) {
+        Map map = new HashMap();
+        TSchoolExample schoolExample = new TSchoolExample();
+        TSchoolExample schoolExample1 = new TSchoolExample();
+        schoolExample1.or().andSchoolnameEqualTo(schoolname);
+        List<TSchool> schoolList = schoolMapper.selectByExample(schoolExample1);
+
+        if(schoolList!=null||schoolList.size()>0){
+            schoolExample.or().andSchoolnameEqualTo(schoolname);
+        }else{
+            TSchool school = new TSchool();
+            school.setSchoolname(schoolname);
+            schoolMapper.insertSelective(school);
+            return null;
+        }
+        List<TSchool> schools = null;
+        try {
+            schools = schoolMapper.selectByExample(schoolExample);
+        }catch (Exception e){
+            return null;
+        }
+         int id = schools.get(0).getId();
+        map.put("schoolId",id);
+        map.put("fkWorkstate",1);
+        List<TPlur> tPlurList = plurMapper.selectPluraccountAndtime(map);
+
+        if(tPlurList!=null&&tPlurList.size()>0){
+            return  tPlurList;
+        }else{
+            try {
+                throw  new Exception();
+            } catch (Exception e) {
+                return null;
             }
         }
     }
@@ -146,6 +185,39 @@ public class PlurServiceImpl implements PlurService {
                 .andFkTimetypeEqualTo(fkTimetype)
                 .andFkWorkstateEqualTo(1);
         List<TPlur> tPlurList = plurMapper.selectByExample(plurExample);
+        return tPlurList;
+    }
+
+    @Override
+    public List<TPlur> selectPlurBytoSearch(String searchname,String schoolname) {
+        List<TPlur> tPlurList = null;
+        Map map  = new HashMap();
+        TSchoolExample schoolExample = new TSchoolExample();
+        TSchoolExample schoolExample1 = new TSchoolExample();
+        schoolExample1.or().andSchoolnameEqualTo(schoolname);
+        List<TSchool> schoolList = schoolMapper.selectByExample(schoolExample1);
+
+        if(schoolList!=null||schoolList.size()>0){
+            schoolExample.or().andSchoolnameEqualTo(schoolname);
+        }else{
+            TSchool school = new TSchool();
+            school.setSchoolname(schoolname);
+            schoolMapper.insertSelective(school);
+            return null;
+        }
+        List<TSchool> schools = null;
+        int id = 0;
+        try {
+            schools = schoolMapper.selectByExample(schoolExample);
+            id = schools.get(0).getId();
+            if(searchname!=null&&searchname!=""){
+                map.put("searchname",searchname);
+                map.put("schoolId",id);
+                tPlurList = plurMapper.selectPlurBySearch(map);
+            }
+        }catch (Exception e){
+            return  null;
+        }
         return tPlurList;
     }
 }

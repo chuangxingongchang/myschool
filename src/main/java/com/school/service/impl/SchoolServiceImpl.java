@@ -19,7 +19,10 @@ public class SchoolServiceImpl implements SchoolService {
         TSchoolExample schoolExample = new TSchoolExample();
         schoolExample.or().andSchoolnameEqualTo(schoolname);
         List<TSchool> schools = schoolMapper.selectByExample(schoolExample);
-        int id = schools.get(0).getId();
+        int id = 0;
+        if(schools!=null&&schools.size()>0){
+           id  = schools.get(0).getId();
+        }
         return id;
     }
 

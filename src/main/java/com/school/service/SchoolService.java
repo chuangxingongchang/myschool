@@ -7,4 +7,5 @@ public interface SchoolService {
     String selectByFkSchoolId(int fkSchoolId);
     boolean insertSchool(TSchool school);
     boolean checkThisSchool(TSchool school);
+
 }

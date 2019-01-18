@@ -17,6 +17,9 @@ public interface PlurService {
     //根据用户的信用度进行查询
     List<SchoolCreditPlur> selectBySchoolCredit(int schoolId);
 
+    //查询学校根据访问次数及发布时间进行排序
+    List<TPlur>  selectByaccountAndtimeDesc(String schoolname);
+
     //根据兼职id查询当前兼职
     TPlur selectByTplurId(int id);
 
@@ -45,4 +48,6 @@ public interface PlurService {
     //根据学校查询短期、长期
     List<TPlur> selectPlurBySL(int fkSchoolId,int fkTimetype);
 
+    //根据主题进行模糊搜索
+    List<TPlur> selectPlurBytoSearch(String searchname,String schoolname);
 }
