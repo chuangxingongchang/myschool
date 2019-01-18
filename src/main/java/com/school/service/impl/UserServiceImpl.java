@@ -108,4 +108,12 @@ public class UserServiceImpl implements UserService {
         }
         return lu;
     }
+
+    @Override
+    public TUser selectNicknameById(int uid) {
+        TUserExample userExample = new TUserExample();
+        userExample.setOrderByClause("nickname");
+        TUser user = userMapper.selectByPrimaryKey(uid);
+        return user;
+    }
 }

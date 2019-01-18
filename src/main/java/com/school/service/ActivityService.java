@@ -16,4 +16,8 @@ public interface ActivityService {
 
     boolean addActivity(TActivity activity);
 
+    List<TActivity> selectByUserIdActivity(int fkUserid);
+
+    boolean deleteActivity(int id);
+
 }

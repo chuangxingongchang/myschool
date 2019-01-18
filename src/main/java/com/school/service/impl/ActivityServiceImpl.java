@@ -45,12 +45,28 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public boolean addActivity(TActivity activity) {
-        System.out.println(activity.getCreatetime());
-        System.out.println(activity.getActivitytime());
         int count = activityMapper.insertSelective(activity);
         if(count>0){
             return  true;
         }else{
+            return false;
+        }
+    }
+
+    @Override
+    public List<TActivity> selectByUserIdActivity(int fkUserid) {
+        TActivityExample activityExample = new TActivityExample();
+        activityExample.or().andFkUseridEqualTo(fkUserid);
+        List<TActivity> activityList = activityMapper.selectByExample(activityExample);
+        return activityList;
+    }
+
+    @Override
+    public boolean deleteActivity(int id) {
+        int count = activityMapper.deleteByPrimaryKey(id);
+        if (count>0){
+            return true;
+        }else {
             return false;
         }
     }

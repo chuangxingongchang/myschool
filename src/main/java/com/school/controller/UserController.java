@@ -260,4 +260,19 @@ public class UserController {
         System.out.println("dfjsdlfjsdlfjsdlkfjsdlkfjsdlkfjs");
         return m;
     }
+
+    @RequestMapping("/getByIdUserName")
+    public ModelAndView selectNicknameById(int uid) {
+        ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
+        Message ms = new Message();
+        TUser user = userService.selectNicknameById(uid);
+        if(user!=null){
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+        mav.addObject("ms",ms);
+        mav.addObject("user",user);
+        return mav;
+    }
 }

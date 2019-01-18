@@ -19,4 +19,10 @@ public interface UserService {
      * @return List User
      */
     List<TUser> selectUserIdIn(List<Integer> id);
+
+    /**
+     * 通过ID获取userNickname
+     * author: laip
+     */
+    TUser selectNicknameById(int uid);
 }

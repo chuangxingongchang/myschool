@@ -3,7 +3,6 @@ package com.school.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.school.entity.TActivity;
 import com.school.service.ActivityService;
-import com.school.service.UserService;
 import com.school.util.DateUtil;
 import com.school.util.Message;
 import com.school.vo.ActivityVo;
@@ -22,10 +21,7 @@ import java.util.List;
 public class ActivityController {
     @Autowired
     private ActivityService activityService;
-    private UserService userService;
-
     private ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
-
     private Message ms = new Message();
 
     /**
@@ -88,6 +84,11 @@ public class ActivityController {
         return mav;
     }
 
+    /**
+     * 保存活动
+     * @param activityVo
+     * @return
+     */
     @RequestMapping("/addActivity")
     public ModelAndView addActivity(ActivityVo activityVo){
         TActivity activity = new TActivity();
@@ -110,6 +111,32 @@ public class ActivityController {
         }
         mav.addObject("ms",ms);
         return mav;
+    }
+
+    @RequestMapping("/selectByUserIdActivity")
+    public ModelAndView selectByUserIdActivity(int fkUserid){
+        List<TActivity> activityList = activityService.selectByUserIdActivity(fkUserid);
+        if(activityList.size()>0){
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+        mav.addObject("ms",ms);
+        mav.addObject("userActivity",activityList);
+        return mav;
+    }
+
+
+    @RequestMapping("/deleteActivity")
+    public ModelAndView deleteActivity(int id){
+        boolean flag = activityService.deleteActivity(id);
+        if(flag){
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+        mav.addObject("ms",ms);
+        return  mav;
     }
 
 }
