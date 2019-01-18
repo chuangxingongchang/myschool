@@ -423,4 +423,15 @@
         select * ,(select credit from t_user where id = p.fk_publisher) as credit from t_plur as p
         where fk_school = #{schoolId} and fk_workState = #{fkWorkstate} order by credit desc
     </select>
+
+    <select id="selectPluraccountAndtime" parameterType="java.util.Map" resultMap="BaseResultMap">
+
+        select * from (select * from t_plur where fk_school = #{schoolId} and fk_workState = #{fkWorkstate} order by
+        counts desc) as a order by releaseTime desc limit 10
+    </select>
+
+    <select id="selectPlurBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
+
+        select * from t_plur where subject like CONCAT ('%',#{searchname},'%') and fk_school = #{schoolId}
+    </select>
 </mapper>

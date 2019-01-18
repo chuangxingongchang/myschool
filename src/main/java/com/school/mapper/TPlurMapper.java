@@ -31,4 +31,8 @@ public interface TPlurMapper {
     int updateByPrimaryKey(TPlur record);
 
     List selectPlurAndcredit(Map map);
+
+    List selectPluraccountAndtime(Map map);
+
+    List<TPlur> selectPlurBySearch(Map map);
 }

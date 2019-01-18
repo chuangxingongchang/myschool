@@ -156,6 +156,12 @@ public class PlurController {
         mav.addObject("endplur",endplurList);
         return  mav;
     }
+
+    /**
+     * @param fkPublisher
+     * @return
+     * 根据发布者id 获取发布者发布的兼职
+     */
     @RequestMapping("/publisher")
     public ModelAndView getPublisherPlur(int fkPublisher){
         List<TPlur> publisherList = plurService.selectByPublisher(fkPublisher);
@@ -198,6 +204,12 @@ public class PlurController {
         mav.addObject("unit",unitList);
         return mav;
     }
+
+    /**
+     * @param plur
+     * @return
+     * 新发布的兼职
+     */
     @RequestMapping("/insertPlur")
     public ModelAndView insertplur(TPlur plur){
         boolean flag = plurService.insertPlur(plur);
@@ -270,6 +282,44 @@ public class PlurController {
         mav.addObject("unitco",unitList1);
         mav.addObject("counms",ms);
         mav.addObject("cou",plurlist);
+        return mav;
+    }
+
+    /**
+     * @param schoolname
+     * @return
+     * 根据学校名，并且按访问次数和发布时间查询当前发布兼职
+     */
+    @RequestMapping("/plurByaccountAndtimeDesc")
+    public ModelAndView selectByaccountAndtimeDesc(String schoolname){
+        List<TPlur> plurList  = plurService.selectByaccountAndtimeDesc(schoolname);
+        List<TUnit> unitLists = plurService.selectAllUnit();
+        if(plurList!=null&&plurList.size()>0){
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+
+        mav.addObject("atunit",unitLists);
+        mav.addObject("atms",ms);
+        mav.addObject("atplur",plurList);
+        return mav;
+    }
+    /**
+     *
+     */
+    @RequestMapping("/jobsearch")
+    public ModelAndView getJobBySearch(String searchname,String schoolname){
+        List<TPlur> plurListse  = plurService.selectPlurBytoSearch(searchname,schoolname);
+        List<TUnit> unitListse = plurService.selectAllUnit();
+        if(plurListse!=null&&plurListse.size()>0){
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+        mav.addObject("unse",unitListse);
+        mav.addObject("sems",ms);
+        mav.addObject("selist",plurListse);
         return mav;
     }
 }

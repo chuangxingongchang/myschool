@@ -71,10 +71,18 @@ public class SchoolController {
         }
     }
     @RequestMapping("/getSchool")
-    public ModelAndView getMySchool(int fkSchoolId){
+    public ModelAndView getMySchool(String schoolname){
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
-        String schoolname = schoolService.selectByFkSchoolId(fkSchoolId);
-        mav.addObject("schoolname",schoolname);
+        Message ms = new Message();
+
+        int fkSchoolId = schoolService.selectBySchoolname(schoolname);
+        if(fkSchoolId>0){
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+        mav.addObject("sms",ms);
+        mav.addObject("fkSchoolId",fkSchoolId);
         return mav;
     }
 }
