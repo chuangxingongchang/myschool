@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/touser")
@@ -35,20 +36,21 @@ public class UserController {
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         Message ms = new Message();
         String codes = (String) request.getSession().getAttribute("code");
+
         try {
-            if (codes.equals(code)) {
-                if (userService.insertUser(user)) {
-                    request.getSession().removeAttribute("code");
-                    ms.setStatus(true);
-                    ms.setData(user);
+                if (codes.equals(code)) {
+                    if (userService.insertUser(user)) {
+                        request.getSession().removeAttribute("code");
+                        ms.setStatus(true);
+                    } else {
+                        ms.setStatus(false);
+                        ms.setMsg("注册失败");
+                    }
                 } else {
                     ms.setStatus(false);
-                    ms.setMsg("注册失败");
+                    ms.setMsg("验证码错误");
                 }
-            } else {
-                ms.setStatus(false);
-                ms.setMsg("验证码错误");
-            }
+
         } catch (Exception e) {
             ms.setStatus(false);
             ms.setMsg("验证码过时，请从新发送验证码");
@@ -67,21 +69,36 @@ public class UserController {
     public ModelAndView getCode(HttpServletRequest request, String phoneno) {
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         Message ms = new Message();
-        //获取验证码（调用工具类Randoms，随机获取六位验证码）
-        String code = String.valueOf(Randoms.getIntRan());
-        //发送验证码到手机（调用工具类JuheSend,使用聚合短信接口实现短信发送
-        //boolean flag = JuheSend.mobileQuery(phoneno, code);
-        boolean flag = true;
-        if (flag) {
-            System.out.println("验证码发送:" + code);
-            request.getSession().setAttribute("code", code);
-            //session 中存在的验证码，存在5分钟
-            request.getSession().setMaxInactiveInterval(300);
-            ms.setStatus(true);
-            ms.setData(code);
-        } else {
+        List<TUser> userList = userService.selectAllUser();
+        boolean flags = false;
+        if(userList!=null&&userList.size()>0){
+            for (TUser t : userList) {
+                if(phoneno.equals(t.getPhoneno())){
+                    flags = true;
+                    break;
+                }
+            }
+        }
+        if(!flags){
+            //获取验证码（调用工具类Randoms，随机获取六位验证码）
+            String code = String.valueOf(Randoms.getIntRan());
+            //发送验证码到手机（调用工具类JuheSend,使用聚合短信接口实现短信发送
+            //boolean flag = JuheSend.mobileQuery(phoneno, code);
+            boolean flag = true;
+            if (flag) {
+                System.out.println("验证码发送rewrewrwer:" + code);
+                request.getSession().setAttribute("code", code);
+                //session 中存在的验证码，存在5分钟
+                request.getSession().setMaxInactiveInterval(300);
+                ms.setStatus(true);
+                ms.setData(code);
+            } else {
+                ms.setStatus(false);
+                ms.setMsg("验证码发送失败");
+            }
+        }else{
             ms.setStatus(false);
-            ms.setMsg("验证码发送失败");
+            ms.setMsg("该号码已注册");
         }
         mav.addObject("mss",ms);
         return mav;

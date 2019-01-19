@@ -5,7 +5,7 @@ import com.school.entity.TUser;
 import java.util.List;
 
 public interface UserService {
-
+    List<TUser> selectAllUser();
     boolean insertUser(TUser user);
     boolean login(TUser user);
     boolean forgetPword(String phoneno,String pword);

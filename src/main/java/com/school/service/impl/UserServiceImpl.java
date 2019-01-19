@@ -15,6 +15,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private TUserMapper userMapper;
 
+    @Override
+    public List<TUser> selectAllUser() {
+        TUserExample userExample = new TUserExample();
+        List<TUser> userList = userMapper.selectByExample(userExample);
+        if(userList==null&&userList.size()<=0){
+            return null;
+        }
+        return userList;
+    }
+
     /**
      * 注册
      * @param user
@@ -22,6 +32,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean insertUser(TUser user) {
+
         int count = userMapper.insert(user);
         if (count > 0) {
             return true;
