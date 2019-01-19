@@ -87,7 +87,6 @@ public class ForumFansServiceImpl implements ForumFansService {
 
     @Override
     public boolean deleteFans(int userId, int decideId) {
-        System.out.println(userId+","+decideId);
         boolean b = false;
         TForumFansExample forumFansExample = new TForumFansExample();
         forumFansExample.or()

@@ -240,4 +240,8 @@
         where fk_user_key = #{userId} and #{createTime} > create_time
          limit #{start},#{end}
     </select>
+
+    <insert id="addComment" useGeneratedKeys="true"  keyProperty="id"  parameterType="com.school.entity.TForumComment">
+          insert into t_forum_comment values(null,#{fkForumArticleKey},#{fkUserKey},#{ranks},#{createTime},#{contentText})
+    </insert>
 </mapper>

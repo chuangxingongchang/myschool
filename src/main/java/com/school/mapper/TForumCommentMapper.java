@@ -33,4 +33,6 @@ public interface TForumCommentMapper {
     List<Integer> selectCommentByUserId(Map map);
 
     List<Integer> selectNewsTimeCommentByUserId(Map map);
+
+    int addComment(TForumComment tForumComment);
 }

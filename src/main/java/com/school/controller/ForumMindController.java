@@ -39,6 +39,7 @@ public class ForumMindController {
      */
     @RequestMapping("/addMind")
     public boolean addMind(Integer mindUserId, Integer decideUserId) {
+        System.out.println(mindUserId+"."+decideUserId);
         boolean b = false;
         if (mindUserId != null && decideUserId != null){
             b = mindService.selectMeTrueFalseMindHe(mindUserId, decideUserId);
@@ -54,13 +55,6 @@ public class ForumMindController {
         return b;
     }
 
-    @RequestMapping("/mindCount")
-    public ModelAndView selectMeMindUserCount(int userId) {
-        Long l = mindService.selectCountMindUser(userId);
-        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-        modelAndView.addObject("mindCount", l);
-        return modelAndView;
-    }
 
     /**
      * 根据_id 查询关注的人
@@ -79,11 +73,30 @@ public class ForumMindController {
                     list.add(tForumMind.getFkDecideUser());
                 }
                 List<TUser> mindUserList = userService.selectUserIdIn(list);
-                modelAndView.addObject("mindUserList", mindUserList);
+                modelAndView.addObject("mindUserList",mindUserList);
             }
         }
         return modelAndView;
     }
+
+    /**
+     * 查询关注的用户全部
+     * @param userId
+     * @return
+     */
+
+    @RequestMapping("/mindUser2")
+    public ModelAndView selectMeMindUser(Integer userId) {
+        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+        if (userId != null ) {
+            List<TForumMind> forumMindList = mindService.selectMeMind(userId);
+                modelAndView.addObject("forumMindList",forumMindList);
+        }
+        return modelAndView;
+    }
+
+
+
 
     /**
      * 判断用户是否关注过谁

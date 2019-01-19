@@ -31,6 +31,8 @@ public interface ForumMindService {
      */
     List<TForumMind> selectMeMindUser(int userId,int start,int end);
 
+    List<TForumMind> selectMeMind(int userId);
+
     boolean selectMeTrueFalseMindHe(int userId, int deId);
 
     boolean deleteMind(int userId, int deId);

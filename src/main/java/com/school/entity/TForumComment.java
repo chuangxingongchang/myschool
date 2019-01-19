@@ -62,4 +62,16 @@ public class TForumComment {
     public void setContentText(String contentText) {
         this.contentText = contentText == null ? null : contentText.trim();
     }
+
+    @Override
+    public String toString() {
+        return "TForumComment{" +
+                "id=" + id +
+                ", fkForumArticleKey=" + fkForumArticleKey +
+                ", fkUserKey=" + fkUserKey +
+                ", ranks='" + ranks + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", contentText='" + contentText + '\'' +
+                '}';
+    }
 }

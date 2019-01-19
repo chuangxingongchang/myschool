@@ -8,6 +8,7 @@ import com.school.finals.FinalsString;
 import com.school.mapper.TForumArticleMapper;
 import com.school.service.ForumArticleService;
 import com.school.util.DateUtil;
+import com.school.util.IntUtil;
 import com.school.util.StringUitl;
 import com.school.util.UpLoadUtil;
 import com.school.vo.TForumArticleVo;
@@ -69,7 +70,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
                 lfa.add(get(tf));
             }
         }
-       return lfa;
+        return lfa;
 
     }
 
@@ -114,13 +115,11 @@ public class ForumArticleServiceImpl implements ForumArticleService {
                 .andIdEqualTo(article_id);
         List<TForumArticle> lfa = tam.selectByExample(fae);
         TForumArticleVo lfaVo = null;
-        try {
+        if (lfa.size() != 0) {
             for (TForumArticle tf : lfa) {
+                updatePrivate("browse",tf);
                 lfaVo = get(tf);
             }
-
-        } catch (Exception e) {
-            return null;
         }
         return lfaVo;
     }
@@ -132,23 +131,14 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         fae.or()
                 .andTitleLike("%" + title + "%");
         List<TForumArticle> lfa = tam.selectByExample(fae);
-        try {
-            if (lfa != null) {
-                if (lfa.size() >= 6) {
-                    for (int i = 0; i < 5; i++) {
-                        lfaVo.add(get(lfa.get(i)));
-                    }
-                } else if (lfa.size() <= 5) {
-                    for (TForumArticle tf : lfa) {
-                        lfaVo.add(get(tf));
-                    }
-                }
-            } else {
-                return null;
+        if (lfa.size() >= 6) {
+            for (int i = 0; i < 5; i++) {
+                lfaVo.add(get(lfa.get(i)));
             }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-            return null;
+        } else {
+            for (TForumArticle tf : lfa) {
+                lfaVo.add(get(tf));
+            }
         }
         return lfaVo;
     }
@@ -374,7 +364,21 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         }
         return null;
     }
-
+    private boolean updatePrivate(String type,TForumArticle tForumArticle){
+        TForumArticleExample tForumArticleExample = new TForumArticleExample();
+        tForumArticleExample.or().andIdEqualTo(tForumArticle.getId());
+        TForumArticle article = new TForumArticle();
+        switch (type){
+            case "browse" : {
+                article.setBrowseConut(tForumArticle.getBrowseConut()+1);
+            }
+            case "comment":{
+                article.setCommentCount(tForumArticle.getCommentCount()+1);
+            }
+        }
+       int i =  tam.updateByExampleSelective(article,tForumArticleExample);
+       return  IntUtil.addDeleteUpdate(i);
+    }
 
     private TForumArticleVo get(TForumArticle tf) {
         TForumArticleVo avo = new TForumArticleVo();

@@ -22,7 +22,7 @@ public interface ForumCommentService {
      * @param tForumComment
      * @return boolean
      */
-    boolean addComment(TForumComment tForumComment);
+    int addComment(TForumComment tForumComment);
 
     /**
      *  查询个人评论过得帖子 去重

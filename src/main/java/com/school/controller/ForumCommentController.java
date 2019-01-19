@@ -49,22 +49,20 @@ public class ForumCommentController {
      * @return boolean
      */
     @RequestMapping("/addComment")
-    public boolean addComment(
+    public Integer addComment(
             int articleId, int userId, String ranks, String content) {
-        boolean b = false;
         TForumComment tfc = new TForumComment();
+        int i = 0;
         if (articleId != 0 && userId != 0 && content != null) {
             tfc.setCreateTime(DateUtil.getLongDate(new Date()));
             tfc.setFkForumArticleKey(articleId);
             tfc.setFkUserKey(userId);
             tfc.setContentText(content);
             tfc.setRanks(ranks);
-            b = forumCommentService.addComment(tfc);
+           i  = forumCommentService.addComment(tfc);
+            forumArticleService.updateCommentCount(articleId);
         }
-        if (b) {
-            b = forumArticleService.updateCommentCount(articleId);
-        }
-        return  b;
+        return  i;
 
     }
 }

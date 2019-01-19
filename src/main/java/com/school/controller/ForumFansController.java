@@ -70,6 +70,7 @@ public class ForumFansController {
      */
     @RequestMapping("/deleteFans")
     public boolean deleteFans(Integer userId, Integer deid) {
+        System.out.println(userId+","+deid);
         boolean b = false;
         if (userId != null && deid != null) {
             b = forumFansService.deleteFans(userId, deid);

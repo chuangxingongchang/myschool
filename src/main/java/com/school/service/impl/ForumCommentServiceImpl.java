@@ -26,8 +26,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class ForumCommentServiceImpl implements ForumCommentService {
     @Autowired
     TForumCommentMapper fcm;
-    List<TForumComment> lfc = new ArrayList<>();
     ReadWriteLock rwl = new ReentrantReadWriteLock();
+
     //多线程对同一个方法的成员变量进行操作 是可以控制的
     //多线程同时访问多个方法 每个方法都使用过这个成员变量  控制数据共享 而且 执行效率快
     @Override
@@ -36,40 +36,32 @@ public class ForumCommentServiceImpl implements ForumCommentService {
         fce.or()
                 .andFkForumArticleKeyEqualTo(id);
         fce.setOrderByClause("create_time asc");
-        lfc = fcm.selectByExample(fce);
-        try {
-            if (lfc != null && lfc.size() != 0) {
-                return lfc;
-            }
-        }catch (Exception e) {
-            return  null;
-        }
-            return null;
+        List<TForumComment> lfc = fcm.selectByExample(fce);
+        return lfc;
 
     }
 
     @Override
-    public boolean addComment(TForumComment tForumComment) {
-        boolean b = false;
+    public int addComment(TForumComment tForumComment) {
         int i = 0;
         if (tForumComment != null) {
-             i = fcm.insert(tForumComment);
+           i  = fcm.addComment(tForumComment);
+            if (i != 0) {
+                return i;
+            }
         }
-        if (i == 1) {
-            b = true;
-        }
-        return b;
+        return i;
     }
 
     @Override
-    public List<Integer> selectFindByUserIdComment(int id,int start, int end) {
+    public List<Integer> selectFindByUserIdComment(int id, int start, int end) {
         Map map = new HashMap();
-        map.put("userId",id);
-        map.put("start",start);
-        map.put("end",end);
-        System.out.println(id+" "+start+" "+end+" ");
-        List<Integer> list =  fcm.selectCommentByUserId(map);
-        if (list != null && list.size() !=0) {
+        map.put("userId", id);
+        map.put("start", start);
+        map.put("end", end);
+        System.out.println(id + " " + start + " " + end + " ");
+        List<Integer> list = fcm.selectCommentByUserId(map);
+        if (list != null && list.size() != 0) {
             return list;
         }
         return null;
@@ -78,11 +70,11 @@ public class ForumCommentServiceImpl implements ForumCommentService {
     @Override
     public List<Integer> selectNewsTimeComment(int id, int start, int end, String createTime) {
         Map map = new HashMap();
-        map.put("userId",id);
-        map.put("start",start);
-        map.put("end",end);
-        map.put("createTime",createTime);
-        List<Integer> list =  fcm.selectNewsTimeCommentByUserId(map);
+        map.put("userId", id);
+        map.put("start", start);
+        map.put("end", end);
+        map.put("createTime", createTime);
+        List<Integer> list = fcm.selectNewsTimeCommentByUserId(map);
         if (list != null && list.size() != 0) {
             return list;
         }

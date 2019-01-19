@@ -16,4 +16,9 @@ public class IntUtil {
         return b;
     }
 
+    public static int EXE(Integer exe){
+        int i = exe/1000;
+        return i+=1;
+    }
+
 }

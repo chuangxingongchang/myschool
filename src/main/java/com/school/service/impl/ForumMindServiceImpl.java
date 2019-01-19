@@ -47,7 +47,9 @@ public class ForumMindServiceImpl implements ForumMindService {
     public Long selectCountMindUser(int userId) {
         TForumMindExample fme = new TForumMindExample();
         fme.or().andFkMindUserEqualTo(userId);
-        return fmm.countByExample(fme);
+        long lo = fmm.countByExample(fme);
+        System.out.println(lo);
+        return lo;
     }
 
     @Override
@@ -62,6 +64,15 @@ public class ForumMindServiceImpl implements ForumMindService {
         }
         return tForumMindList;
 
+    }
+
+    @Override
+    public List<TForumMind> selectMeMind(int userId) {
+        TForumMindExample example = new TForumMindExample();
+        example.or()
+                .andFkMindUserEqualTo(userId);
+        List<TForumMind> tForumMinds = fmm.selectByExample(example);
+        return tForumMinds;
     }
 
 
@@ -81,15 +92,10 @@ public class ForumMindServiceImpl implements ForumMindService {
 
     @Override
     public boolean deleteMind(int userId, int deId) {
-        boolean b = false;
         TForumMindExample tForumMindExample = new TForumMindExample();
         tForumMindExample.or()
                 .andFkMindUserEqualTo(userId)
                 .andFkDecideUserEqualTo(deId);
-        int i = fmm.deleteByExample(tForumMindExample);
-        b = IntUtil.addDeleteUpdate(i);
-
-
-        return b;
+        return IntUtil.addDeleteUpdate(fmm.deleteByExample(tForumMindExample));
     }
 }

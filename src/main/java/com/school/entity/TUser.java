@@ -164,4 +164,26 @@ public class TUser {
     public void setFkIntegralId(Integer fkIntegralId) {
         this.fkIntegralId = fkIntegralId;
     }
+
+    @Override
+    public String toString() {
+        return "TUser{" +
+                "id=" + id +
+                ", pword='" + pword + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", truename='" + truename + '\'' +
+                ", idcard='" + idcard + '\'' +
+                ", phoneno='" + phoneno + '\'' +
+                ", brithday='" + brithday + '\'' +
+                ", sex='" + sex + '\'' +
+                ", address='" + address + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", credit=" + credit +
+                ", fkSchoolId=" + fkSchoolId +
+                ", createtime=" + createtime +
+                ", balance=" + balance +
+                ", integral=" + integral +
+                ", fkIntegralId=" + fkIntegralId +
+                '}';
+    }
 }

@@ -182,7 +182,7 @@
   <select id="selectLimitStartToEnd" parameterType="java.util.Map" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
     from t_forum_mind
-    where fk_decide_user = #{userId}
+    where fk_mind_user = #{userId}
     limit #{start},#{end}
   </select>
 
