@@ -55,7 +55,6 @@ public class SignupController {
      */
     @RequestMapping("/updateSigns")
     public  ModelAndView updatesigntoGo(int pkPlurid,@RequestParam("list[]") List<String> list){
-        System.out.println("报名--->进行");
         boolean flag = signupService.updateSigns(pkPlurid,list);
         if(flag){
             ms.setStatus(true);
@@ -73,10 +72,6 @@ public class SignupController {
      */
     @RequestMapping("/updateGotoEnd")
     public  ModelAndView updatesigntoEnd(@RequestBody List<TSignup> signList){
-        System.out.println("进行--->完成");
-        for (TSignup s : signList) {
-            System.out.println(s.toString());
-        }
         boolean flag = signupService.updateSigntoEnd(signList);
         if(true){
             ms.setStatus(true);

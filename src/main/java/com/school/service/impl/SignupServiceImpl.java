@@ -68,7 +68,6 @@ public class SignupServiceImpl implements SignupService {
     public boolean updateSignupState(int id) {
         TSignup signup = new TSignup();
         signup.setId(id);
-        signup.setSignstate("进行");
         int b = tSignupMapper.updateByPrimaryKeySelective(signup);
         if (b>0){
             return true;
@@ -88,17 +87,17 @@ public class SignupServiceImpl implements SignupService {
         signupExample.or().andPkPluridEqualTo(id).andPkUidIn(integerlist);
         signupExample1.or().andPkPluridEqualTo(id).andPkUidNotIn(integerlist);
         TSignup signup = new TSignup();
-        signup.setSignstate("进行");
         TPlur tPlur = new TPlur();
         tPlur.setFkWorkstate(2);
         tPlur.setId(id);
        int a = tSignupMapper.updateByExampleSelective(signup,signupExample);
-        System.out.println("a:"+a);
-       int b = tSignupMapper.deleteByExample(signupExample1);
-        System.out.println("b:"+b);
        int c = plurMapper.updateByPrimaryKeySelective(tPlur);
-        System.out.println("c:"+c);
-       if (b>0&&c>0&&a>0){
+       if (c>0&&a>0){
+           try {
+               int b = tSignupMapper.deleteByExample(signupExample1);
+           }catch (Exception e){
+               return true;
+           }
            return true;
        }else {
            try {
@@ -122,7 +121,6 @@ public class SignupServiceImpl implements SignupService {
             signupExample.or().andPkPluridEqualTo(plurid)
             .andPkUidEqualTo(s.getPkUid());
             TSignup signup = new TSignup();
-            signup.setSignstate("完成");
             signup.setSignmoney(s.getSignmoney());
              c = tSignupMapper.updateByExampleSelective(signup,signupExample);
              if(c<=0){
@@ -184,9 +182,11 @@ public class SignupServiceImpl implements SignupService {
                             }
                         }
                     }
-                    int c = plurMapper.deleteByPrimaryKey(pkPlurid);
-                    int d = tSignupMapper.deleteByExample(signupExample);
-                    if(c<=0||d<=0){
+                    TPlur plurs1= new TPlur();
+                    plurs1.setId(pkPlurid);
+                    plurs1.setFkWorkstate(4);
+                    int c = plurMapper.updateByPrimaryKeySelective(plurs1);
+                    if(c<=0){
                         try {
                             throw new Exception();
                         } catch (Exception e) {
@@ -218,18 +218,29 @@ public class SignupServiceImpl implements SignupService {
 
     @Override
     public Message insertSignup(TSignup signup) {
-        int a = tSignupMapper.insertSelective(signup);
         Message ms = new Message();
-        if(a>0){
-            ms.setStatus(true);
-            return ms;
-        }else {
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                ms.setStatus(false);
-               return ms;
+        TSignupExample signupExample = new TSignupExample();
+        signupExample.or().andPkPluridEqualTo(signup.getPkPlurid())
+                .andPkUidEqualTo(signup.getPkUid())
+                .andSignstateEqualTo(signup.getSignstate());
+            List<TSignup> signups = tSignupMapper.selectByExample(signupExample);
+        if(signups!=null&&signups.size()>0) {
+            int a = tSignupMapper.insertSelective(signup);
+            if (a > 0) {
+                ms.setStatus(true);
+            } else {
+                try {
+                    throw new Exception();
+                } catch (Exception e) {
+                    ms.setMsg("报名失败");
+                    ms.setStatus(false);
+                    return ms;
+                }
             }
+        }else{
+            ms.setStatus(false);
+            ms.setMsg("该工作您已经报名了");
         }
+        return ms;
     }
 }

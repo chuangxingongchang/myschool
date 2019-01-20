@@ -126,17 +126,18 @@ public class PlurController {
      */
     @RequestMapping("/myPlur")
     public ModelAndView selectMyPlur(int id) {
-        System.out.println("进入我的兼职");
         List<TPlur> plurList = plurService.selectByAccept(id);
         List<TPlur> goplurList  = new ArrayList<TPlur>();
         List<TPlur> endplurList = new ArrayList<TPlur>();
         Message ms2 = new Message();
         List<TUnit> workiconList = plurService.selectAllUnit();
         for(TPlur p:plurList){
-            if(p.getFkWorkstate()==2){
-                goplurList.add(p);
-            }else if(p.getFkWorkstate()==3||p.getFkWorkstate()==4){
-                endplurList.add(p);
+            if(p!=null){
+                if(p.getFkWorkstate()==2){
+                    goplurList.add(p);
+                }else if(p.getFkWorkstate()==3||p.getFkWorkstate()==4){
+                    endplurList.add(p);
+                }
             }
         }
         if(goplurList.size()>0){
@@ -320,6 +321,12 @@ public class PlurController {
         mav.addObject("unse",unitListse);
         mav.addObject("sems",ms);
         mav.addObject("selist",plurListse);
+        return mav;
+    }
+    @RequestMapping("/delthisPlur")
+    public ModelAndView delThisplur(int id){
+        Message delms = plurService.deletePlurById(id);
+        mav.addObject("delms",delms);
         return mav;
     }
 }

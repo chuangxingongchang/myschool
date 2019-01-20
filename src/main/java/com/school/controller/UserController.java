@@ -28,6 +28,7 @@ public class UserController {
 
     @Autowired
     private SchoolService schoolService;
+
     /**
      * 用户注册
      */
@@ -38,24 +39,24 @@ public class UserController {
         String codes = (String) request.getSession().getAttribute("code");
 
         try {
-                if (codes.equals(code)) {
-                    if (userService.insertUser(user)) {
-                        request.getSession().removeAttribute("code");
-                        ms.setStatus(true);
-                    } else {
-                        ms.setStatus(false);
-                        ms.setMsg("注册失败");
-                    }
+            if (codes.equals(code)) {
+                if (userService.insertUser(user)) {
+                    request.getSession().removeAttribute("code");
+                    ms.setStatus(true);
                 } else {
                     ms.setStatus(false);
-                    ms.setMsg("验证码错误");
+                    ms.setMsg("注册失败");
                 }
+            } else {
+                ms.setStatus(false);
+                ms.setMsg("验证码错误");
+            }
 
         } catch (Exception e) {
             ms.setStatus(false);
             ms.setMsg("验证码过时，请从新发送验证码");
         } finally {
-            mav.addObject("mss",ms);
+            mav.addObject("mss", ms);
             return mav;
         }
     }
@@ -63,23 +64,23 @@ public class UserController {
     /**
      * @param request
      * @param phoneno
-     * @return 描述：通过前台请求，发送验证码到手机，并存储在Session中
+     * @return 注册描述：通过前台请求，发送验证码到手机，并存储在Session中
      */
-    @RequestMapping("/mycode")
-    public ModelAndView getCode(HttpServletRequest request, String phoneno) {
+    @RequestMapping("/mycodetoRegister")
+    public ModelAndView getCodeRegister(HttpServletRequest request, String phoneno) {
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         Message ms = new Message();
         List<TUser> userList = userService.selectAllUser();
         boolean flags = false;
-        if(userList!=null&&userList.size()>0){
+        if (userList != null && userList.size() > 0) {
             for (TUser t : userList) {
-                if(phoneno.equals(t.getPhoneno())){
+                if (phoneno.equals(t.getPhoneno())) {
                     flags = true;
                     break;
                 }
             }
         }
-        if(!flags){
+        if (!flags) {
             //获取验证码（调用工具类Randoms，随机获取六位验证码）
             String code = String.valueOf(Randoms.getIntRan());
             //发送验证码到手机（调用工具类JuheSend,使用聚合短信接口实现短信发送
@@ -96,11 +97,40 @@ public class UserController {
                 ms.setStatus(false);
                 ms.setMsg("验证码发送失败");
             }
-        }else{
+        } else {
             ms.setStatus(false);
-            ms.setMsg("该号码已注册");
+            ms.setMsg("该号码已经被使用");
         }
-        mav.addObject("mss",ms);
+        mav.addObject("mgs", ms);
+        return mav;
+    }
+
+    /**
+     * @param request
+     * @param phoneno
+     * @return 描述：通过前台请求，发送验证码到手机，并存储在Session中
+     */
+    @RequestMapping("/mycode")
+    public ModelAndView getCode(HttpServletRequest request, String phoneno) {
+        ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
+        Message ms = new Message();
+        //获取验证码（调用工具类Randoms，随机获取六位验证码）
+        String code = String.valueOf(Randoms.getIntRan());
+        //发送验证码到手机（调用工具类JuheSend,使用聚合短信接口实现短信发送
+        //boolean flag = JuheSend.mobileQuery(phoneno, code);
+        boolean flag = true;
+        if (flag) {
+            System.out.println("验证码发送mycode:" + code);
+            request.getSession().setAttribute("code", code);
+            //session 中存在的验证码，存在5分钟
+            request.getSession().setMaxInactiveInterval(300);
+            ms.setStatus(true);
+            ms.setData(code);
+        } else {
+            ms.setStatus(false);
+            ms.setMsg("验证码发送失败");
+        }
+        mav.addObject("mss", ms);
         return mav;
     }
 
@@ -125,7 +155,7 @@ public class UserController {
             ms.setStatus(false);
             ms.setMsg("发生错误，请重新登录");
         } finally {
-            mav.addObject("ms",ms);
+            mav.addObject("ms", ms);
             return mav;
         }
     }
@@ -232,17 +262,17 @@ public class UserController {
         Message ms = new Message();
         try {
             boolean flag = userService.updateUser(user);
-            if(flag){
+            if (flag) {
                 ms.setStatus(true);
-            }else{
+            } else {
                 ms.setStatus(false);
                 ms.setMsg("修改失败");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             ms.setStatus(false);
             ms.setMsg("系统出错，解决中...");
-        }finally {
-            mav.addObject("ms",ms);
+        } finally {
+            mav.addObject("ms", ms);
             return mav;
         }
     }
@@ -252,19 +282,19 @@ public class UserController {
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         Message ms = new Message();
         TUser users = userService.selectByPhoneno(phoneno);
-            if(users.getFkSchoolId()!=null){
-                String schoolname = schoolService.selectByFkSchoolId(users.getFkSchoolId());
-                ms.setMsg(schoolname);
-            }else{
-                ms.setMsg("您没有设置学校");
-            }
-            if (users == null) {
-                ms.setStatus(false);
-            } else {
-                ms.setStatus(true);
-            }
-            mav.addObject("tuser",users);
-            mav.addObject("scms",ms);
+        if (users.getFkSchoolId() != null) {
+            String schoolname = schoolService.selectByFkSchoolId(users.getFkSchoolId());
+            ms.setMsg(schoolname);
+        } else {
+            ms.setMsg("您没有设置学校");
+        }
+        if (users == null) {
+            ms.setStatus(false);
+        } else {
+            ms.setStatus(true);
+        }
+        mav.addObject("tuser", users);
+        mav.addObject("scms", ms);
         return mav;
     }
 
@@ -283,13 +313,13 @@ public class UserController {
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         Message ms = new Message();
         TUser user = userService.selectNicknameById(uid);
-        if(user!=null){
+        if (user != null) {
             ms.setStatus(true);
-        }else{
+        } else {
             ms.setStatus(false);
         }
-        mav.addObject("ms",ms);
-        mav.addObject("user",user);
+        mav.addObject("ms", ms);
+        mav.addObject("user", user);
         return mav;
     }
 }
