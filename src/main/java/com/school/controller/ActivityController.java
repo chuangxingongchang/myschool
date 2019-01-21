@@ -2,7 +2,9 @@ package com.school.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.school.entity.TActivity;
+import com.school.entity.TUser;
 import com.school.service.ActivityService;
+import com.school.service.UserService;
 import com.school.util.DateUtil;
 import com.school.util.Message;
 import com.school.vo.ActivityVo;
@@ -21,6 +23,8 @@ import java.util.List;
 public class ActivityController {
     @Autowired
     private ActivityService activityService;
+    @Autowired
+    private UserService userService;
     private ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
     private Message ms = new Message();
 
@@ -163,6 +167,31 @@ public class ActivityController {
         }
         mav.addObject("ayms",ms);
         mav.addObject("alist",tActivityList);
+        return mav;
+    }
+
+    @RequestMapping("getthisActivity")
+    public  ModelAndView getActi(int id){
+        TActivity activity = activityService.selectActivityById(id);
+        TUser u  = null;
+        try {
+            if(activity!=null){
+                ms.setStatus(true);
+                int uid = activity.getFkUserid();
+                u = userService.selectById(uid);
+            }else{
+                ms.setStatus(false);
+            }
+            if(u==null){
+                ms.setStatus(false);
+            }
+        }catch (Exception e){
+            ms.setStatus(false);
+        }
+
+        mav.addObject("aums",ms);
+        mav.addObject("usr",u);
+        mav.addObject("ay",activity);
         return mav;
     }
 }

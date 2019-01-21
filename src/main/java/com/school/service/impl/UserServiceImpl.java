@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
                 .andPhonenoEqualTo(user.getPhoneno())
                 .andPwordEqualTo(user.getPword());
         int count = userMapper.selectByExample(tUserExample).size();
+        System.out.println("count的值"+count);
         if (count > 0) {
             tUserExample.clear();
             return true;

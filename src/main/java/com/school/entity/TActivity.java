@@ -14,7 +14,7 @@ public class TActivity {
     private String images;
 
     private String content;
-
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date activitytime;
 
     private String address;

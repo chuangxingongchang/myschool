@@ -62,5 +62,16 @@ public class ActivityUserController {
         return mav;
     }
 
-
+    /**
+     * @param a
+     * @return
+     * 验证报名:已报名返回false，没报名返回，进行报名 返回true
+     */
+    @RequestMapping("/intoSignupAc")
+    public ModelAndView insertAcSignup(TActivityUser a){
+        boolean flag = activityUserService.insertActvtUser(a);
+        ms.setStatus(flag);
+        mav.addObject("inms",ms);
+        return mav;
+    }
 }

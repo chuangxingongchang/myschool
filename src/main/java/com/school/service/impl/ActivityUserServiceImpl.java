@@ -24,12 +24,20 @@ public class ActivityUserServiceImpl implements ActivityUserService {
     }
 
     @Override
-    public boolean insertActvtUser(TActivityUser activityUser) {
-        int count = activityUserMapper.insertSelective(activityUser);
-        if(count>0){
-            return true;
-        }else{
+    public boolean insertActvtUser(TActivityUser a) {
+        TActivityUserExample activityUserExample = new TActivityUserExample();
+        activityUserExample.or().andAcIdEqualTo(a.getAcId())
+                .andUserIdEqualTo(a.getUserId());
+        List<TActivityUser> activityUserList = activityUserMapper.selectByExample(activityUserExample);
+        if(activityUserList!=null&&activityUserList.size()>0){
             return false;
+        }else{
+            int count = activityUserMapper.insertSelective(a);
+            if(count>0){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 
