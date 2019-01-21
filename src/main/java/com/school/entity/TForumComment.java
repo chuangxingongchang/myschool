@@ -1,5 +1,7 @@
 package com.school.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class TForumComment {
@@ -10,8 +12,8 @@ public class TForumComment {
     private Integer fkUserKey;
 
     private String ranks;
-
-    private String createTime;
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss",timezone="GMT+8")
+    private Date createTime;
 
     private String contentText;
 
@@ -47,11 +49,11 @@ public class TForumComment {
         this.ranks = ranks == null ? null : ranks.trim();
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 

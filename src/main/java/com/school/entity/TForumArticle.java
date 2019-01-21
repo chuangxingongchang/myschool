@@ -1,5 +1,7 @@
 package com.school.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class TForumArticle {
@@ -10,8 +12,8 @@ public class TForumArticle {
     private Integer fkForumTypeKey;
 
     private String contentText;
-
-    private String createTime;
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    private Date createTime;
 
     private Integer fkUserKey;
 
@@ -61,11 +63,11 @@ public class TForumArticle {
         this.contentText = contentText == null ? null : contentText.trim();
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
