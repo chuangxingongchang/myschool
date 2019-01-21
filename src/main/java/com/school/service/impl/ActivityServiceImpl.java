@@ -71,5 +71,20 @@ public class ActivityServiceImpl implements ActivityService {
         }
     }
 
+    @Override
+    public boolean updateActvtCurrentNum(TActivity activity) {
+        TActivityExample activityExample = new TActivityExample();
+        TActivity activity1 = new TActivity();
+        activity1.setCurrentnum(activity.getCurrentnum()+1);
+        activityExample.or().andCurrentnumEqualTo(activity.getCurrentnum());
+        int count = activityMapper.updateByExampleSelective(activity1, activityExample);
+        if(count>0){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
 
 }

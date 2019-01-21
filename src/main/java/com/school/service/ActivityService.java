@@ -20,4 +20,6 @@ public interface ActivityService {
 
     boolean deleteActivity(int id);
 
+    boolean updateActvtCurrentNum(TActivity activity);
+
 }

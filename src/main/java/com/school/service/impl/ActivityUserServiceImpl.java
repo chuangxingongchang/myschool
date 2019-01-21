@@ -32,4 +32,12 @@ public class ActivityUserServiceImpl implements ActivityUserService {
             return false;
         }
     }
+
+    @Override
+    public List<TActivityUser> selectActivityUsers(Integer caId) {
+        TActivityUserExample activityUserExample = new TActivityUserExample();
+        activityUserExample.or().andAcIdEqualTo(caId);
+        List<TActivityUser> activityUserList = activityUserMapper.selectByExample(activityUserExample);
+        return activityUserList;
+    }
 }

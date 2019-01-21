@@ -139,4 +139,17 @@ public class ActivityController {
         return  mav;
     }
 
+    @RequestMapping("/updateActvtCurrentNum")
+    public ModelAndView updateActvtCurrentNum(Integer currentnum){
+        TActivity activity = new TActivity();
+        activity.setCurrentnum(currentnum);
+        boolean flag = activityService.updateActvtCurrentNum(activity);
+        if(flag){
+            ms.setStatus(true);
+        }else {
+            ms.setStatus(false);
+        }
+        mav.addObject("ms",ms);
+        return mav;
+    }
 }

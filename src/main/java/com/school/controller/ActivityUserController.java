@@ -48,4 +48,19 @@ public class ActivityUserController {
         mav.addObject("ms",ms);
         return mav;
     }
+
+    @RequestMapping("/selectActivityUsers")
+    public ModelAndView selectActivityUsers(Integer acId){
+        List<TActivityUser> activityUserList = activityUserService.selectActivityUsers(acId);
+        if(activityUserList.size()>0){
+            ms.setStatus(true);
+        }else {
+            ms.setStatus(false);
+        }
+        mav.addObject("ms",ms);
+        mav.addObject("acUsers",activityUserList);
+        return mav;
+    }
+
+
 }
