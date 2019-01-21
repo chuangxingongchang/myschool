@@ -36,8 +36,6 @@ public interface TForumArticleMapper {
 
     List<TForumArticle> selectLimitOrderDescBrow(int typeId);
 
-    List<TForumArticle> selectLimitOrderTimeDesc(Map<String, Object> map);
-
     List<TForumArticle> selectLimitOrderTimeDescAndWhere(Map<String, Object> map);
 
     List<TForumArticle> selectPersonalAllArticle(Map<String, Object> map);
@@ -51,4 +49,11 @@ public interface TForumArticleMapper {
     List<TForumArticle> selectTitleLikeLimit(Map<String, Object> map);
 
     List<TForumArticle> selectContentLikeLimit(Map<String, Object> map);
+
+    /**
+     * 查询最新文章 并且 去重
+     * @param map
+     * @return
+     */
+    List<TForumArticle> selectNewsArticle(Map<String, Object> map);
 }
