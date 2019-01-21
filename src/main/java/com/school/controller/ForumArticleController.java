@@ -4,7 +4,6 @@ package com.school.controller;
 import com.school.entity.*;
 import com.school.finals.FinalsString;
 import com.school.service.*;
-import com.school.util.IntUtil;
 import com.school.util.StringUitl;
 import com.school.util.UpLoadUtil;
 import com.school.vo.TForumArticleVo;

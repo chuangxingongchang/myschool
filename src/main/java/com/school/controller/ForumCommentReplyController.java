@@ -61,7 +61,7 @@ public class ForumCommentReplyController {
                 tcr.setContentText(content);
                 tcr.setFkForumCommentKey(commentKey);
                 tcr.setFkUserKey(userId);
-                tcr.setCreateTime(DateUtil.getLongDate(new Date()));
+                tcr.setCreateTime(new Date());
                 tcr.setRanks(ranks);
                 b = forumCommentReplyService.addReply(tcr);
             }

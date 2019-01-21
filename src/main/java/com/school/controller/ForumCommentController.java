@@ -54,7 +54,7 @@ public class ForumCommentController {
         TForumComment tfc = new TForumComment();
         int i = 0;
         if (articleId != 0 && userId != 0 && content != null) {
-            tfc.setCreateTime(DateUtil.getLongDate(new Date()));
+            tfc.setCreateTime(new Date());
             tfc.setFkForumArticleKey(articleId);
             tfc.setFkUserKey(userId);
             tfc.setContentText(content);
