@@ -4,6 +4,7 @@ import com.school.entity.TUser;
 import com.school.entity.TUserExample;
 import com.school.mapper.TUserMapper;
 import com.school.service.UserService;
+import com.school.util.MD5Until;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean insertUser(TUser user) {
 
+        user.setPword(MD5Until.createMD5(user.getPword()));
         int count = userMapper.insert(user);
         if (count > 0) {
             return true;
@@ -49,6 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean login(TUser user) {
         TUserExample tUserExample = new TUserExample();
+        user.setPword(MD5Until.createMD5(user.getPword()));
         tUserExample.or()
                 .andPhonenoEqualTo(user.getPhoneno())
                 .andPwordEqualTo(user.getPword());
