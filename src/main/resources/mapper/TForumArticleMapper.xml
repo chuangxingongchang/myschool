@@ -6,7 +6,7 @@
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="fk_forum_type_key" property="fkForumTypeKey" jdbcType="INTEGER"/>
         <result column="content_text" property="contentText" jdbcType="VARCHAR"/>
-        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
         <result column="fk_user_key" property="fkUserKey" jdbcType="INTEGER"/>
         <result column="violation_count" property="violationCount" jdbcType="INTEGER"/>
         <result column="fk_applaud_status" property="fkApplaudStatus" jdbcType="INTEGER"/>
@@ -117,7 +117,7 @@
       comment_count, content_describe, is_null, 
       is_null_int)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{fkForumTypeKey,jdbcType=INTEGER}, 
-      #{contentText,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{fkUserKey,jdbcType=INTEGER},
+      #{contentText,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{fkUserKey,jdbcType=INTEGER},
       #{violationCount,jdbcType=INTEGER}, #{fkApplaudStatus,jdbcType=INTEGER}, #{browseConut,jdbcType=INTEGER}, 
       #{commentCount,jdbcType=INTEGER}, #{contentDescribe,jdbcType=VARCHAR}, #{isNull,jdbcType=VARCHAR}, 
       #{isNullInt,jdbcType=INTEGER})
@@ -179,7 +179,7 @@
                 #{contentText,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null">
-                #{createTime,jdbcType=VARCHAR},
+                #{createTime,jdbcType=DATE},
             </if>
             <if test="fkUserKey != null">
                 #{fkUserKey,jdbcType=INTEGER},
@@ -229,7 +229,7 @@
                 content_text = #{record.contentText,jdbcType=VARCHAR},
             </if>
             <if test="record.createTime != null">
-                create_time = #{record.createTime,jdbcType=VARCHAR},
+                create_time = #{record.createTime,jdbcType=DATE},
             </if>
             <if test="record.fkUserKey != null">
                 fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
@@ -266,7 +266,7 @@
         title = #{record.title,jdbcType=VARCHAR},
         fk_forum_type_key = #{record.fkForumTypeKey,jdbcType=INTEGER},
         content_text = #{record.contentText,jdbcType=VARCHAR},
-        create_time = #{record.createTime,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=DATE},
         fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
         violation_count = #{record.violationCount,jdbcType=INTEGER},
         fk_applaud_status = #{record.fkApplaudStatus,jdbcType=INTEGER},
@@ -292,7 +292,7 @@
                 content_text = #{contentText,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null">
-                create_time = #{createTime,jdbcType=VARCHAR},
+                create_time = #{createTime,jdbcType=DATE},
             </if>
             <if test="fkUserKey != null">
                 fk_user_key = #{fkUserKey,jdbcType=INTEGER},
@@ -326,7 +326,7 @@
     set title = #{title,jdbcType=VARCHAR},
       fk_forum_type_key = #{fkForumTypeKey,jdbcType=INTEGER},
       content_text = #{contentText,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=DATE},
       fk_user_key = #{fkUserKey,jdbcType=INTEGER},
       violation_count = #{violationCount,jdbcType=INTEGER},
       fk_applaud_status = #{fkApplaudStatus,jdbcType=INTEGER},
@@ -414,7 +414,7 @@
         <include refid="Base_Column_List"/>
         from t_forum_article
         <if test="dateTime != null">
-            where create_time > #{dateTime}
+            where create_time > #{dateTime,jdbcType=DATE}
         </if>
         order by #{order_desc}
         limit #{start},#{end}
@@ -427,7 +427,7 @@
         from t_forum_article
         <trim prefix="WHERE" prefixOverrides="AND |OR">
             <if test="dateTime != null">
-                and create_time > #{dateTime}
+                and create_time > #{dateTime,jdbcType=DATE}
             </if>
             <if test="typeId != null">
                 and fk_forum_type_key = #{typeId}
@@ -441,7 +441,7 @@
         select
         <include refid="Base_Column_List"/>
         from t_forum_article
-        where fk_user_key = #{userId}
+        where fk_user_key = #{userId}  and fk_forum_type_key!=1
         order by create_time
         limit #{start},#{end}
 
@@ -451,7 +451,8 @@
         select
         <include refid="Base_Column_List"/>
         from t_forum_article
-        where fk_user_key = #{userId} and #{createTime} > create_time
+        /*修改1*/
+        where fk_user_key = #{userId} and #{createTime} > create_time and fk_forum_type_key!=1
         order by create_time
         limit #{start},#{end}
 

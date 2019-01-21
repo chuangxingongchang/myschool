@@ -6,7 +6,7 @@
     <result column="fk_forum_comment_key" jdbcType="INTEGER" property="fkForumCommentKey" />
     <result column="content_text" jdbcType="VARCHAR" property="contentText" />
     <result column="fk_user_key" jdbcType="INTEGER" property="fkUserKey" />
-    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="ranks" jdbcType="VARCHAR" property="ranks" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -105,7 +105,7 @@
       fk_user_key, create_time, ranks
       )
     values (#{id,jdbcType=INTEGER}, #{fkForumCommentKey,jdbcType=INTEGER}, #{contentText,jdbcType=VARCHAR}, 
-      #{fkUserKey,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, #{ranks,jdbcType=VARCHAR}
+      #{fkUserKey,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{ranks,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.school.entity.TCommentReply">
@@ -144,7 +144,7 @@
         #{fkUserKey,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="ranks != null">
         #{ranks,jdbcType=VARCHAR},
@@ -173,7 +173,7 @@
         fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.ranks != null">
         ranks = #{record.ranks,jdbcType=VARCHAR},
@@ -189,7 +189,7 @@
       fk_forum_comment_key = #{record.fkForumCommentKey,jdbcType=INTEGER},
       content_text = #{record.contentText,jdbcType=VARCHAR},
       fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       ranks = #{record.ranks,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -208,7 +208,7 @@
         fk_user_key = #{fkUserKey,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="ranks != null">
         ranks = #{ranks,jdbcType=VARCHAR},
@@ -221,7 +221,7 @@
     set fk_forum_comment_key = #{fkForumCommentKey,jdbcType=INTEGER},
       content_text = #{contentText,jdbcType=VARCHAR},
       fk_user_key = #{fkUserKey,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       ranks = #{ranks,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

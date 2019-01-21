@@ -6,7 +6,7 @@
         <result column="fk_forum_article_key" jdbcType="INTEGER" property="fkForumArticleKey"/>
         <result column="fk_user_key" jdbcType="INTEGER" property="fkUserKey"/>
         <result column="ranks" jdbcType="VARCHAR" property="ranks"/>
-        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="content_text" jdbcType="VARCHAR" property="contentText"/>
     </resultMap>
     <sql id="Example_Where_Clause">
@@ -107,7 +107,7 @@
       ranks, create_time, content_text
       )
     values (#{id,jdbcType=INTEGER}, #{fkForumArticleKey,jdbcType=INTEGER}, #{fkUserKey,jdbcType=INTEGER}, 
-      #{ranks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{contentText,jdbcType=VARCHAR}
+      #{ranks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{contentText,jdbcType=VARCHAR}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.school.entity.TForumComment">
@@ -146,7 +146,7 @@
                 #{ranks,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null">
-                #{createTime,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="contentText != null">
                 #{contentText,jdbcType=VARCHAR},
@@ -175,7 +175,7 @@
                 ranks = #{record.ranks,jdbcType=VARCHAR},
             </if>
             <if test="record.createTime != null">
-                create_time = #{record.createTime,jdbcType=VARCHAR},
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="record.contentText != null">
                 content_text = #{record.contentText,jdbcType=VARCHAR},
@@ -191,7 +191,7 @@
         fk_forum_article_key = #{record.fkForumArticleKey,jdbcType=INTEGER},
         fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
         ranks = #{record.ranks,jdbcType=VARCHAR},
-        create_time = #{record.createTime,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
         content_text = #{record.contentText,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -210,7 +210,7 @@
                 ranks = #{ranks,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null">
-                create_time = #{createTime,jdbcType=VARCHAR},
+                create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="contentText != null">
                 content_text = #{contentText,jdbcType=VARCHAR},
@@ -223,7 +223,7 @@
     set fk_forum_article_key = #{fkForumArticleKey,jdbcType=INTEGER},
       fk_user_key = #{fkUserKey,jdbcType=INTEGER},
       ranks = #{ranks,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       content_text = #{contentText,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -237,11 +237,11 @@
     <select id="selectNewsTimeCommentByUserId"  parameterType="java.util.Map" resultType="java.lang.Integer">
         select distinct fk_forum_article_key
          from t_forum_comment
-        where fk_user_key = #{userId} and #{createTime} > create_time
+        where fk_user_key = #{userId} and #{createTime,jdbcType=TIMESTAMP} > create_time
          limit #{start},#{end}
     </select>
 
     <insert id="addComment" useGeneratedKeys="true"  keyProperty="id"  parameterType="com.school.entity.TForumComment">
-          insert into t_forum_comment values(null,#{fkForumArticleKey},#{fkUserKey},#{ranks},#{createTime},#{contentText})
-    </insert>
-</mapper>
+          insert into t_forum_comment values(null,#{fkForumArticleKey},#{fkUserKey},#{ranks},#{createTime,jdbcType=TIMESTAMP},#{contentText})
+        </insert>
+        </mapper>
