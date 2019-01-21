@@ -396,6 +396,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_forum_article WHERE fk_user_key = #{userId}
+        and fk_forum_type_key !=1
         ORDER BY create_time desc limit 10
 
     </select>
@@ -455,4 +456,18 @@
         limit #{start},#{end}
 
     </select>
+
+    <!--查询最新文章并且 去重-->
+    <select id="selectNewsArticle" parameterType="java.util.Map" resultMap="BaseResultMap">
+
+    SELECT
+        <include refid="Base_Column_List"/>
+    FROM
+        t_forum_article
+    WHERE
+        id IN ( SELECT SUBSTRING_INDEX( GROUP_CONCAT( t.id ), ',', 1 ) id FROM t_forum_article t GROUP BY t.is_null_int )  ORDER BY create_time desc
+    LIMIT #{start},#{end}
+
+    </select>
+
 </mapper>

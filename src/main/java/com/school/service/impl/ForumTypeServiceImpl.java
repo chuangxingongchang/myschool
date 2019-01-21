@@ -27,16 +27,8 @@ public class ForumTypeServiceImpl implements ForumTypeService {
     @Override
     public List<TForumType> selectForumTypeAll() {
         TForumTypeExample fte = new TForumTypeExample();
-        List<TForumType> lft = new ArrayList<>();
-        try {
-            fte.or()
-                    .andIdIsNotNull();
-            lft = ftm.selectByExample(fte);
-        } catch (Exception e) {
-            log.info(e.toString());
-        }
-            return lft;
-
+        List<TForumType> lft = ftm.selectByExample(fte);
+        return lft;
     }
 
     @Override

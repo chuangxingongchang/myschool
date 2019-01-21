@@ -1,5 +1,8 @@
 package com.school.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * 2019年1月4日21:53:06
  * Integer 操作工具类
@@ -16,9 +19,11 @@ public class IntUtil {
         return b;
     }
 
-    public static int EXE(Integer exe){
-        int i = exe/1000;
-        return i+=1;
+    public static void main(String[] args) {
+        System.out.println(getIntegerUUID());
+    }
+    public static Integer getIntegerUUID() {
+        return  Integer.parseInt(1+""+(int) ((Math.random()*9+1)*1000)+""+(int) ((Math.random()*9+1)*10000));
     }
 
 }

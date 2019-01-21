@@ -61,7 +61,6 @@ public class ForumArticleController {
      */
     @RequestMapping("/article/like")
     public ModelAndView findByTitleAndContentLikeToArticle(String title, Integer start, Integer end) {
-        System.out.println(title + "," + start + ',' + end);
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         List<TForumArticleVo> lfat = new ArrayList<>();
         if (title != null && !title.equals("") && start != null && end != null) {

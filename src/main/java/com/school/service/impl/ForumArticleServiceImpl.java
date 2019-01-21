@@ -82,13 +82,6 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         //最新文章则不加条件 只排序 limit
         map.put("start", start);
         map.put("end", end);
-        if (dateTime.equals("2888-88-88")) {
-            map.put("dateTime", null);
-            map.put("time", "");
-        } else {
-            map.put("dateTime", dateTime);
-
-        }
         //判断分类
         if (id != 2) {
             if (id == 1) {
@@ -99,8 +92,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             map.put("typeId", id);
             lfa = tam.selectLimitOrderTimeDescAndWhere(map);
         } else {
-            map.put("order_desc", "create_time desc");
-            lfa = tam.selectLimitOrderTimeDesc(map);
+            lfa = tam.selectNewsArticle(map);
         }
         for (TForumArticle tf : lfa) {
             lfavO.add(get(tf));
@@ -191,9 +183,11 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             if (i[0] != 0) {
                 b[0] = true;
             }
-        } finally {
-            return b[0];
+        }catch (Exception e){
+            return false;
         }
+            return b[0];
+
     }
 
     @Override
@@ -224,15 +218,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
 
     @Override
     public List<TForumArticle> selectLimitArticle(int userId) {
-        List<TForumArticle> l = tam.selectLimitArticle(userId);
-        try {
-            for (TForumArticle tForumArticle : l) {
-                tForumArticle.setContentText(UpLoadUtil.inputFileData(tForumArticle.getContentText()).toString());
-            }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        return l;
+        return tam.selectLimitArticle(userId);
     }
 
     @Override
@@ -253,6 +239,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         tForumArticle.setFkApplaudStatus(0);
         tForumArticle.setIsNull("");
         tForumArticle.setIsNullInt(0);
+        tForumArticle.setIsNullInt(IntUtil.getIntegerUUID());
         int i = tam.insert(tForumArticle);
         if (i != 0) {
             b = true;
@@ -370,10 +357,10 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         TForumArticle article = new TForumArticle();
         switch (type){
             case "browse" : {
-                article.setBrowseConut(tForumArticle.getBrowseConut()+1);
+                article.setBrowseConut(tForumArticle.getBrowseConut()+1);break;
             }
             case "comment":{
-                article.setCommentCount(tForumArticle.getCommentCount()+1);
+                article.setCommentCount(tForumArticle.getCommentCount()+1);break;
             }
         }
        int i =  tam.updateByExampleSelective(article,tForumArticleExample);
