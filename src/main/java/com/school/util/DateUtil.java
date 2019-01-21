@@ -90,4 +90,16 @@ public class DateUtil {
         return format;
     }
 
+    /**
+     * 获取短时间类型
+     * @return
+     */
+    public static String getDATE() {
+        String format;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd ");
+        Date date = new Date();
+        format = simpleDateFormat.format(date);
+        return format;
+    }
+
 }

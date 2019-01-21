@@ -13,6 +13,7 @@ public class TCommentReply {
 
     private Integer fkUserKey;
     @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss",timezone="GMT+8")
+
     private Date createTime;
 
     private String ranks;

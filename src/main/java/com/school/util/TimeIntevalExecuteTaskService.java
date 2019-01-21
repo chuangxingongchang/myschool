@@ -29,7 +29,6 @@ public class TimeIntevalExecuteTaskService {
         List<Integer> type_id = new ArrayList<>();
         for (TForumType tForumType : tForumTypes) {
             type_id.add(tForumType.getId());
-            System.out.println(tForumType.toString());
         }
         //获取每个类型的最热门的10 条 数据
         for (Integer integer : type_id) {

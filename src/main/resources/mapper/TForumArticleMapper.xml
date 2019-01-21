@@ -1,332 +1,330 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.school.mapper.TForumArticleMapper">
-    <resultMap id="BaseResultMap" type="com.school.entity.TForumArticle">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="title" property="title" jdbcType="VARCHAR"/>
-        <result column="fk_forum_type_key" property="fkForumTypeKey" jdbcType="INTEGER"/>
-        <result column="content_text" property="contentText" jdbcType="VARCHAR"/>
-        <result column="create_time" property="createTime" jdbcType="DATE"/>
-        <result column="fk_user_key" property="fkUserKey" jdbcType="INTEGER"/>
-        <result column="violation_count" property="violationCount" jdbcType="INTEGER"/>
-        <result column="fk_applaud_status" property="fkApplaudStatus" jdbcType="INTEGER"/>
-        <result column="browse_conut" property="browseConut" jdbcType="INTEGER"/>
-        <result column="comment_count" property="commentCount" jdbcType="INTEGER"/>
-        <result column="content_describe" property="contentDescribe" jdbcType="VARCHAR"/>
-        <result column="is_null" property="isNull" jdbcType="VARCHAR"/>
-        <result column="is_null_int" property="isNullInt" jdbcType="INTEGER"/>
-    </resultMap>
-    <sql id="Example_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" suffix=")" prefixOverrides="and">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+<mapper namespace="com.school.mapper.TForumArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.school.entity.TForumArticle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="fk_forum_type_key" property="fkForumTypeKey" jdbcType="INTEGER" />
+    <result column="content_text" property="contentText" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="fk_user_key" property="fkUserKey" jdbcType="INTEGER" />
+    <result column="violation_count" property="violationCount" jdbcType="INTEGER" />
+    <result column="fk_applaud_status" property="fkApplaudStatus" jdbcType="INTEGER" />
+    <result column="browse_conut" property="browseConut" jdbcType="INTEGER" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="content_describe" property="contentDescribe" jdbcType="VARCHAR" />
+    <result column="is_null" property="isNull" jdbcType="VARCHAR" />
+    <result column="is_null_int" property="isNullInt" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-    <sql id="Update_By_Example_Where_Clause">
-        <where>
-            <foreach collection="example.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" suffix=")" prefixOverrides="and">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-    <sql id="Base_Column_List">
-    id, title, fk_forum_type_key, content_text, create_time, fk_user_key, violation_count,
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, fk_forum_type_key, content_text, create_time, fk_user_key, violation_count, 
     fk_applaud_status, browse_conut, comment_count, content_describe, is_null, is_null_int
   </sql>
-    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TForumArticleExample">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        <include refid="Base_Column_List"/>
-        from t_forum_article
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-    </select>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        from t_forum_article
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.school.entity.TForumArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_forum_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_forum_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_forum_article
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <delete id="deleteByExample" parameterType="com.school.entity.TForumArticleExample">
-        delete from t_forum_article
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </delete>
-    <insert id="insert" parameterType="com.school.entity.TForumArticle">
+  <delete id="deleteByExample" parameterType="com.school.entity.TForumArticleExample" >
+    delete from t_forum_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.school.entity.TForumArticle" >
     insert into t_forum_article (id, title, fk_forum_type_key, 
-      content_text, create_time, fk_user_key,
+      content_text, create_time, fk_user_key, 
       violation_count, fk_applaud_status, browse_conut, 
       comment_count, content_describe, is_null, 
       is_null_int)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{fkForumTypeKey,jdbcType=INTEGER}, 
-      #{contentText,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{fkUserKey,jdbcType=INTEGER},
+      #{contentText,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{fkUserKey,jdbcType=INTEGER}, 
       #{violationCount,jdbcType=INTEGER}, #{fkApplaudStatus,jdbcType=INTEGER}, #{browseConut,jdbcType=INTEGER}, 
       #{commentCount,jdbcType=INTEGER}, #{contentDescribe,jdbcType=VARCHAR}, #{isNull,jdbcType=VARCHAR}, 
       #{isNullInt,jdbcType=INTEGER})
   </insert>
-    <insert id="insertSelective" parameterType="com.school.entity.TForumArticle">
-        insert into t_forum_article
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="title != null">
-                title,
-            </if>
-            <if test="fkForumTypeKey != null">
-                fk_forum_type_key,
-            </if>
-            <if test="contentText != null">
-                content_text,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="fkUserKey != null">
-                fk_user_key,
-            </if>
-            <if test="violationCount != null">
-                violation_count,
-            </if>
-            <if test="fkApplaudStatus != null">
-                fk_applaud_status,
-            </if>
-            <if test="browseConut != null">
-                browse_conut,
-            </if>
-            <if test="commentCount != null">
-                comment_count,
-            </if>
-            <if test="contentDescribe != null">
-                content_describe,
-            </if>
-            <if test="isNull != null">
-                is_null,
-            </if>
-            <if test="isNullInt != null">
-                is_null_int,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="title != null">
-                #{title,jdbcType=VARCHAR},
-            </if>
-            <if test="fkForumTypeKey != null">
-                #{fkForumTypeKey,jdbcType=INTEGER},
-            </if>
-            <if test="contentText != null">
-                #{contentText,jdbcType=VARCHAR},
-            </if>
-            <if test="createTime != null">
-                #{createTime,jdbcType=DATE},
-            </if>
-            <if test="fkUserKey != null">
-                #{fkUserKey,jdbcType=INTEGER},
-            </if>
-            <if test="violationCount != null">
-                #{violationCount,jdbcType=INTEGER},
-            </if>
-            <if test="fkApplaudStatus != null">
-                #{fkApplaudStatus,jdbcType=INTEGER},
-            </if>
-            <if test="browseConut != null">
-                #{browseConut,jdbcType=INTEGER},
-            </if>
-            <if test="commentCount != null">
-                #{commentCount,jdbcType=INTEGER},
-            </if>
-            <if test="contentDescribe != null">
-                #{contentDescribe,jdbcType=VARCHAR},
-            </if>
-            <if test="isNull != null">
-                #{isNull,jdbcType=VARCHAR},
-            </if>
-            <if test="isNullInt != null">
-                #{isNullInt,jdbcType=INTEGER},
-            </if>
-        </trim>
-    </insert>
-    <select id="countByExample" parameterType="com.school.entity.TForumArticleExample" resultType="java.lang.Integer">
-        select count(*) from t_forum_article
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </select>
-    <update id="updateByExampleSelective" parameterType="map">
-        update t_forum_article
-        <set>
-            <if test="record.id != null">
-                id = #{record.id,jdbcType=INTEGER},
-            </if>
-            <if test="record.title != null">
-                title = #{record.title,jdbcType=VARCHAR},
-            </if>
-            <if test="record.fkForumTypeKey != null">
-                fk_forum_type_key = #{record.fkForumTypeKey,jdbcType=INTEGER},
-            </if>
-            <if test="record.contentText != null">
-                content_text = #{record.contentText,jdbcType=VARCHAR},
-            </if>
-            <if test="record.createTime != null">
-                create_time = #{record.createTime,jdbcType=DATE},
-            </if>
-            <if test="record.fkUserKey != null">
-                fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
-            </if>
-            <if test="record.violationCount != null">
-                violation_count = #{record.violationCount,jdbcType=INTEGER},
-            </if>
-            <if test="record.fkApplaudStatus != null">
-                fk_applaud_status = #{record.fkApplaudStatus,jdbcType=INTEGER},
-            </if>
-            <if test="record.browseConut != null">
-                browse_conut = #{record.browseConut,jdbcType=INTEGER},
-            </if>
-            <if test="record.commentCount != null">
-                comment_count = #{record.commentCount,jdbcType=INTEGER},
-            </if>
-            <if test="record.contentDescribe != null">
-                content_describe = #{record.contentDescribe,jdbcType=VARCHAR},
-            </if>
-            <if test="record.isNull != null">
-                is_null = #{record.isNull,jdbcType=VARCHAR},
-            </if>
-            <if test="record.isNullInt != null">
-                is_null_int = #{record.isNullInt,jdbcType=INTEGER},
-            </if>
-        </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByExample" parameterType="map">
-        update t_forum_article
-        set id = #{record.id,jdbcType=INTEGER},
+  <insert id="insertSelective" parameterType="com.school.entity.TForumArticle" >
+    insert into t_forum_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="fkForumTypeKey != null" >
+        fk_forum_type_key,
+      </if>
+      <if test="contentText != null" >
+        content_text,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="fkUserKey != null" >
+        fk_user_key,
+      </if>
+      <if test="violationCount != null" >
+        violation_count,
+      </if>
+      <if test="fkApplaudStatus != null" >
+        fk_applaud_status,
+      </if>
+      <if test="browseConut != null" >
+        browse_conut,
+      </if>
+      <if test="commentCount != null" >
+        comment_count,
+      </if>
+      <if test="contentDescribe != null" >
+        content_describe,
+      </if>
+      <if test="isNull != null" >
+        is_null,
+      </if>
+      <if test="isNullInt != null" >
+        is_null_int,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="fkForumTypeKey != null" >
+        #{fkForumTypeKey,jdbcType=INTEGER},
+      </if>
+      <if test="contentText != null" >
+        #{contentText,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fkUserKey != null" >
+        #{fkUserKey,jdbcType=INTEGER},
+      </if>
+      <if test="violationCount != null" >
+        #{violationCount,jdbcType=INTEGER},
+      </if>
+      <if test="fkApplaudStatus != null" >
+        #{fkApplaudStatus,jdbcType=INTEGER},
+      </if>
+      <if test="browseConut != null" >
+        #{browseConut,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null" >
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="contentDescribe != null" >
+        #{contentDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="isNull != null" >
+        #{isNull,jdbcType=VARCHAR},
+      </if>
+      <if test="isNullInt != null" >
+        #{isNullInt,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.school.entity.TForumArticleExample" resultType="java.lang.Integer" >
+    select count(*) from t_forum_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_forum_article
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fkForumTypeKey != null" >
         fk_forum_type_key = #{record.fkForumTypeKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.contentText != null" >
         content_text = #{record.contentText,jdbcType=VARCHAR},
-        create_time = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fkUserKey != null" >
         fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.violationCount != null" >
         violation_count = #{record.violationCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.fkApplaudStatus != null" >
         fk_applaud_status = #{record.fkApplaudStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.browseConut != null" >
         browse_conut = #{record.browseConut,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentCount != null" >
         comment_count = #{record.commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.contentDescribe != null" >
         content_describe = #{record.contentDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isNull != null" >
         is_null = #{record.isNull,jdbcType=VARCHAR},
-        is_null_int = #{record.isNullInt,jdbcType=INTEGER}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.school.entity.TForumArticle">
-        update t_forum_article
-        <set>
-            <if test="title != null">
-                title = #{title,jdbcType=VARCHAR},
-            </if>
-            <if test="fkForumTypeKey != null">
-                fk_forum_type_key = #{fkForumTypeKey,jdbcType=INTEGER},
-            </if>
-            <if test="contentText != null">
-                content_text = #{contentText,jdbcType=VARCHAR},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=DATE},
-            </if>
-            <if test="fkUserKey != null">
-                fk_user_key = #{fkUserKey,jdbcType=INTEGER},
-            </if>
-            <if test="violationCount != null">
-                violation_count = #{violationCount,jdbcType=INTEGER},
-            </if>
-            <if test="fkApplaudStatus != null">
-                fk_applaud_status = #{fkApplaudStatus,jdbcType=INTEGER},
-            </if>
-            <if test="browseConut != null">
-                browse_conut = #{browseConut,jdbcType=INTEGER},
-            </if>
-            <if test="commentCount != null">
-                comment_count = #{commentCount,jdbcType=INTEGER},
-            </if>
-            <if test="contentDescribe != null">
-                content_describe = #{contentDescribe,jdbcType=VARCHAR},
-            </if>
-            <if test="isNull != null">
-                is_null = #{isNull,jdbcType=VARCHAR},
-            </if>
-            <if test="isNullInt != null">
-                is_null_int = #{isNullInt,jdbcType=INTEGER},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.school.entity.TForumArticle">
+      </if>
+      <if test="record.isNullInt != null" >
+        is_null_int = #{record.isNullInt,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_forum_article
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      fk_forum_type_key = #{record.fkForumTypeKey,jdbcType=INTEGER},
+      content_text = #{record.contentText,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
+      violation_count = #{record.violationCount,jdbcType=INTEGER},
+      fk_applaud_status = #{record.fkApplaudStatus,jdbcType=INTEGER},
+      browse_conut = #{record.browseConut,jdbcType=INTEGER},
+      comment_count = #{record.commentCount,jdbcType=INTEGER},
+      content_describe = #{record.contentDescribe,jdbcType=VARCHAR},
+      is_null = #{record.isNull,jdbcType=VARCHAR},
+      is_null_int = #{record.isNullInt,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.school.entity.TForumArticle" >
+    update t_forum_article
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="fkForumTypeKey != null" >
+        fk_forum_type_key = #{fkForumTypeKey,jdbcType=INTEGER},
+      </if>
+      <if test="contentText != null" >
+        content_text = #{contentText,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fkUserKey != null" >
+        fk_user_key = #{fkUserKey,jdbcType=INTEGER},
+      </if>
+      <if test="violationCount != null" >
+        violation_count = #{violationCount,jdbcType=INTEGER},
+      </if>
+      <if test="fkApplaudStatus != null" >
+        fk_applaud_status = #{fkApplaudStatus,jdbcType=INTEGER},
+      </if>
+      <if test="browseConut != null" >
+        browse_conut = #{browseConut,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null" >
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="contentDescribe != null" >
+        content_describe = #{contentDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="isNull != null" >
+        is_null = #{isNull,jdbcType=VARCHAR},
+      </if>
+      <if test="isNullInt != null" >
+        is_null_int = #{isNullInt,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.school.entity.TForumArticle" >
     update t_forum_article
     set title = #{title,jdbcType=VARCHAR},
       fk_forum_type_key = #{fkForumTypeKey,jdbcType=INTEGER},
       content_text = #{contentText,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       fk_user_key = #{fkUserKey,jdbcType=INTEGER},
       violation_count = #{violationCount,jdbcType=INTEGER},
       fk_applaud_status = #{fkApplaudStatus,jdbcType=INTEGER},
@@ -339,136 +337,142 @@
   </update>
 
 
-    <select id="selectTitleLimit" parameterType="java.util.HashMap" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_forum_article
-        where title = #{likeTitle}
-        order by browse_conut desc
-        limit #{start},#{end}
 
-    </select>
+  <select id="selectTitleLimit" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_forum_article
+    where title = #{likeTitle}
+    order by browse_conut desc
+    limit #{start},#{end}
 
-    <select id="selectContentLimit" parameterType="java.util.HashMap" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_forum_article
-        where content_describe =#{likeTitle}
-        order by browse_conut desc
-        limit #{start},#{end}
-    </select>
+  </select>
 
-    <select id="selectTitleLikeLimit" parameterType="java.util.HashMap" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM
-        t_forum_article
-        WHERE title like "%"#{likeTitle}"%"
-        and id NOT IN
-        ( SELECT x.id FROM ( SELECT id FROM t_forum_article WHERE title LIKE "%"#{likeTitle}"%" ORDER BY create_time
-        DESC LIMIT #{start},#{end} ) AS x )
-        ORDER BY
-        create_time DESC
-        LIMIT #{start},#{end}
-    </select>
+  <select id="selectContentLimit" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_forum_article
+    where content_describe =#{likeTitle}
+    order by browse_conut desc
+    limit #{start},#{end}
+  </select>
 
-    <select id="selectContentLikeLimit" parameterType="java.util.HashMap" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM
-        t_forum_article
-        WHERE content_describe like "%"#{likeTitle}"%"
-         and id NOT IN
-        ( SELECT x.id FROM ( SELECT id FROM t_forum_article WHERE content_describe LIKE "%"#{likeTitle}"%" ORDER BY create_time
-        DESC LIMIT #{start},#{end} ) AS x )
-        ORDER BY
-        create_time DESC
-        LIMIT #{start},#{end}
-    </select>
+  <select id="selectTitleLikeLimit" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    t_forum_article
+    WHERE title like "%"#{likeTitle}"%"
+    and id NOT IN
+    ( SELECT x.id FROM ( SELECT id FROM t_forum_article WHERE title LIKE "%"#{likeTitle}"%" ORDER BY create_time
+    DESC LIMIT #{start},#{end} ) AS x )
+    ORDER BY
+    create_time DESC
+    LIMIT #{start},#{end}
+  </select>
 
-    <select id="selectBrowseCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  <select id="selectContentLikeLimit" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    t_forum_article
+    WHERE content_describe like "%"#{likeTitle}"%"
+    and id NOT IN
+    ( SELECT x.id FROM ( SELECT id FROM t_forum_article WHERE content_describe LIKE "%"#{likeTitle}"%" ORDER BY create_time
+    DESC LIMIT #{start},#{end} ) AS x )
+    ORDER BY
+    create_time DESC
+    LIMIT #{start},#{end}
+  </select>
+
+  <select id="selectBrowseCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
 
         SELECT sum(browse_conut) FROM t_forum_article WHERE fk_user_key = #{userId}
 
     </select>
 
-    <select id="selectLimitArticle" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM t_forum_article WHERE fk_user_key = #{userId}
-        and fk_forum_type_key !=1
-        ORDER BY create_time desc limit 10
+  <select id="selectLimitArticle" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM t_forum_article WHERE fk_user_key = #{userId}
+    and fk_forum_type_key !=1
+    ORDER BY create_time desc limit 10
 
-    </select>
-    <select id="selectLimitOrderDescBrow" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_forum_article
-        where fk_forum_type_key = #{typeId}
-        order by browse_conut desc
+  </select>
+  <select id="selectLimitOrderDescBrow" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_forum_article
+    where fk_forum_type_key = #{typeId}
+    order by browse_conut desc
 
-    </select>
+  </select>
 
-    <select id="selectLimitOrderTimeDesc" parameterType="java.util.Map" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_forum_article
-        <if test="dateTime != null">
-            where create_time > #{dateTime,jdbcType=DATE}
-        </if>
-        order by #{order_desc}
-        limit #{start},#{end}
-    </select>
+  <select id="selectLimitOrderTimeDesc" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_forum_article
+    <if test="dateTime != null">
+      where create_time > #{dateTime,jdbcType=TIMESTAMP}
+    </if>
+    order by #{order_desc}
+    limit #{start},#{end}
+  </select>
 
 
-    <select id="selectLimitOrderTimeDescAndWhere" parameterType="java.util.Map" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_forum_article
-        <trim prefix="WHERE" prefixOverrides="AND |OR">
-            <if test="dateTime != null">
-                and create_time > #{dateTime,jdbcType=DATE}
-            </if>
-            <if test="typeId != null">
-                and fk_forum_type_key = #{typeId}
-            </if>
-        </trim>
+  <select id="selectLimitOrderTimeDescAndWhere" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_forum_article
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="dateTime != null and dateTime !='' ">
+        and create_time > #{dateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="typeId != null and typeId !=''">
+        and fk_forum_type_key = #{typeId}
+      </if>
+    </trim>
 
-        order by #{order_desc}
-        LIMIT #{start},#{end}
-    </select>
-    <select id="selectPersonalAllArticle" parameterType="java.util.Map" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_forum_article
-        where fk_user_key = #{userId}  and fk_forum_type_key!=1
-        order by create_time
-        limit #{start},#{end}
+    order by
+    <if test="order_desc ==1 ">
+      browse_conut desc
+    </if>
+    <if test="order_desc ==2 ">
+      create_time desc
+    </if>
+    LIMIT #{start},#{end}
+  </select>
+  <select id="selectPersonalAllArticle" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_forum_article
+    where fk_user_key = #{userId}  and fk_forum_type_key!=1
+    order by create_time
+    limit #{start},#{end}
 
-    </select>
+  </select>
 
-    <select id="selectPersonalArticle" parameterType="java.util.Map" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_forum_article
-        /*修改1*/
-        where fk_user_key = #{userId} and #{createTime} > create_time and fk_forum_type_key!=1
-        order by create_time
-        limit #{start},#{end}
+  <select id="selectPersonalArticle" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_forum_article
+    /*修改1*/
+    where fk_user_key = #{userId} and #{createTime,jdbcType=TIMESTAMP} > create_time and fk_forum_type_key!=1
+    order by create_time
+    limit #{start},#{end}
 
-    </select>
+  </select>
 
-    <!--查询最新文章并且 去重-->
-    <select id="selectNewsArticle" parameterType="java.util.Map" resultMap="BaseResultMap">
+  <!--查询最新文章并且 去重-->
+  <select id="selectNewsArticle" parameterType="java.util.Map" resultMap="BaseResultMap">
 
     SELECT
-        <include refid="Base_Column_List"/>
+    <include refid="Base_Column_List"/>
     FROM
-        t_forum_article
+    t_forum_article
     WHERE
-        id IN ( SELECT SUBSTRING_INDEX( GROUP_CONCAT( t.id ), ',', 1 ) id FROM t_forum_article t GROUP BY t.is_null_int )  ORDER BY create_time desc
+    id IN ( SELECT SUBSTRING_INDEX( GROUP_CONCAT( t.id ), ',', 1 ) id FROM t_forum_article t GROUP BY t.is_null_int )  ORDER BY create_time desc
     LIMIT #{start},#{end}
 
-    </select>
-
+  </select>
 </mapper>

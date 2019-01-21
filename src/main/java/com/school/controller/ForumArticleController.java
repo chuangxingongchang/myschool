@@ -313,7 +313,7 @@ public class ForumArticleController {
 
 
     /**
-     * 通过分类类型_ID 查询分类下的所有文章
+     * 通过分类类型_ID 查询分类下的文章
      * 并且排序
      * 并分页
      *

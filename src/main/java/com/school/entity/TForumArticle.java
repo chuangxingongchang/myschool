@@ -12,7 +12,7 @@ public class TForumArticle {
     private Integer fkForumTypeKey;
 
     private String contentText;
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss",timezone="GMT+8")
     private Date createTime;
 
     private Integer fkUserKey;
@@ -133,24 +133,5 @@ public class TForumArticle {
 
     public void setIsNullInt(Integer isNullInt) {
         this.isNullInt = isNullInt;
-    }
-
-    @Override
-    public String toString() {
-        return "TForumArticle{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", fkForumTypeKey=" + fkForumTypeKey +
-                ", contentText='" + contentText + '\'' +
-                ", createTime=" + createTime +
-                ", fkUserKey=" + fkUserKey +
-                ", violationCount=" + violationCount +
-                ", fkApplaudStatus=" + fkApplaudStatus +
-                ", browseConut=" + browseConut +
-                ", commentCount=" + commentCount +
-                ", contentDescribe='" + contentDescribe + '\'' +
-                ", isNull='" + isNull + '\'' +
-                ", isNullInt=" + isNullInt +
-                '}';
     }
 }

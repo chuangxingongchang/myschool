@@ -71,12 +71,12 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             }
         }
         return lfa;
-
     }
 
     @Override
     public List<TForumArticleVo> findByFkTypeIdToArticle(int id, int start, int end, String dateTime) {
         List<TForumArticle> lfa;
+        System.out.println(dateTime);
         List<TForumArticleVo> lfavO = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
         //最新文章则不加条件 只排序 limit
@@ -85,14 +85,27 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         //判断分类
         if (id != 2) {
             if (id == 1) {
-                map.put("order_desc", "browse_conut desc");
+                map.put("dateTime","");
+                map.put("order_desc", 1);
             } else {
-                map.put("order_desc", "create_time desc");
+                if(!dateTime.equals("2888-88-88")){
+                    map.put("dateTime",dateTime);
+                }else {
+                    map.put("dateTime","");
+                }
+                map.put("order_desc", 2);
             }
             map.put("typeId", id);
             lfa = tam.selectLimitOrderTimeDescAndWhere(map);
         } else {
-            lfa = tam.selectNewsArticle(map);
+            if (dateTime.equals("2888-88-88")){
+                lfa = tam.selectNewsArticle(map);
+            }else{
+                map.put("dateTime",dateTime);
+                map.put("order_desc",2);
+                lfa = tam.selectLimitOrderTimeDescAndWhere(map);
+            }
+
         }
         for (TForumArticle tf : lfa) {
             lfavO.add(get(tf));
@@ -233,7 +246,8 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         boolean b = false;
         tForumArticle.setBrowseConut(0);
         tForumArticle.setCommentCount(0);
-        tForumArticle.setCreateTime(DateUtil.getDate(new Date()));
+       // tForumArticle.setCreateTime(DateUtil.getDate(DateUtil.getDATE()));
+         tForumArticle.setCreateTime(new Date());
         tForumArticle.setViolationCount(0);
         tForumArticle.setFkApplaudStatus(0);
         tForumArticle.setFkApplaudStatus(0);
@@ -251,7 +265,6 @@ public class ForumArticleServiceImpl implements ForumArticleService {
     public boolean updateArticle(TForumArticle tForumArticle) {
         boolean b = false;
         int i = 0;
-        TForumArticleExample fae = new TForumArticleExample();
         try {
             if (tForumArticle != null) {
                 i = tam.updateByPrimaryKeySelective(tForumArticle);
@@ -342,14 +355,11 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         return list;
     }
 
-
+    //获取每个类型的最热门的10 条 数据
     @Override
     public List<TForumArticle> selectTypeLimitOrderDescBro(int type_id) {
         List<TForumArticle> list = tam.selectLimitOrderDescBrow(type_id);
-        if (list != null) {
             return list;
-        }
-        return null;
     }
     private boolean updatePrivate(String type,TForumArticle tForumArticle){
         TForumArticleExample tForumArticleExample = new TForumArticleExample();
@@ -377,7 +387,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             System.out.println(e.toString());
         }
         avo.setCommentCount(tf.getCommentCount());
-        avo.setCreateTime(tf.getCreateTime());
+        avo.setCreateTime(DateUtil.getDate(tf.getCreateTime()));
         avo.setViolationCount(tf.getViolationCount());
         avo.setTitle(tf.getTitle());
         TUser u = new TUser();
