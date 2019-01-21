@@ -991,6 +991,76 @@ public class TActivityExample {
             addCriterion("fk_userid not between", value1, value2, "fkUserid");
             return (Criteria) this;
         }
+
+        public Criteria andAcstateIsNull() {
+            addCriterion("acstate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateIsNotNull() {
+            addCriterion("acstate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateEqualTo(String value) {
+            addCriterion("acstate =", value, "acstate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateNotEqualTo(String value) {
+            addCriterion("acstate <>", value, "acstate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateGreaterThan(String value) {
+            addCriterion("acstate >", value, "acstate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateGreaterThanOrEqualTo(String value) {
+            addCriterion("acstate >=", value, "acstate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateLessThan(String value) {
+            addCriterion("acstate <", value, "acstate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateLessThanOrEqualTo(String value) {
+            addCriterion("acstate <=", value, "acstate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateLike(String value) {
+            addCriterion("acstate like", value, "acstate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateNotLike(String value) {
+            addCriterion("acstate not like", value, "acstate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateIn(List<String> values) {
+            addCriterion("acstate in", values, "acstate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateNotIn(List<String> values) {
+            addCriterion("acstate not in", values, "acstate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateBetween(String value1, String value2) {
+            addCriterion("acstate between", value1, value2, "acstate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcstateNotBetween(String value1, String value2) {
+            addCriterion("acstate not between", value1, value2, "acstate");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
