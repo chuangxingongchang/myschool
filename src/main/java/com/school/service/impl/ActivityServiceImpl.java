@@ -2,7 +2,10 @@ package com.school.service.impl;
 
 import com.school.entity.TActivity;
 import com.school.entity.TActivityExample;
+import com.school.entity.TSchool;
+import com.school.entity.TSchoolExample;
 import com.school.mapper.TActivityMapper;
+import com.school.mapper.TSchoolMapper;
 import com.school.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,8 @@ import java.util.List;
 public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private TActivityMapper activityMapper;
+    @Autowired
+    private TSchoolMapper schoolMapper;
 
     @Override
     public List<TActivity> selectAll() {
@@ -84,6 +89,29 @@ public class ActivityServiceImpl implements ActivityService {
             return false;
         }
 
+    }
+
+    @Override
+    public List<TActivity> selectActivityByTime(String schoolname) {
+        TSchoolExample shoolExample = new TSchoolExample();
+        shoolExample.or().andSchoolnameEqualTo(schoolname);
+        List<TSchool> schoolList = schoolMapper.selectByExample(shoolExample);
+        int schoolid = 0;
+        List<TActivity> activityList = null;
+        if(schoolList!=null){
+            schoolid = schoolList.get(0).getId();
+            TActivityExample activityExample = new TActivityExample();
+            activityExample.or().andFkSchoolEqualTo(schoolid)
+                    .andAcstateEqualTo("1");
+            activityExample.setOrderByClause("createTime desc");
+            activityList = activityMapper.selectByExample(activityExample);
+        }else{
+            TSchool school = new TSchool();
+            school.setSchoolname(schoolname);
+            int b = schoolMapper.insertSelective(school);
+            return null;
+        }
+        return activityList;
     }
 
 

@@ -2,8 +2,9 @@ package com.school.mapper;
 
 import com.school.entity.TActivity;
 import com.school.entity.TActivityExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TActivityMapper {
     int countByExample(TActivityExample example);
@@ -27,4 +28,5 @@ public interface TActivityMapper {
     int updateByPrimaryKeySelective(TActivity record);
 
     int updateByPrimaryKey(TActivity record);
+
 }

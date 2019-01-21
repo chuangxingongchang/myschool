@@ -21,5 +21,7 @@ public interface ActivityService {
     boolean deleteActivity(int id);
 
     boolean updateActvtCurrentNum(TActivity activity);
+    //根据学校和状态发布（值:1）进行查询所有活动，并按发布时间进行排序
+    List<TActivity> selectActivityByTime(String schoolname);
 
 }

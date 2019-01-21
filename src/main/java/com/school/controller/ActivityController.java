@@ -152,4 +152,17 @@ public class ActivityController {
         mav.addObject("ms",ms);
         return mav;
     }
+
+    @RequestMapping("/selectActivityByTimeDesc")
+    public ModelAndView selectByTimeDesc(String schoolname){
+        List<TActivity> tActivityList = activityService.selectActivityByTime(schoolname);
+        if(tActivityList!=null&&tActivityList.size()>0){
+            ms.setStatus(true);
+        }else{
+            ms.setStatus(false);
+        }
+        mav.addObject("ayms",ms);
+        mav.addObject("alist",tActivityList);
+        return mav;
+    }
 }

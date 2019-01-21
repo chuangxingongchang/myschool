@@ -1,5 +1,7 @@
 package com.school.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -26,12 +28,12 @@ public class TActivity {
     private String organizer;
 
     private Integer currentnum;
-
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date createtime;
 
     private Integer fkUserid;
 
     private String acstate;
 
-
+    private Integer fkSchool;
 }

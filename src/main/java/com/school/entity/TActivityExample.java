@@ -1061,6 +1061,66 @@ public class TActivityExample {
             addCriterion("acstate not between", value1, value2, "acstate");
             return (Criteria) this;
         }
+
+        public Criteria andFkSchoolIsNull() {
+            addCriterion("fk_school is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkSchoolIsNotNull() {
+            addCriterion("fk_school is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkSchoolEqualTo(Integer value) {
+            addCriterion("fk_school =", value, "fkSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkSchoolNotEqualTo(Integer value) {
+            addCriterion("fk_school <>", value, "fkSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkSchoolGreaterThan(Integer value) {
+            addCriterion("fk_school >", value, "fkSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkSchoolGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fk_school >=", value, "fkSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkSchoolLessThan(Integer value) {
+            addCriterion("fk_school <", value, "fkSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkSchoolLessThanOrEqualTo(Integer value) {
+            addCriterion("fk_school <=", value, "fkSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkSchoolIn(List<Integer> values) {
+            addCriterion("fk_school in", values, "fkSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkSchoolNotIn(List<Integer> values) {
+            addCriterion("fk_school not in", values, "fkSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkSchoolBetween(Integer value1, Integer value2) {
+            addCriterion("fk_school between", value1, value2, "fkSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkSchoolNotBetween(Integer value1, Integer value2) {
+            addCriterion("fk_school not between", value1, value2, "fkSchool");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
