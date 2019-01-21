@@ -9,4 +9,6 @@ public interface ActivityUserService {
     List<TActivityUser> selectByAcId(int acId);
 
     boolean insertActvtUser(TActivityUser activityUser);
+
+    List<TActivityUser> selectActivityUsers(Integer acId);
 }

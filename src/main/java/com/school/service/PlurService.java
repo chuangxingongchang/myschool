@@ -1,6 +1,7 @@
 package com.school.service;
 
 import com.school.entity.*;
+import com.school.util.Message;
 
 import java.util.List;
 
@@ -50,4 +51,7 @@ public interface PlurService {
 
     //根据主题进行模糊搜索
     List<TPlur> selectPlurBytoSearch(String searchname,String schoolname);
+
+    //根据id 删除兼职
+    Message deletePlurById(int id);
 }

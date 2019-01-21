@@ -3,11 +3,14 @@ package com.school.service.impl;
 import com.school.entity.*;
 import com.school.mapper.TPlurMapper;
 import com.school.mapper.TSchoolMapper;
+import com.school.mapper.TSignupMapper;
 import com.school.mapper.TUnitMapper;
 import com.school.service.PlurService;
+import com.school.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +23,8 @@ public class PlurServiceImpl implements PlurService {
     private TUnitMapper unitMapper;
     @Autowired
     private TSchoolMapper schoolMapper;
+    @Autowired
+    private TSignupMapper signupMapper;
 
     //查询所有兼职
     @Override
@@ -112,8 +117,21 @@ public class PlurServiceImpl implements PlurService {
     @Override
     public List<TPlur> selectByAccept(int uid) {
         TPlurExample tPlurExample = new TPlurExample();
-        tPlurExample.or().andFkAcceptEqualTo(uid);
-        return plurMapper.selectByExample(tPlurExample);
+        TSignupExample signupExample = new TSignupExample();
+        signupExample.or().andPkUidEqualTo(uid);
+        List<TSignup> signupList = signupMapper.selectByExample(signupExample);
+        List<TPlur> plurList = new ArrayList<TPlur>();
+        if(signupList!=null&&signupList.size()>0){
+            for (TSignup s : signupList) {
+                if(s.getPkPlurid()!=null){
+                    TPlur p = plurMapper.selectByPrimaryKey(s.getPkPlurid());
+                    plurList.add(p);
+                }
+            }
+        }else{
+
+        }
+       return plurList;
     }
 
     @Override
@@ -219,5 +237,22 @@ public class PlurServiceImpl implements PlurService {
             return  null;
         }
         return tPlurList;
+    }
+
+    @Override
+    public Message deletePlurById(int id) {
+        Message ms = new Message();
+        int a  = 0;
+        try{
+            a = plurMapper.deleteByPrimaryKey(id);
+            if(a>0){
+               ms.setStatus(true);
+            }else{
+                ms.setStatus(false);
+            }
+        }catch (Exception e){
+            ms.setStatus(false);
+        }
+        return ms;
     }
 }
