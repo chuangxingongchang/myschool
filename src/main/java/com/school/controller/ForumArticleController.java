@@ -102,10 +102,15 @@ public class ForumArticleController {
             List<TUser> lu = userService.selectUserIdIn(li);
             articleVo.setFkUserKey(lu.get(0));
             //作者等级图标_id
-            int userExeICO = lu.get(0).getFkIntegralId();
-            TIntegralIco UserIntegralIco = inte.selectFkIdICO(userExeICO);
-            map.put("articleVo", articleVo);
-            map.put("UserIntegralIco", UserIntegralIco);
+            try{
+              /*  int userExeICO = lu.get(0).getFkIntegralId();
+                TIntegralIco UserIntegralIco = inte.selectFkIdICO(userExeICO);*/
+                map.put("articleVo", articleVo);
+                map.put("UserIntegralIco", "");
+            }catch (Exception e){
+
+            }
+
             //评论查询
             List<TForumComment> articleCommentList = forumCommentService.selectFkIdToComment(articleVo.getId());
             List<TUser> articleCommentUserList = new ArrayList<>();
@@ -400,6 +405,9 @@ public class ForumArticleController {
         List<Integer> list = new ArrayList<>();
         for (TForumArticleVo forumArticleVo : o) {
             list.add(forumArticleVo.getFkUserKey().getId());
+        }
+        for (Integer integer : list) {
+            System.out.println(integer);
         }
         return list;
     }
