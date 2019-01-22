@@ -8,5 +8,5 @@ public class  FinalsString {
     public static final String PROJECT_STATIC_RESOURCE_PATH_IMAGE = "src/main/resources/static/image";
     public static final String PROJECT_STATIC_RESOURCE_PATH_TEXT = "src/main/resources/static/text";
     //项目http:url
-    public static final String PROJECT_URL = "http://172.19.129.6";
+    public static final String PROJECT_URL = "http://106.13.35.57";
 }

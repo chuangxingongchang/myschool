@@ -115,6 +115,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<TUser> selectUserIdIn(List<Integer> id) {
         TUserExample tue = new TUserExample();
+        tue.clear();
         List<TUser> lu = new ArrayList<>();
         if (id.size() !=0) {
             tue.or()
