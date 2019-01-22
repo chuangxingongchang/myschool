@@ -225,6 +225,9 @@ public class SignupServiceImpl implements SignupService {
                 .andSignstateEqualTo(signup.getSignstate());
             List<TSignup> signups = tSignupMapper.selectByExample(signupExample);
         if(signups!=null&&signups.size()>0) {
+            ms.setStatus(false);
+            ms.setMsg("该工作您已经报名了");
+        }else{
             int a = tSignupMapper.insertSelective(signup);
             if (a > 0) {
                 ms.setStatus(true);
@@ -237,9 +240,6 @@ public class SignupServiceImpl implements SignupService {
                     return ms;
                 }
             }
-        }else{
-            ms.setStatus(false);
-            ms.setMsg("该工作您已经报名了");
         }
         return ms;
     }
