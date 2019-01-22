@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
         TUser user = new TUser();
         TUserExample userExample = new TUserExample();
         userExample.or().andPhonenoEqualTo(phoneno);
-        user.setPword(pword);
+        user.setPword(MD5Until.createMD5(pword));
         int count = userMapper.updateByExampleSelective(user, userExample);
         if (count > 0) {
             return true;

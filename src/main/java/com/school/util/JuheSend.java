@@ -21,9 +21,9 @@ public class JuheSend {
         String url ="http://v.juhe.cn/sms/send";//请求接口地址
         Map params = new HashMap();//请求参数
         params.put("mobile",phoneno);//接受短信的用户手机号码
-        params.put("tpl_id","126238");//您申请的短信模板ID，根据实际情况修改
+        params.put("tpl_id","130705");//您申请的短信模板ID，根据实际情况修改
         params.put("tpl_value","#code#="+randows);//您设置的模板变量，根据实际情况修改
-        params.put("key","05dbb6a4f15c8c26e0c0eb0f3e0fc689");//应用APPKEY(应用详细页查询)
+        params.put("key","5e0cf5482d301ea7cca4a2fc91c4710e");//应用APPKEY(应用详细页查询)
         try {
             result = net(url, params, "GET");
             JSONObject object = JSONObject.fromObject(result);

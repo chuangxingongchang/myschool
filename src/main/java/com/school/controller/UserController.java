@@ -3,6 +3,7 @@ package com.school.controller;
 import com.school.entity.TUser;
 import com.school.service.SchoolService;
 import com.school.service.UserService;
+import com.school.util.JuheSend;
 import com.school.util.Message;
 import com.school.util.Randoms;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,8 +85,7 @@ public class UserController {
             //获取验证码（调用工具类Randoms，随机获取六位验证码）
             String code = String.valueOf(Randoms.getIntRan());
             //发送验证码到手机（调用工具类JuheSend,使用聚合短信接口实现短信发送
-            //boolean flag = JuheSend.mobileQuery(phoneno, code);
-            boolean flag = true;
+            boolean flag = JuheSend.mobileQuery(phoneno, code);
             if (flag) {
                 System.out.println("验证码发送rewrewrwer:" + code);
                 request.getSession().setAttribute("code", code);
@@ -114,21 +114,35 @@ public class UserController {
     public ModelAndView getCode(HttpServletRequest request, String phoneno) {
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
         Message ms = new Message();
-        //获取验证码（调用工具类Randoms，随机获取六位验证码）
-        String code = String.valueOf(Randoms.getIntRan());
-        //发送验证码到手机（调用工具类JuheSend,使用聚合短信接口实现短信发送
-        //boolean flag = JuheSend.mobileQuery(phoneno, code);
-        boolean flag = true;
-        if (flag) {
-            System.out.println("验证码发送mycode:" + code);
-            request.getSession().setAttribute("code", code);
-            //session 中存在的验证码，存在5分钟
-            request.getSession().setMaxInactiveInterval(300);
-            ms.setStatus(true);
-            ms.setData(code);
-        } else {
+        List<TUser> userList = userService.selectAllUser();
+        boolean flags = false;
+        if (userList != null && userList.size() > 0) {
+            for (TUser t : userList) {
+                if (phoneno.equals(t.getPhoneno())) {
+                    flags = true;
+                    break;
+                }
+            }
+        }
+        if(flags){
+            //获取验证码（调用工具类Randoms，随机获取六位验证码）
+            String code = String.valueOf(Randoms.getIntRan());
+            //发送验证码到手机（调用工具类JuheSend,使用聚合短信接口实现短信发送
+            boolean flag = JuheSend.mobileQuery(phoneno, code);
+            if (flag) {
+                System.out.println("验证码发送mycode:" + code);
+                request.getSession().setAttribute("code", code);
+                //session 中存在的验证码，存在5分钟
+                request.getSession().setMaxInactiveInterval(300);
+                ms.setStatus(true);
+                ms.setData(code);
+            } else {
+                ms.setStatus(false);
+                ms.setMsg("验证码发送失败");
+            }
+        }else{
             ms.setStatus(false);
-            ms.setMsg("验证码发送失败");
+            ms.setMsg("手机号输入有误");
         }
         mav.addObject("mss", ms);
         return mav;
