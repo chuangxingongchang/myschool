@@ -100,9 +100,10 @@ public class ForumArticleController {
             List<Integer> li = new ArrayList<>();
             li.add(articleVo.getFkUserKey().getId());
             List<TUser> lu = userService.selectUserIdIn(li);
-            articleVo.setFkUserKey(lu.get(0));
+
             //作者等级图标_id
             try{
+                articleVo.setFkUserKey(lu.get(0));
               /*  int userExeICO = lu.get(0).getFkIntegralId();
                 TIntegralIco UserIntegralIco = inte.selectFkIdICO(userExeICO);*/
                 map.put("articleVo", articleVo);
